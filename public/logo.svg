@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect x="130" y="140" width="252" height="28" rx="14" fill="#1a1a1a"/>
-  <rect x="130" y="200" width="190" height="28" rx="14" fill="#1a1a1a"/>
-  <circle cx="172" cy="305" r="36" fill="#1a1a1a"/>
+  <rect x="130" y="140" width="252" height="28" rx="14" fill="#5672cd"/>
+  <rect x="130" y="200" width="190" height="28" rx="14" fill="#5672cd"/>
+  <circle cx="172" cy="305" r="36" fill="#5672cd"/>
   <polyline points="154,305 167,320 192,290" stroke="white" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <circle cx="290" cy="305" r="36" fill="#b0b0b0"/>
-  <line x1="272" y1="287" x2="308" y2="323" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round"/>
-  <line x1="308" y1="287" x2="272" y2="323" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round"/>
-  <circle cx="390" cy="148" r="22" fill="#606060"/>
+  <circle cx="290" cy="305" r="36" fill="#c2d4f8"/>
+  <line x1="272" y1="287" x2="308" y2="323" stroke="#5672cd" stroke-width="12" stroke-linecap="round"/>
+  <line x1="308" y1="287" x2="272" y2="323" stroke="#5672cd" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="390" cy="148" r="22" fill="#5a8eed"/>
 </svg>
