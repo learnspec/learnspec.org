@@ -3,6 +3,9 @@ layout: home
 
 hero:
   name: LearnSpec
+  image:
+    src: /logo.svg
+    alt: LearnSpec
   text: Open standards for structured learning content
   tagline: Markdown-first, git-native, AI-ready formats for teaching and assessment
   actions:
