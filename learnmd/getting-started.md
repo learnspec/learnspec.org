@@ -4,7 +4,7 @@
 
 Create a file named `my-lesson.learn.md`:
 
-```markdown
+````markdown
 ---
 title: My First Lesson
 lang: en
@@ -37,18 +37,18 @@ A LearnMD file is just Markdown with a few conventions:
 
 ## Quick Check
 
-\`\`\`quiz
+```quiz
 ? What file extension does LearnMD use?
 - [x] .learn.md
 - [ ] .lesson.md
 - [ ] .lmd
-\`\`\`
+```
 
 > [!summary]
 > - LearnMD files use the `.learn.md` extension
 > - YAML frontmatter provides metadata
 > - Callouts and inline quizzes enrich the content
-```
+````
 
 ## Adding structure
 
