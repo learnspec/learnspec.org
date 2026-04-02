@@ -26,7 +26,7 @@ Each level is a strict superset of the previous one. A Level 0 file is valid at 
 
 ## Quick Example
 
-```markdown
+````markdown
 ---
 title: Introduction to Python
 lang: en
@@ -40,21 +40,21 @@ tags: [python, variables]
 
 A variable is a named reference to a value in memory.
 
-\`\`\`python
+```python
 age = 25
 name = "Alice"
-\`\`\`
+```
 
 > [!tip]
 > Use descriptive names: `student_count` is clearer than `n`.
 
-\`\`\`quiz
+```quiz
 ? Which syntax is valid Python?
 - [x] age = 25
 - [ ] int age = 25
 - [ ] var age = 25
-\`\`\`
 ```
+````
 
 ## Next Steps
 

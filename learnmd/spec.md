@@ -61,26 +61,26 @@ path (.learn.md, minimal or no frontmatter)
 
 ### Minimal example
 
-```markdown
+````markdown
 # Introduction to Python
 
 ## Module 1 — Variables
 
 A variable is a named reference to a value in memory.
 
-\`\`\`python
+```python
 age = 25
-\`\`\`
+```
 
 ## Module 2 — Conditions
 
 An `if` statement runs code only when a condition is true.
 
-\`\`\`python
+```python
 if age >= 18:
     print("Adult")
-\`\`\`
 ```
+````
 
 ---
 

@@ -4,7 +4,7 @@
 
 The simplest possible LearnMD file is just Markdown:
 
-```markdown
+````markdown
 # Git Basics
 
 ## Module 1 — What is Git?
@@ -17,16 +17,16 @@ collaborate on the same project.
 
 Open your terminal and run:
 
-\`\`\`bash
+```bash
 git init
 git add .
 git commit -m "Initial commit"
-\`\`\`
 ```
+````
 
 ## Level 1 — With frontmatter and callouts
 
-```markdown
+````markdown
 ---
 title: CSS Flexbox
 lang: en
@@ -46,13 +46,13 @@ author: LearnSpec Contributors
 
 To create a flex container, set `display: flex`:
 
-\`\`\`css
+```css
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-\`\`\`
+```
 
 > [!tip]
 > Use `justify-content` for the main axis and `align-items`
@@ -65,11 +65,11 @@ To create a flex container, set `display: flex`:
 > - `display: flex` creates a flex container
 > - `justify-content` aligns on the main axis
 > - `align-items` aligns on the cross axis
-```
+````
 
 ## Level 2 — With inline quizzes and imports
 
-```markdown
+````markdown
 ---
 title: Introduction to SQL
 lang: en
@@ -83,27 +83,27 @@ tags: [sql, databases]
 
 The `SELECT` statement retrieves data from a table:
 
-\`\`\`sql
+```sql
 SELECT name, age FROM users WHERE age > 18;
-\`\`\`
+```
 
-\`\`\`quiz
+```quiz
 ? Which SQL keyword filters rows?
 - [ ] SELECT
 - [x] WHERE
 - [ ] FROM
 - [ ] ORDER BY
-\`\`\`
+```
 
 ## Module 2 — Joins
 
 !import ./joins.learn.md
 !import ./check-joins.quiz.md
-```
+````
 
 ## Math content
 
-```markdown
+````markdown
 ---
 title: Calculus — Derivatives
 lang: en
@@ -128,10 +128,10 @@ $$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
 | $\ln(x)$ | $1/x$ |
 | $\sin(x)$ | $\cos(x)$ |
 
-\`\`\`quiz scored:true
+```quiz scored:true
 ? What is the derivative of $x^3$?
 - [x] $3x^2$
 - [ ] $x^2$
 - [ ] $3x^3$
-\`\`\`
 ```
+````
