@@ -101,6 +101,92 @@ SELECT name, age FROM users WHERE age > 18;
 !import ./check-joins.quiz.md
 ````
 
+## Progress checkpoints
+
+Use `!checkpoint` directives to mark learner progress milestones within a lesson. Checkpoints appear as standalone lines and work across multiple modules.
+
+````markdown
+---
+title: Python Functions
+lang: en
+estimated_time: 40min
+tags: [python, functions, beginner]
+---
+
+# Python Functions
+
+## Module 1 — Defining Functions
+
+A function groups reusable code under a name:
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Alice"))  # Hello, Alice!
+```
+
+> [!tip]
+> Use descriptive names — `calculate_total()` is clearer than `calc()`.
+
+!checkpoint id:module-1-done
+
+## Module 2 — Parameters and Return Values
+
+Functions can take multiple parameters and return a value:
+
+```python
+def add(a, b):
+    return a + b
+
+result = add(3, 4)  # 7
+```
+
+!checkpoint id:module-2-done label:"Module 2 — Parameters complete"
+
+## Module 3 — Default Parameters and *args
+
+Default values make parameters optional:
+
+```python
+def power(base, exp=2):
+    return base ** exp
+
+power(3)     # 9
+power(3, 3)  # 27
+```
+
+Use `*args` to accept a variable number of arguments:
+
+```python
+def total(*numbers):
+    return sum(numbers)
+
+total(1, 2, 3, 4)  # 10
+```
+
+!checkpoint id:module-3-done label:"Module 3 complete" type:milestone
+
+```quiz
+? Which keyword is used to define a function in Python?
+- [ ] function
+- [x] def
+- [ ] fn
+- [ ] define
+```
+````
+
+The three `!checkpoint` forms above show:
+
+| Form | Syntax | When to use |
+|------|--------|-------------|
+| Minimal | `!checkpoint id:slug` | Simple progress marker |
+| With label | `!checkpoint id:slug label:"..."` | When learners see a display name |
+| Full | `!checkpoint id:slug label:"..." type:milestone` | Explicit milestone or exercise gate |
+
+> [!note]
+> When a `!import ./quiz.quiz.md` or inline `quiz` block is present at the same position, it already acts as a checkpoint — no additional `!checkpoint` line is needed there.
+
 ## Math content
 
 ````markdown
@@ -135,3 +221,46 @@ $$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
 - [ ] $3x^3$
 ```
 ````
+
+## Diagrams (Mermaid)
+
+Mermaid diagrams are defined as fenced code blocks and rendered client-side.
+
+### Flowchart
+
+````markdown
+```mermaid
+flowchart LR
+    A[User] --> B[Browser]
+    B --> C{Authenticated?}
+    C -- Yes --> D[Dashboard]
+    C -- No --> E[Login page]
+```
+````
+
+### Sequence diagram
+
+````markdown
+```mermaid caption:"JWT validation flow"
+sequenceDiagram
+    Client->>Server: POST /login
+    Server->>DB: Lookup user
+    DB-->>Server: User record
+    Server-->>Client: JWT token
+    Client->>Server: GET /data (Bearer token)
+    Server-->>Client: Protected data
+```
+````
+
+### Entity-Relationship diagram
+
+````markdown
+```mermaid caption:"Course data model" width:90%
+erDiagram
+    COURSE ||--o{ MODULE : contains
+    MODULE ||--o{ LESSON : contains
+    LESSON ||--o{ QUIZ : has
+```
+````
+
+> **Note:** Static image embeds (`![](url)`) are not supported. Use Mermaid for all diagram needs.

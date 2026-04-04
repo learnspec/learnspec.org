@@ -1,4 +1,4 @@
-# LearnMD — Format Specification v0.2
+# LearnMD — Format Specification v0.3
 
 ## Core principle: Markdown first
 
@@ -38,7 +38,7 @@ path (.learn.md, minimal or no frontmatter)
     └── lesson (### heading or file imported via !import)
 ```
 
-- Structure is **strictly linear** in v0.2 (no branching)
+- Structure is **strictly linear** in v0.3 (no branching)
 - ` ```quiz ` blocks and `!import` directives are usable at any level
 - External content is referenced via native Markdown links `[text](url)` and `![alt](url)`
 
@@ -56,6 +56,7 @@ path (.learn.md, minimal or no frontmatter)
 | `> text` | Generic blockquote or note |
 | `!import ./file.learn.md` | Include another lesson file |
 | `!import ./file.quiz.md` | Embed a QuizMD checkpoint from an external file |
+| `!checkpoint id:slug` | Mark a learner progress checkpoint |
 | `$...$` | Inline LaTeX math formula |
 | `$$...$$` | Block (display) LaTeX math formula |
 
@@ -107,7 +108,7 @@ author: Jane Smith            # optional — string or {name, email, url}
 | `estimated_time` | No | string | Free-form estimated reading/study time: `15min`, `1h30`, `2h` |
 | `tags` | No | string[] | Thematic tags |
 | `author` | No | string or object | Author name, or `{name, email, url}` |
-| `spec_version` | No | string | LearnMD spec version this file targets (e.g. `"0.2"`) |
+| `spec_version` | No | string | LearnMD spec version this file targets (e.g. `"0.3"`) |
 
 `lang` is the only required field. All other fields are optional.
 
@@ -240,6 +241,61 @@ Behavior:
 - Imports are recursive: an imported file may itself contain `!import` directives.
 - Circular imports are silently skipped.
 
+#### `!checkpoint id:slug [label:"..."] [type:...]`
+
+Marks a named progress point in the lesson. When a learner reaches (or explicitly confirms) a checkpoint, compatible players persist the event and can display a progress indicator.
+
+**Syntax:**
+
+```markdown
+!checkpoint id:module-1-done label:"Module 1 terminé"
+```
+
+**Attributes:**
+
+| Attribute | Required | Default | Description |
+|-----------|----------|---------|-------------|
+| `id` | **Yes** | — | Unique identifier within the lesson (used for progress tracking) |
+| `label` | No | `"Checkpoint"` | Display text shown to the learner |
+| `type` | No | `milestone` | `milestone` / `read` / `exercise-complete` |
+
+**Rules:**
+
+- Appears as a standalone line (like `!import`)
+- `id` values must be unique within a document
+- Multiple checkpoints per lesson are allowed
+- When a `!import ./quiz.quiz.md` is present, the quiz itself acts as a natural checkpoint — an additional `!checkpoint` at the same position is redundant
+- Compatible players display a visual progress marker at the checkpoint position; non-compatible parsers render the directive as raw text (graceful degradation)
+
+**Example:**
+
+```markdown
+## Module 1 — Variables
+
+Content here...
+
+!checkpoint id:module-1-done label:"Module 1 terminé"
+
+## Module 2 — Conditions
+
+Content here...
+
+!checkpoint id:module-2-done label:"Module 2 terminé"
+```
+
+**JSON output from `parse_learn`:**
+
+The parser exposes a top-level `checkpoints[]` array:
+
+```json
+{
+  "checkpoints": [
+    { "id": "module-1-done", "label": "Module 1 terminé", "type": "milestone", "position": 42 },
+    { "id": "module-2-done", "label": "Module 2 terminé", "type": "milestone", "position": 87 }
+  ]
+}
+```
+
 ---
 
 ## Math support
@@ -276,6 +332,62 @@ LearnMD supports **Penrose** declarative mathematical diagrams, rendered via @pe
 2. **style** — Maps domain elements to visual shapes and layout
 3. **substance** — Describes the specific mathematical objects to draw
 
+
+---
+
+## Mermaid diagrams
+
+LearnMD supports **Mermaid** text-based diagrams via [Mermaid.js](https://mermaid.js.org/). Diagrams can appear anywhere in a lesson document.
+
+> **Note:** Static image embeds (`![](url)`) are **not supported** for security reasons. Mermaid diagrams are defined as text and rendered client-side.
+
+### Syntax
+
+````markdown
+```mermaid
+flowchart LR
+    A[Start] --> B{Decision}
+    B -- Yes --> C[Action]
+    B -- No --> D[End]
+```
+````
+
+Optional block attributes:
+
+````markdown
+```mermaid caption:"System architecture" width:80%
+graph TD
+    Client --> Server
+    Server --> DB
+```
+````
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `caption` | string | Caption displayed below the diagram |
+| `width` | CSS value | Diagram width (e.g. `100%`, `600px`) |
+
+### Supported diagram types
+
+| Type | Keyword | Example use |
+|------|---------|-------------|
+| Flowchart | `flowchart` / `graph` | Process flows, decision trees |
+| Sequence | `sequenceDiagram` | API call flows, interactions |
+| Class | `classDiagram` | OOP relationships, data models |
+| Entity-Relationship | `erDiagram` | Database schemas |
+| Gantt | `gantt` | Project timelines |
+| Mindmap | `mindmap` | Topic hierarchies |
+| Timeline | `timeline` | Historical sequences |
+
+### AI authoring
+
+Mermaid syntax is text-based and AI-generatable. When authoring with Claude or MCP tools, you can request diagrams inline and they will be emitted as valid `` ```mermaid `` blocks.
+
+### Constraints
+
+- Mermaid is **auto-detected**: the runtime loads only when a `` ```mermaid `` block is present.
+- Full reference: [mermaid.js.org](https://mermaid.js.org/)
+
 ---
 
 ## Syntax reference table
@@ -288,6 +400,7 @@ LearnMD supports **Penrose** declarative mathematical diagrams, rendered via @pe
 | Generic blockquote | `> text` | 0 |
 | Import lesson | `!import ./file.learn.md` | 0 |
 | Embed quiz checkpoint | `!import ./file.quiz.md` | 0 |
+| Progress checkpoint | `!checkpoint id:slug [label:"..."] [type:...]` | 0 |
 | Inline math | `$formula$` | 0 |
 | Block math | `$$formula$$` | 0 |
 | Frontmatter | `---` YAML `---` | 1 |
@@ -306,6 +419,8 @@ LearnMD supports **Penrose** declarative mathematical diagrams, rendered via @pe
 | Objectives callout (fenced) | ` ```objectives ` | 2 |
 | ABC (static) | ` ```abc ` | 0 |
 | ABC (interactive) | ` ```abc play cursor colors ` | 0 |
+| Mermaid diagram | ` ```mermaid ` diagram text ` ``` ` | 0 |
+| Mermaid (with caption) | ` ```mermaid caption:"..." width:80% ` | 0 |
 
 ---
 
@@ -319,6 +434,8 @@ LearnMD supports **Penrose** declarative mathematical diagrams, rendered via @pe
 | Title absent (no H1 and no frontmatter `title`) | Warning |
 | Unclosed fenced block | Error |
 | Inline quiz block with no `?` line | Error |
+| `!checkpoint` missing required `id` attribute | Error |
+| Duplicate `!checkpoint` `id` within a document | Error |
 | `!import` pointing to a missing file | Warning |
 
 ### Strict mode (`--strict`)
