@@ -383,6 +383,14 @@ graph TD
 
 Mermaid syntax is text-based and AI-generatable. When authoring with Claude or MCP tools, you can request diagrams inline and they will be emitted as valid `` ```mermaid `` blocks.
 
+When generating Mermaid diagrams:
+
+- Prefer LR orientation for sequential flows with more than 5 steps
+- Keep node labels under 40 characters; use `\n` to break longer labels
+- Avoid linear chains longer than 6 nodes; introduce subgraphs or branches
+- Limit vertical depth to 7 levels maximum in TD orientation
+- Use TD only when the diagram has meaningful hierarchy (not just a sequence)
+
 ### Constraints
 
 - Mermaid is **auto-detected**: the runtime loads only when a `` ```mermaid `` block is present.
