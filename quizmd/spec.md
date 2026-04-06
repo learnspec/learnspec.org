@@ -286,12 +286,6 @@ Supports ABC notation for rendering sheet music inline in question bodies. Flags
 
 ---
 
-## Penrose diagrams
-
-Supports Penrose declarative mathematical diagrams via @penrose/core.
-
----
-
 ## Partial scoring
 
 When `partial_scoring: true` (default), **match** and **order** questions award a proportional score.
