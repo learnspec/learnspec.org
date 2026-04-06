@@ -324,17 +324,6 @@ Use a fenced code block with the language identifier `abc`, optionally followed 
 
 ---
 
-## Penrose diagrams
-
-LearnMD supports **Penrose** declarative mathematical diagrams, rendered via @penrose/core. Three sections separated by `---`:
-
-1. **domain** — Declares types, predicates, and constructors
-2. **style** — Maps domain elements to visual shapes and layout
-3. **substance** — Describes the specific mathematical objects to draw
-
-
----
-
 ## Mermaid diagrams
 
 LearnMD supports **Mermaid** text-based diagrams via [Mermaid.js](https://mermaid.js.org/). Diagrams can appear anywhere in a lesson document.

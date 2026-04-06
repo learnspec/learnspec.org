@@ -34,7 +34,7 @@ features:
     details: LearnMD and QuizMD work together as a complete teach-then-assess stack.
   - icon: 🧮
     title: Rich Content
-    details: Built-in support for LaTeX math, ABC music notation, Penrose diagrams, and more.
+    details: Built-in support for LaTeX math, ABC music notation, Mermaid diagrams, and more.
 ---
 
 ## Why LearnSpec?
