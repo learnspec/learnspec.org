@@ -1,30 +1,35 @@
 # QuizMD
 
-**The open format for assessments and quizzes.**
+**The assessment format of the [LearnSpec](/) suite.**
 
-QuizMD uses Markdown with YAML configuration to create quizzes, exams, and assessments. From simple flashcard-style questions to full scored exams with timed sections — all in plain text.
+QuizMD uses Markdown with progressive YAML configuration to create quizzes, exams, and assessments — from simple practice questions to full scored exams with timed sections, all in portable plain-text files.
 
-## Key Principles
+[LearnMD](/learnmd/) covers instruction; QuizMD covers assessment. The two compose freely: a `.quiz.md` can be embedded inline in a lesson via `!import`.
+
+## Key principles
 
 | Principle | Description |
-|-----------|-------------|
+|---|---|
 | **YAML everywhere** | One configuration syntax across three progressive levels |
 | **Markdown-first** | Valid Markdown files readable in any editor |
-| **Git-native** | Versionable, diffable, and mergeable like code |
+| **File-native** | All content lives in files — no database required |
 | **AI-native** | Generatable and consumable by LLMs without special tooling |
-| **Rich question types** | MCQ, multi-select, open answer, true/false, match, and order |
+| **Rich question types** | MCQ, multi-select, open answer, true/false, match, order |
+| **LearnSpec-interoperable** | Natively integrates with LearnMD, DiagramMD, MediaMD, GlossaryMD |
 
-## Format Levels
+QuizMD inherits its frontmatter, directives, and validation rules from the shared [Architecture Charter](/charter/).
+
+## Format levels
 
 | Level | Mechanism | Purpose |
-|-------|-----------|---------|
+|---|---|---|
 | 0 | Plain `.quiz.md`, no configuration | Minimal quiz, human-readable |
-| 1 | YAML frontmatter at top of file | Global metadata, behavior, scoring |
+| 1 | YAML frontmatter at top of file | Global metadata, behaviour, scoring |
 | 2 | Per-question fenced block | Per-question overrides (points, timer, hint) |
 
 Each level is a strict superset of the previous one.
 
-## Quick Example
+## Quick example
 
 ```markdown
 ---
@@ -34,6 +39,7 @@ domain: academic
 passing_score: 0.6
 reveal: sequential
 feedback_mode: deferred
+spec_version: "0.3"
 ---
 
 # Physics Exam
@@ -53,8 +59,12 @@ feedback_mode: deferred
 > F = ma: net force equals mass times acceleration.
 ```
 
-## Next Steps
+## Status
 
-- Read the full [Specification](/quizmd/spec)
-- Try the [Getting Started](/quizmd/getting-started) guide
-- Browse [Examples](/quizmd/examples)
+QuizMD is stable. **v0.3** is drafting to align with the new LearnSpec suite — it requires the universal `lang` field, adds `!ref` for [MediaMD](/mediamd/) and [GlossaryMD](/glossarymd/) contexts, supports `media:slug` images with fallback URLs, and delegates diagram syntax to [DiagramMD](/diagrammd/).
+
+## Next steps
+
+- Read the full [Specification](/quizmd/spec).
+- Try the [Getting Started](/quizmd/getting-started) guide.
+- Browse [Examples](/quizmd/examples).

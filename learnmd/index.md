@@ -1,30 +1,35 @@
 # LearnMD
 
-**The open format for structured learning content.**
+**The educational content format of the [LearnSpec](/) suite.**
 
-LearnMD is the companion format to QuizMD: where QuizMD covers assessment (testing what you know), LearnMD covers instruction (explaining what to know). Together they form a complete **teach → assess** stack, all in portable plain-text files.
+LearnMD covers instruction — explaining what to know — while [QuizMD](/quizmd/) covers assessment. Together they form a complete **teach → assess** stack, all in portable plain-text files.
 
-## Key Principles
+A complete course — modules, lessons, examples, exercises, embedded quizzes — can live in a single valid `.learn.md` file. The `!import` directive is a composition tool for reusability, not a prerequisite.
+
+## Key principles
 
 | Principle | Description |
-|-----------|-------------|
+|---|---|
 | **Markdown-first** | A `.learn.md` file is valid Markdown — readable in any editor |
+| **File-native** | All content lives in files — no database required |
 | **Git-native** | Versionable, diffable, and mergeable like code |
 | **AI-native** | Generatable and consumable by LLMs without special tooling |
 | **Progressively enriched** | Plain text (Level 0) up through special fenced blocks (Level 2) |
-| **QuizMD-interoperable** | Inline quiz blocks and `!import` directive to embed checkpoints |
+| **LearnSpec-interoperable** | Natively integrates with QuizMD, DiagramMD, MediaMD, and GlossaryMD |
 
-## Format Levels
+LearnMD inherits its frontmatter, directives, and validation rules from the shared [Architecture Charter](/charter/).
+
+## Format levels
 
 | Level | Mechanism | Purpose |
-|-------|-----------|---------|
-| 0 | Plain `.learn.md`, pure Markdown | Minimal learning content, human-readable |
+|---|---|---|
+| 0 | Plain `.learn.md`, native Markdown | Minimal content, readable everywhere |
 | 1 | YAML frontmatter + GFM callouts | Metadata, estimated time, language |
 | 2 | Special fenced blocks + directives | Examples, summaries, inline quizzes, imports |
 
-Each level is a strict superset of the previous one. A Level 0 file is valid at Level 1 and 2.
+Each level is a strict superset of the previous one.
 
-## Quick Example
+## Quick example
 
 ````markdown
 ---
@@ -32,9 +37,12 @@ title: Introduction to Python
 lang: en
 estimated_time: 15min
 tags: [python, variables]
+spec_version: "0.4"
 ---
 
 # Introduction to Python
+
+!ref ./glossary-python.glossary.md
 
 ## Module 1 — Variables
 
@@ -54,10 +62,16 @@ name = "Alice"
 - [ ] int age = 25
 - [ ] var age = 25
 ```
+
+!checkpoint id:module-1-done label:"Module 1 complete"
 ````
 
-## Next Steps
+## Status
 
-- Read the full [Specification](/learnmd/spec)
-- Try the [Getting Started](/learnmd/getting-started) guide
-- Browse [Examples](/learnmd/examples)
+LearnMD v0.3 is stable. **v0.4** is drafting to align with the new LearnSpec suite — it extracts diagram syntax to [DiagramMD](/diagrammd/), media catalogues to [MediaMD](/mediamd/), and term definitions to [GlossaryMD](/glossarymd/), and adds the universal `!ref` and `!checkpoint` directives.
+
+## Next steps
+
+- Read the full [Specification](/learnmd/spec).
+- Try the [Getting Started](/learnmd/getting-started) guide.
+- Browse [Examples](/learnmd/examples).
