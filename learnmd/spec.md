@@ -1,89 +1,91 @@
-# LearnMD — Format Specification v0.3
+# LearnMD — Format Specification v0.4
 
-## Core principle: Markdown first
+> Part of the [LearnSpec](/) suite. Draft based on v0.3.
 
-LearnMD is the **companion format to QuizMD**: where QuizMD covers assessment (testing what you know), LearnMD covers instruction (explaining what to know). Together they form a complete **teach → assess** stack, all in portable plain-text files.
+## Core principle
 
-**A complete learning path — chapters, lessons, exercises, quizzes — can live in a single valid `.learn.md` file.** The `!import` directive is an optimization tool for reusability, not a prerequisite.
+LearnMD is the **educational content format** of the LearnSpec suite. It covers instruction — explaining what to know — while [QuizMD](/quizmd/) covers assessment. Together they form a complete **teach → assess** stack, in portable plain-text files.
+
+**A complete course — chapters, lessons, exercises, quizzes — can live in a single valid `.learn.md` file.** The `!import` directive is a composition tool for reusability, not a prerequisite.
 
 | Principle | Description |
-|-----------|-------------|
-| **Markdown-first** | A `.learn.md` file is valid Markdown — readable in any editor |
+|---|---|
+| **Markdown-first** | A `.learn.md` file is valid Markdown readable in any editor |
+| **File-native** | All content lives in files — no database required |
 | **Git-native** | Versionable, diffable, and mergeable like code |
-| **AI-native** | Generatable and consumable by LLMs without special tooling |
+| **AI-native** | Generatable and consumable by LLMs without specific tooling |
 | **Progressively enriched** | Plain text (Level 0) up through special fenced blocks (Level 2) |
-| **QuizMD-interoperable** | Inline ` ```quiz ` blocks and `!import` directive to embed checkpoints |
+| **LearnSpec-interoperable** | Natively integrates with QuizMD, DiagramMD, MediaMD, and GlossaryMD |
 
----
+LearnMD inherits the universal frontmatter, directives, and validation rules defined in the [Architecture Charter](/charter/).
 
 ## Format levels
 
 | Level | Mechanism | Purpose |
-|-------|-----------|---------|
-| 0 | Plain `.learn.md`, pure Markdown | Minimal learning content, human-readable |
+|---|---|---|
+| 0 | Plain `.learn.md`, native Markdown | Minimal content, readable everywhere |
 | 1 | YAML frontmatter + GFM callouts | Metadata, estimated time, language |
 | 2 | Special fenced blocks + directives | Examples, summaries, inline quizzes, imports |
 
 Each level is a strict superset of the previous one. A Level 0 file is valid at Level 1 and 2.
-
----
 
 ## Document architecture
 
 ### Three-tier hierarchy
 
 ```
-path (.learn.md, minimal or no frontmatter)
+document (.learn.md, minimal or no frontmatter)
 └── module (## heading)
     └── lesson (### heading or file imported via !import)
 ```
 
-- Structure is **strictly linear** in v0.3 (no branching)
-- ` ```quiz ` blocks and `!import` directives are usable at any level
-- External content is referenced via native Markdown links `[text](url)` and `![alt](url)`
-
----
+- Structure is **strictly linear** in v0.4 (no branching).
+- ` ```quiz ` blocks and `!import`, `!ref`, `!checkpoint` directives are usable at any level.
+- Images are referenced via `![alt](media:slug "fallback")` (recommended) or `![alt](url)` (direct).
 
 ## Level 0 — Plain Markdown
 
-### Conventions
+### Basic syntax
 
 | Syntax | Meaning |
-|--------|---------|
+|---|---|
 | `# Title` | Document title (inferred by the parser if absent from frontmatter) |
 | `## Module title` | Main section heading |
 | `### Lesson title` | Sub-section heading |
-| `> text` | Generic blockquote or note |
+| `> text` | Generic blockquote |
 | `!import ./file.learn.md` | Include another lesson file |
-| `!import ./file.quiz.md` | Embed a QuizMD checkpoint from an external file |
+| `!import ./file.quiz.md` | Embed an external QuizMD checkpoint |
+| `!import ./file.diagram.md` | Embed one or more DiagramMD diagram blocks |
+| `!ref ./file.media.md` | Declare a MediaMD context (enables `media:slug` resolution) |
+| `!ref ./file.glossary.md` | Declare a GlossaryMD context (enables term highlighting) |
 | `!checkpoint id:slug` | Mark a learner progress checkpoint |
 | `$...$` | Inline LaTeX math formula |
 | `$$...$$` | Block (display) LaTeX math formula |
+| `![alt](media:slug "fallback-url")` | Image via MediaMD with fallback for standard readers |
+| `![alt](url)` | Direct image (URL) |
 
 ### Minimal example
 
 ````markdown
 # Introduction to Python
 
+!ref ./glossary-python.glossary.md
+
 ## Module 1 — Variables
 
-A variable is a named reference to a value in memory.
+A **variable** is a named reference to a value in memory.
 
 ```python
 age = 25
+name = "Alice"
 ```
+
+!checkpoint id:module-1-done label:"Module 1 complete"
 
 ## Module 2 — Conditions
 
 An `if` statement runs code only when a condition is true.
-
-```python
-if age >= 18:
-    print("Adult")
-```
 ````
-
----
 
 ## Level 1 — YAML frontmatter
 
@@ -91,125 +93,176 @@ A YAML block at the top of the `.learn.md` file, between two `---` lines.
 
 ```yaml
 ---
-title: Python Variables       # optional — inferred from the first # H1 if absent
-lang: en                      # REQUIRED — BCP-47 code (en, fr, en-US, …)
-estimated_time: 15min         # optional — free-form duration string
-tags: [python, variables]     # optional — list of strings
-author: Jane Smith            # optional — string or {name, email, url}
+title: Python — Variables      # optional — inferred from the first # H1 if absent
+lang: en                       # REQUIRED — BCP-47 code (en, fr, en-US, …)
+estimated_time: 15min          # optional — free-form duration string
+tags: [python, variables]      # optional — list of strings
+author: Jane Smith             # optional — string or {name, email, url}
+spec_version: "0.4"            # optional — LearnMD spec version this file targets
+created: 2026-05-10            # optional — ISO 8601
+updated: 2026-05-10            # optional — ISO 8601
+license: CC-BY-4.0             # optional — SPDX identifier or "custom"
 ---
 ```
 
-### Frontmatter field reference
+### Field reference
 
 | Field | Required | Type | Description |
-|-------|----------|------|-------------|
+|---|---|---|---|
 | `title` | No | string | Overrides the first `# H1`. Inferred from H1 if absent. |
 | `lang` | **Yes** | BCP-47 | Language code: `en`, `fr`, `en-US`, etc. |
 | `estimated_time` | No | string | Free-form estimated reading/study time: `15min`, `1h30`, `2h` |
 | `tags` | No | string[] | Thematic tags |
 | `author` | No | string or object | Author name, or `{name, email, url}` |
-| `spec_version` | No | string | LearnMD spec version this file targets (e.g. `"0.3"`) |
-
-`lang` is the only required field. All other fields are optional.
+| `spec_version` | No | string | LearnMD spec version this file targets (e.g. `"0.4"`) |
+| `created` | No | date | Creation date, ISO 8601 |
+| `updated` | No | date | Last update date, ISO 8601 |
+| `license` | No | string | SPDX identifier (e.g. `CC-BY-4.0`) or `custom` |
 
 ### GFM callouts
 
 Callouts use GitHub Flavored Markdown syntax and are rendered with visual emphasis by compatible players.
 
-**Supported everywhere** (GitHub, Obsidian, neuroneo.md):
+**Supported everywhere** (GitHub, Obsidian, LearnSpec players):
 
 | Syntax | Semantic | Typical use |
-|--------|----------|-------------|
+|---|---|---|
 | `> [!note]` | Note | Supplementary information |
 | `> [!tip]` | Tip | Best practice, shortcut, helpful advice |
 | `> [!warning]` | Warning | Common pitfall, frequent mistake |
 | `> [!important]` | Important | Critical point to remember |
 | `> [!caution]` | Caution | Risk of error or data loss |
 
-**Supported on Obsidian and neuroneo.md** (degrade gracefully to a blockquote on GitHub):
+**Extended callouts** (degrade gracefully to a blockquote on GitHub):
 
 | Syntax | Semantic | Typical use |
-|--------|----------|-------------|
+|---|---|---|
 | `> [!summary]` | Summary | Key takeaways at the end of a lesson |
 | `> [!example]` | Example | Non-code illustrative example |
-| `> [!objectives]` | Learning Objectives | What the learner will be able to do after this lesson — place at the top |
-
-```markdown
-> [!warning]
-> In Python, variable names are case-sensitive:
-> `Age` and `age` are two different variables.
-```
-
-```markdown
-> [!tip]
-> Use descriptive names: `student_count` is clearer than `n`.
-```
-
----
+| `> [!objectives]` | Learning Objectives | What the learner will be able to do — place at top |
 
 ## Level 2 — Special fenced blocks and directives
 
-Special blocks follow the same fenced syntax as QuizMD. They add structured, semantically meaningful containers to the lesson content.
+### Composition directives
+
+#### `!import <path>`
+
+Includes content from another file at the current position. The file type is detected from the extension:
+
+| Extension | Behaviour |
+|---|---|
+| `.learn.md` | Lesson content inserted inline (frontmatter ignored) |
+| `.quiz.md` | Rendered as an interactive QuizMD checkpoint |
+| `.diagram.md` | All diagram blocks in the file are inserted |
+
+```markdown
+!import ./03-conditions.learn.md
+!import ./check-variables.quiz.md
+!import ./diagrams-python.diagram.md
+```
+
+- Imports are recursive (an imported file may itself contain `!import` directives).
+- Circular imports are silently skipped.
+- Local paths or external URLs accepted — see the [Architecture Charter](/charter/#cross-format-directives).
+
+#### `!ref <path>`
+
+Declares a context file without including its content inline. Produces no visible render — it establishes a context the player uses in the background.
+
+| Extension | Behaviour |
+|---|---|
+| `.media.md` | Enables `media:slug` reference resolution |
+| `.glossary.md` | Enables defined-term highlighting |
+
+```markdown
+!ref ./media-python.media.md
+!ref ./glossary-python.glossary.md
+!ref https://github.com/example/commons/blob/main/glossaries/en/computing.glossary.md
+```
+
+Multiple `!ref` directives may coexist in the same document.
+
+#### `!checkpoint id:slug [label:"..."] [type:...] [badge:...]`
+
+Marks a named progress point in the lesson.
+
+```markdown
+!checkpoint id:module-1-done label:"Module 1 complete"
+!checkpoint id:module-variables-done label:"Variables mastered" badge:./badge-variables.badge.md
+```
+
+| Attribute | Required | Default | Description |
+|---|---|---|---|
+| `id` | **Yes** | — | Unique identifier within the document |
+| `label` | No | `"Checkpoint"` | Display text shown to the learner |
+| `type` | No | `milestone` | `milestone` / `read` / `exercise-complete` |
+| `badge` | No | — | Path to a BadgeMD file awarded when this checkpoint is reached |
+
+**Rules:**
+- `id` values must be unique within a document.
+- When a `!import ./quiz.quiz.md` is present, the quiz itself acts as a natural checkpoint — an additional `!checkpoint` at the same position is redundant.
+
+### Checkpoint JSON (parser output)
+
+```json
+{
+  "checkpoints": [
+    { "id": "module-1-done", "label": "Module 1 complete", "type": "milestone", "position": 42 },
+    { "id": "module-2-done", "label": "Module 2 complete", "type": "milestone", "position": 87 }
+  ]
+}
+```
 
 ### Inline quiz checkpoint
 
-Embeds a **single question** using QuizMD syntax directly in the lesson. All QuizMD question types are supported: `mcq`, `multi`, `open`, `tf`, `match`, `order`.
-
-**Syntax:**
+Embeds a **single question** using **QuizMD Level 0** syntax directly in the lesson. The QuizMD frontmatter (global configuration — scoring, `reveal`, `feedback_mode`) is not applicable inline. All QuizMD Level 0 question types are supported: `mcq`, `multi`, `open`, `tf`, `match`, `order`.
 
 ````markdown
 ```quiz
-? What operator assigns a value in Python?
+? Which operator assigns a value in Python?
 - [x] =
 - [ ] ==
 - [ ] :=
 ```
 ````
 
-The question starts with `?` followed by the question text. Answer choices use `- [x]` (correct) and `- [ ]` (incorrect), identical to QuizMD Level 0.
-
-**Attributes** (appended after the word `quiz` on the opening line):
-
 | Attribute | Default | Description |
-|-----------|---------|-------------|
+|---|---|---|
 | `scored:false` | Yes (default) | Practice mode — immediate feedback, no score recorded |
 | `scored:true` | — | Scored checkpoint — contributes to lesson score |
 
 **Inline quiz vs external file:**
 
 | Need | Syntax |
-|------|--------|
+|---|---|
 | Single simple question | Inline ` ```quiz ` block |
-| Multiple questions, advanced scoring, or shared config | `!import ./file.quiz.md` directive |
+| Multiple questions, advanced scoring, or shared config | `!import ./file.quiz.md` |
 
 ### Fenced callout blocks
 
-Fenced callout blocks are **Level 2 alternatives to GFM callouts**. They support richer content (multi-paragraph, nested lists, syntax-highlighted code) and are rendered with a visual header by compatible players.
-
-**Supported block types:**
+Level 2 alternatives to GFM callouts. Support richer content (multi-paragraph, nested lists, syntax-highlighted code).
 
 | Language | Icon | Label | Typical use |
-|----------|------|-------|-------------|
-| ` ```note ` | :memo: | Note | Supplementary information |
-| ` ```tip ` | :bulb: | Tip | Best practice or helpful advice |
-| ` ```warning ` | :warning: | Warning | Common pitfall, frequent mistake |
-| ` ```important ` | :exclamation: | Important | Critical point to remember |
-| ` ```caution ` | :red_circle: | Caution | Risk of error or data loss |
-| ` ```summary ` | :white_check_mark: | Summary | Key takeaways at the end of a lesson |
-| ` ```example ` | :mag: | Example | Illustrative example |
-| ` ```objectives ` | :dart: | Learning Objectives | What the learner will achieve — place at top |
+|---|---|---|---|
+| ` ```note ` | 📝 | Note | Supplementary information |
+| ` ```tip ` | 💡 | Tip | Best practice or helpful advice |
+| ` ```warning ` | ⚠️ | Warning | Common pitfall, frequent mistake |
+| ` ```important ` | ❗ | Important | Critical point to remember |
+| ` ```caution ` | 🔴 | Caution | Risk of error or data loss |
+| ` ```summary ` | ✅ | Summary | Key takeaways at the end of a lesson |
+| ` ```example ` | 🔍 | Example | Illustrative example |
+| ` ```objectives ` | 🎯 | Learning Objectives | What the learner will achieve — place at top |
 
-**Optional title attribute** (`title:"..."`):
+**Optional `title` attribute:**
 
 ````markdown
 ```example title:"Token prediction"
 Context: "The capital of France is"
 Most likely token: " Paris"
-Less likely token: " Lyon"
 ```
 ````
 
-**Optional code language** — place the language identifier before `title:` to render the body as a syntax-highlighted code block:
+**Optional code language** — place before `title:` to enable syntax highlighting:
 
 ````markdown
 ```example python title:"Assigning and reassigning a variable"
@@ -221,185 +274,81 @@ print(score)   # → 42
 ```
 ````
 
-### Composition directives
-
-#### `!import <path>`
-
-Includes content from another file at the current position. The file type is detected from the extension:
-
-- **`.learn.md`** — lesson content is inserted inline (frontmatter ignored)
-- **`.quiz.md`** — renders as an interactive QuizMD checkpoint
-
-```markdown
-!import ./03-conditions.learn.md
-!import ./check-variables.quiz.md
-```
-
-Behavior:
-- The imported file's content is inserted at the position of the directive.
-- For `.learn.md`: the file's content is rendered inline. Frontmatter is ignored.
-- Imports are recursive: an imported file may itself contain `!import` directives.
-- Circular imports are silently skipped.
-
-#### `!checkpoint id:slug [label:"..."] [type:...]`
-
-Marks a named progress point in the lesson. When a learner reaches (or explicitly confirms) a checkpoint, compatible players persist the event and can display a progress indicator.
-
-**Syntax:**
-
-```markdown
-!checkpoint id:module-1-done label:"Module 1 terminé"
-```
-
-**Attributes:**
-
-| Attribute | Required | Default | Description |
-|-----------|----------|---------|-------------|
-| `id` | **Yes** | — | Unique identifier within the lesson (used for progress tracking) |
-| `label` | No | `"Checkpoint"` | Display text shown to the learner |
-| `type` | No | `milestone` | `milestone` / `read` / `exercise-complete` |
-
-**Rules:**
-
-- Appears as a standalone line (like `!import`)
-- `id` values must be unique within a document
-- Multiple checkpoints per lesson are allowed
-- When a `!import ./quiz.quiz.md` is present, the quiz itself acts as a natural checkpoint — an additional `!checkpoint` at the same position is redundant
-- Compatible players display a visual progress marker at the checkpoint position; non-compatible parsers render the directive as raw text (graceful degradation)
-
-**Example:**
-
-```markdown
-## Module 1 — Variables
-
-Content here...
-
-!checkpoint id:module-1-done label:"Module 1 terminé"
-
-## Module 2 — Conditions
-
-Content here...
-
-!checkpoint id:module-2-done label:"Module 2 terminé"
-```
-
-**JSON output from `parse_learn`:**
-
-The parser exposes a top-level `checkpoints[]` array:
-
-```json
-{
-  "checkpoints": [
-    { "id": "module-1-done", "label": "Module 1 terminé", "type": "milestone", "position": 42 },
-    { "id": "module-2-done", "label": "Module 2 terminé", "type": "milestone", "position": 87 }
-  ]
-}
-```
-
----
-
 ## Math support
 
-LearnMD uses LaTeX formulas rendered via KaTeX. Math is **auto-detected**: no frontmatter flag is required.
+LearnMD uses LaTeX formulas rendered via KaTeX. Math is **auto-detected** — no frontmatter flag is required.
 
 | Form | Syntax | Rendering |
-|------|--------|-----------|
+|---|---|---|
 | Inline | `$E = mc^2$` | Embedded in the line of text |
-| Block (display) | `$$\int_0^\infty e^{-x}\,dx = 1$$` | Centered on its own line |
+| Block (display) | `$$\int_0^\infty e^{-x}\,dx = 1$$` | Centred on its own line |
 
----
+## Diagram support
 
-## ABC music notation
-
-LearnMD supports **ABC notation** for embedding sheet music. Compatible renderers use abcjs to produce SVG output directly in the browser.
-
-Use a fenced code block with the language identifier `abc`, optionally followed by flags:
-
-| Flag | Description |
-|------|-------------|
-| *(none)* | Static SVG score only |
-| `play` | Adds audio controls |
-| `cursor` | Highlights the current note during playback (requires `play`) |
-| `colors` | Colors each note by pitch class (requires `play`) |
-
----
-
-## Mermaid diagrams
-
-LearnMD supports **Mermaid** text-based diagrams via [Mermaid.js](https://mermaid.js.org/). Diagrams can appear anywhere in a lesson document.
-
-> **Note:** Static image embeds (`![](url)`) are **not supported** for security reasons. Mermaid diagrams are defined as text and rendered client-side.
-
-### Syntax
+LearnMD supports all diagram block types defined in the [DiagramMD spec](/diagrammd/). Inline diagrams use **DiagramMD Level 0** fenced block syntax with optional **Level 2 attributes** (`caption`, `width`, `alt`). The DiagramMD frontmatter (Level 1) is not applicable inline.
 
 ````markdown
-```mermaid
+```mermaid caption:"System architecture" width:80% alt:"Client-API-DB diagram"
 flowchart LR
-    A[Start] --> B{Decision}
-    B -- Yes --> C[Action]
-    B -- No --> D[End]
+    Client --> API --> DB
 ```
 ````
-
-Optional block attributes:
 
 ````markdown
-```mermaid caption:"System architecture" width:80%
-graph TD
-    Client --> Server
-    Server --> DB
+```abc play
+X:1
+T:Main Theme
+K:C
+|: G2 AB c2 BA | G4 E4 :|
 ```
 ````
 
-| Attribute | Type | Description |
-|-----------|------|-------------|
-| `caption` | string | Caption displayed below the diagram |
-| `width` | CSS value | Diagram width (e.g. `100%`, `600px`) |
+Supported types, shared attributes (`caption`, `width`, `alt`), and AI authoring recommendations are documented in the [DiagramMD spec](/diagrammd/).
 
-### Supported diagram types
+For diagrams reused across multiple lessons, use a `.diagram.md` file imported via `!import`.
 
-| Type | Keyword | Example use |
-|------|---------|-------------|
-| Flowchart | `flowchart` / `graph` | Process flows, decision trees |
-| Sequence | `sequenceDiagram` | API call flows, interactions |
-| Class | `classDiagram` | OOP relationships, data models |
-| Entity-Relationship | `erDiagram` | Database schemas |
-| Gantt | `gantt` | Project timelines |
-| Mindmap | `mindmap` | Topic hierarchies |
-| Timeline | `timeline` | Historical sequences |
+## Media references
 
-### AI authoring
+Images are referenced via two mechanisms.
 
-Mermaid syntax is text-based and AI-generatable. When authoring with Claude or MCP tools, you can request diagrams inline and they will be emitted as valid `` ```mermaid `` blocks.
+### Via MediaMD (recommended)
 
-When generating Mermaid diagrams:
+Requires a `!ref` to a MediaMD file at the top of the document. Enables automatic licence and attribution resolution.
 
-- Prefer LR orientation for sequential flows with more than 5 steps
-- Keep node labels under 40 characters; use `\n` to break longer labels
-- Avoid linear chains longer than 6 nodes; introduce subgraphs or branches
-- Limit vertical depth to 7 levels maximum in TD orientation
-- Use TD only when the diagram has meaningful hierarchy (not just a sequence)
+```markdown
+!ref ./media-biology.media.md
 
-### Constraints
+![Chloroplast diagram](media:chloroplast "https://upload.wikimedia.org/.../chloroplast.svg")
+```
 
-- Mermaid is **auto-detected**: the runtime loads only when a `` ```mermaid `` block is present.
-- Full reference: [mermaid.js.org](https://mermaid.js.org/)
+- `media:chloroplast`: slug resolved via the MediaMD → full-resolution image + licence metadata.
+- `"https://..."`: fallback URL — displayed in standard readers without LearnSpec.
 
----
+### Direct (URL)
 
-## Syntax reference table
+```markdown
+![Chloroplast diagram](https://example.com/chloroplast.svg)
+```
+
+## Syntax reference
 
 | Element | Syntax | Level |
-|---------|--------|-------|
+|---|---|---|
 | Document title | `# Title` | 0 |
 | Module heading | `## Module title` | 0 |
 | Lesson heading | `### Lesson title` | 0 |
 | Generic blockquote | `> text` | 0 |
 | Import lesson | `!import ./file.learn.md` | 0 |
-| Embed quiz checkpoint | `!import ./file.quiz.md` | 0 |
-| Progress checkpoint | `!checkpoint id:slug [label:"..."] [type:...]` | 0 |
+| Embed quiz | `!import ./file.quiz.md` | 0 |
+| Embed diagrams | `!import ./file.diagram.md` | 0 |
+| Declare MediaMD | `!ref ./file.media.md` | 0 |
+| Declare GlossaryMD | `!ref ./file.glossary.md` | 0 |
+| Progress checkpoint | `!checkpoint id:slug [label:"..."] [type:...] [badge:...]` | 0 |
 | Inline math | `$formula$` | 0 |
 | Block math | `$$formula$$` | 0 |
+| Image via MediaMD | `![alt](media:slug "fallback")` | 0 |
+| Direct image | `![alt](url)` | 0 |
+| Diagram block | ` ```{type} [caption:"..."] [width:...] [alt:"..."] ` | 0 |
 | Frontmatter | `---` YAML `---` | 1 |
 | Note callout | `> [!note]` | 1 |
 | Tip callout | `> [!tip]` | 1 |
@@ -408,25 +357,19 @@ When generating Mermaid diagrams:
 | Summary callout | `> [!summary]` | 1 |
 | Example callout | `> [!example]` | 1 |
 | Objectives callout | `> [!objectives]` | 1 |
-| Inline quiz question | ` ```quiz ` | 2 |
+| Inline quiz | ` ```quiz ` | 2 |
 | Scored inline quiz | ` ```quiz scored:true ` | 2 |
 | Note callout (fenced) | ` ```note ` | 2 |
 | Summary callout (fenced) | ` ```summary ` | 2 |
 | Example callout (fenced) | ` ```example [lang] [title:"..."] ` | 2 |
 | Objectives callout (fenced) | ` ```objectives ` | 2 |
-| ABC (static) | ` ```abc ` | 0 |
-| ABC (interactive) | ` ```abc play cursor colors ` | 0 |
-| Mermaid diagram | ` ```mermaid ` diagram text ` ``` ` | 0 |
-| Mermaid (with caption) | ` ```mermaid caption:"..." width:80% ` | 0 |
-
----
 
 ## Validation
 
 ### Lenient mode (default)
 
 | Condition | Level |
-|-----------|-------|
+|---|---|
 | `lang` absent from frontmatter | Warning |
 | Title absent (no H1 and no frontmatter `title`) | Warning |
 | Unclosed fenced block | Error |
@@ -434,13 +377,30 @@ When generating Mermaid diagrams:
 | `!checkpoint` missing required `id` attribute | Error |
 | Duplicate `!checkpoint` `id` within a document | Error |
 | `!import` pointing to a missing file | Warning |
+| `!ref` pointing to a missing file | Warning |
+| `media:slug` without a matching `!ref` MediaMD | Warning |
+| `media:slug` without a fallback URL | Warning |
 
 ### Strict mode (`--strict`)
 
 | Condition | Level |
-|-----------|-------|
+|---|---|
 | `lang` absent | Error |
 | Title absent | Error |
 | All lenient-mode errors | Error |
+| `!ref` pointing to a missing file | Error |
+| `media:slug` without a fallback URL | Error |
 
 Strict mode is recommended for CI pipelines and production publishing. Lenient mode is appropriate during authoring.
+
+## Changes from v0.3
+
+| Element | Change |
+|---|---|
+| Hierarchy | `path` renamed to `document` (avoids confusion with TrackMD) |
+| Principles | "QuizMD-interoperable" → "LearnSpec-interoperable" |
+| `!import` | Added `.diagram.md` support |
+| `!ref` | New directive — declares MediaMD and GlossaryMD contexts |
+| Images | New `media:slug` syntax via MediaMD |
+| Frontmatter | Added `created`, `updated`, `license` (universal LearnSpec fields) |
+| Diagrams | Mermaid and ABC sections simplified — delegate to DiagramMD spec |
