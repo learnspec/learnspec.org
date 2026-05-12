@@ -1,4 +1,4 @@
-# DiagramMD — Format Specification v0.1
+# DiagramMD — Format Specification v0.2
 
 > Part of the [LearnSpec](/) suite. Draft.
 
@@ -7,9 +7,9 @@
 DiagramMD serves a **dual role**:
 
 - **Syntax specification** — the canonical reference for all diagram block types usable across the suite. Other specs (LearnMD, QuizMD, FlashMD) delegate diagram documentation to DiagramMD. A diagram block valid in DiagramMD is valid everywhere in the suite.
-- **Standalone file format** — `.diagram.md` files may contain reusable diagrams, importable via `!import` from any content format.
+- **Standalone file format** — `.diagram.md` files contain reusable named diagrams, referenced via `!ref` from any content format and addressed individually by slug.
 
-DiagramMD is a **pure leaf format**: it imports and references no other LearnSpec format. How diagrams are rendered (server-side, client-side, hybrid) is left entirely to the player implementation.
+DiagramMD is a **pure leaf format**: it imports and references no other LearnSpec format, and is itself consumed via `!ref`, never via `!import`. How diagrams are rendered (server-side, client-side, hybrid) is left entirely to the player implementation.
 
 DiagramMD inherits its frontmatter and validation rules from the shared [Architecture Charter](/charter/).
 
@@ -43,7 +43,8 @@ DiagramMD inherits its frontmatter and validation rules from the shared [Archite
 
 | Attribute | Status | Description |
 |---|---|---|
-| `id` | Required in `.diagram.md` files | Unique slug within the file. Enables block identification. Optional when used inline. |
+| `id` | Required when the block lives in a `.diagram.md` file (enables slug references). Optional when used inline. | Unique slug within the file. Enables block identification and cross-document referencing via `!ref` |
+| `ref` | Only valid on a `diagram` fenced block; mutually exclusive with `id` and with a non-empty body | Declares a reference to the diagram with that `id` in a `!ref`-ed `.diagram.md` file. The body must be empty. See *Slug references* below |
 | `caption` | Optional | Caption displayed below the diagram |
 | `width` | Optional | Render width — CSS value (`80%`, `600px`, `100%`). Default: `100%` |
 | `alt` | Recommended | Accessibility alt text describing the visual content |
@@ -232,13 +233,13 @@ CN1C=NC2=C1C(=O)N(C(=O)N2C)C
 
 ### Structure
 
-A `.diagram.md` file contains one or more diagram blocks, each identified by an `id`. The frontmatter is optional (Level 1).
+A `.diagram.md` file is a catalogue of named, reusable diagrams. Each block carries a unique `id` slug that other documents reference via `!ref`. The frontmatter is optional (Level 1).
 
 ````markdown
 ---
 title: "Diagrams — System architecture"
 lang: en
-spec_version: "0.1"
+spec_version: "0.2"
 tags: [architecture, backend]
 ---
 
@@ -260,27 +261,54 @@ sequenceDiagram
 ```
 ````
 
-### Importing into a content format
+`id` is required on every block in a `.diagram.md` file — a block without `id` is unreferenceable and produces a validation error.
 
-A `.diagram.md` file is imported via the standard `!import` directive. All blocks in the file are inserted at the directive's position.
+## Referencing a DiagramMD from another format
+
+### Declaration
+
+A DiagramMD file is declared via the `!ref` directive at the top of the consuming document:
 
 ```markdown
-!import ./diagrams-architecture.diagram.md
-!import https://github.com/example/repo/blob/main/diagrams.diagram.md
+!ref ./diagrams-architecture.diagram.md
+!ref https://github.com/example/repo/blob/main/diagrams.diagram.md
 ```
 
-**Granularity:** `!import` inserts the entire file. To insert a single diagram, use a dedicated file per diagram.
+Multiple `!ref` directives may coexist in the same document. The slugs from all referenced files share the same namespace — `id` values must therefore be unique across all DiagramMD files referenced in a given document.
+
+### Slug references
+
+Once a `.diagram.md` is declared via `!ref`, its diagrams are referenceable inline through a `diagram` fenced block with a `ref` attribute:
+
+````markdown
+```diagram ref:auth-flow
+```
+````
+
+The block body is empty. At render time, a LearnSpec player resolves `auth-flow` to the corresponding block in the referenced `.diagram.md` file and renders it with that block's type, source, `caption`, `width`, and `alt`. Attributes set on the reference block itself (`caption`, `width`, `alt`) override the referenced block's values for this occurrence only.
+
+In a standard Markdown reader, the block degrades gracefully to a readable `diagram` code block — no rendering is performed, but the reference is clearly visible.
+
+**Granularity:** unlike `!import`, `!ref` does not splice content into the document — each diagram is materialised only where it is explicitly referenced by slug. To reuse the same diagram several times, simply repeat the reference block; to use only some diagrams from a catalogue, only reference those.
+
+## Graceful degradation
+
+| Element | Standard reader | LearnSpec player |
+|---|---|---|
+| Inline diagram block (` ```mermaid `, ` ```vega-lite `, …) | Readable code block | Rendered |
+| `.diagram.md` file viewed directly | Sequence of readable code blocks with slugs visible | Catalogue source — not rendered directly |
+| ` ```diagram ref:slug ` block in another format | Readable code block showing the slug | Resolved via the referenced `.diagram.md` — rendered as the target diagram |
 
 ## Interoperability
 
 | Mechanism | Support |
 |---|---|
-| Imported by LearnMD via `!import` | ✅ |
-| Imported by QuizMD via `!import` | ✅ |
-| Imported by FlashMD via `!import` | ✅ |
-| `!import` of other formats | ❌ — leaf format |
-| `!ref` of other formats | ❌ — leaf format |
-| Imported by TrackMD | ❌ — TrackMD orchestrates content formats, not leaf formats |
+| Referenced by LearnMD via `!ref` | ✅ |
+| Referenced by QuizMD via `!ref` | ✅ |
+| Referenced by FlashMD via `!ref` | ✅ |
+| Consumed via `!import` | ❌ — leaf format, consumed only via `!ref` |
+| `!import` or `!ref` of other formats | ❌ — leaf format |
+| Referenced by TrackMD | ❌ — TrackMD orchestrates content formats, not leaf formats |
 
 ## Validation
 
@@ -290,9 +318,14 @@ A `.diagram.md` file is imported via the standard `!import` directive. All block
 |---|---|
 | `lang` absent from frontmatter (standalone file) | Warning |
 | Unrecognised block type | Warning |
+| `id` missing on a block in a `.diagram.md` file | Error |
 | Duplicate `id` within the file | Error |
+| Duplicate `id` across all `.diagram.md` files `!ref`-ed by the same document | Error |
+| `diagram` block with `ref:slug` whose slug is not found in any `!ref`-ed file | Error |
+| `diagram` block with both `ref` and a non-empty body | Error |
+| `diagram` block with both `ref` and `id` | Error |
 | `alt` absent | Warning |
-| Empty diagram source | Error |
+| Empty diagram source (non-reference block) | Error |
 | `cursor` or `colors` on an `abc` block without `play` | Warning |
 
 ### Strict mode (`--strict`)
@@ -301,4 +334,4 @@ All warnings are promoted to errors.
 
 ## Relationship with LearnMD
 
-DiagramMD v0.1 absorbs and replaces the diagram block documentation previously present in LearnMD v0.3 (`mermaid`, `abc`). LearnMD v0.4 delegates to DiagramMD as the canonical syntax reference for diagram blocks, while continuing to support these blocks inline without requiring `!import`.
+DiagramMD v0.2 absorbs and replaces the diagram block documentation previously present in LearnMD v0.3 (`mermaid`, `abc`). LearnMD v0.4 delegates to DiagramMD as the canonical syntax reference for diagram blocks, consumes reusable named diagrams via `!ref`, and continues to support diagram blocks inline without any directive.
