@@ -61,7 +61,7 @@ spec_version: "0.3"
 
 ## Status
 
-QuizMD is stable. **v0.3** is drafting to align with the new LearnSpec suite — it requires the universal `lang` field, adds `!ref` for [MediaMD](/mediamd/) and [GlossaryMD](/glossarymd/) contexts, supports `media:slug` images with fallback URLs, and delegates diagram syntax to [DiagramMD](/diagrammd/).
+QuizMD is stable. **v0.3** is drafting to align with the new LearnSpec suite — it requires the universal `lang` field, adds `!ref` for [DiagramMD](/diagrammd/), [MediaMD](/mediamd/) and [GlossaryMD](/glossarymd/) contexts, supports `media:slug` images with fallback URLs and ` ```diagram ref:slug ` for granular diagram reuse, and delegates diagram syntax to [DiagramMD](/diagrammd/).
 
 ## Next steps
 

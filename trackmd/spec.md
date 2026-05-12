@@ -232,7 +232,7 @@ on_completion:
 | `!import ./file.learn.md` | ✅ |
 | `!import ./file.quiz.md` | ✅ |
 | `!import ./file.flash.md` | ✅ |
-| `!import ./file.diagram.md` | ❌ — standalone diagrams are embedded in content files |
+| `!import ./file.diagram.md` | ❌ — DiagramMD is a leaf format consumed via `!ref` in content files, not in tracks |
 | `!ref ./file.media.md` | ✅ |
 | `!ref ./file.glossary.md` | ✅ |
 | Imported by another format | ❌ — TrackMD is a root format |

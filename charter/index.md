@@ -23,7 +23,7 @@ LearnSpec is an open-source specification suite for creating, storing, and excha
 | **LearnMD** | `.learn.md` | Structured educational content | Stable v0.3, drafting v0.4 |
 | **QuizMD** | `.quiz.md` | Quizzes, assessments, questionnaires | Stable, drafting v0.3 |
 | **FlashMD** | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
-| **DiagramMD** | `.diagram.md` | Diagram syntax + reusable diagram blocks | Draft v0.1 |
+| **DiagramMD** | `.diagram.md` | Diagram syntax + reusable diagram blocks referenced via `!ref` | Draft v0.2 |
 | **MediaMD** | `.media.md` | Media catalogue with metadata and licences | Draft v0.1 |
 | **GlossaryMD** | `.glossary.md` | Term definitions for a corpus | Draft v0.1 |
 | **BadgeMD** | `.badge.md` | Micro-credentials tied to a module or quiz | Draft v0.1 |
