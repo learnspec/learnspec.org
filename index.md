@@ -52,7 +52,7 @@ LearnSpec is an **open specification suite** for educational content. Each forma
 | **[QuizMD](/quizmd/)** | `.quiz.md` | Quizzes and assessments | Stable — evolving to v0.3 |
 | **[TrackMD](/trackmd/)** | `.track.md` | Sequenced learning paths | Drafting v0.1 |
 | **[FlashMD](/flashmd/)** | `.flash.md` | Flashcards and spaced repetition | Drafting v0.1 |
-| **[DiagramMD](/diagrammd/)** | `.diagram.md` | Diagram syntax + reusable diagrams | Drafting v0.1 |
+| **[DiagramMD](/diagrammd/)** | `.diagram.md` | Diagram syntax + reusable diagrams referenced via `!ref` | Drafting v0.2 |
 | **[MediaMD](/mediamd/)** | `.media.md` | Media catalogue with licences | Drafting v0.1 |
 | **[GlossaryMD](/glossarymd/)** | `.glossary.md` | Term definitions for a corpus | Drafting v0.1 |
 | **[BadgeMD](/badgemd/)** | `.badge.md` | Micro-credentials (Open Badges 3.0) | Drafting v0.1 |
