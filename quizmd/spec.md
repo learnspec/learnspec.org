@@ -37,9 +37,10 @@ QuizMD inherits its frontmatter, directives, and validation rules from the share
 | `---` | Question separator (optional when `##` is used) |
 | `> text` | Feedback / explanation (shown after submission) |
 | `!import ./file.quiz.md` | Include questions from a sub-quiz file |
-| `!import ./file.diagram.md` | Include DiagramMD diagram blocks in a question body |
+| `!ref ./file.diagram.md` | Declare a DiagramMD context (enables ` ```diagram ref:slug ` resolution) |
 | `!ref ./file.media.md` | Declare a MediaMD context (enables `media:slug` resolution) |
 | `!ref ./file.glossary.md` | Declare a GlossaryMD context (enables term highlighting) |
+| ` ```diagram ref:slug ` | Render a named diagram from a `!ref`-ed DiagramMD file |
 | `$...$` | Inline LaTeX math formula |
 | `$$...$$` | Block (display) LaTeX math formula |
 | `![alt](media:slug "fallback-url")` | Image via MediaMD with fallback |
@@ -187,7 +188,12 @@ A question body may contain diagram blocks using **DiagramMD Level 0** fenced bl
 - [ ] Series LC circuit
 ````
 
-For diagrams reused across multiple questions, use `!import ./file.diagram.md`.
+For diagrams reused across multiple questions, gather them in a `.diagram.md` catalogue declared via `!ref ./file.diagram.md` and reference each one inline with:
+
+````markdown
+```diagram ref:rc-circuit
+```
+````
 
 ### Images via MediaMD
 
@@ -223,11 +229,10 @@ QuizMD supports four levels of feedback, freely combinable within a single quest
 
 ## The `!import` directive
 
-Includes questions from another `.quiz.md` file or diagrams from a `.diagram.md` file.
+Includes questions from another `.quiz.md` file.
 
 ```markdown
 !import ./sub-quiz.quiz.md
-!import ./diagrams-physics.diagram.md
 ```
 
 - Questions from the sub-quiz are inserted at the position of the directive.
@@ -235,6 +240,8 @@ Includes questions from another `.quiz.md` file or diagrams from a `.diagram.md`
 - The frontmatter of the sub-quiz is ignored.
 - Imports are recursive — circular imports are silently skipped.
 - Missing files are ignored without error (warning in lenient mode).
+
+DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf catalogues declared with `!ref ./file.diagram.md` and addressed by slug via ` ```diagram ref:slug ` blocks.
 
 ## Reveal and feedback modes
 
@@ -383,7 +390,8 @@ When `partial_scoring: true` (default), **match** and **order** questions award 
 | Incorrect-only feedback | `> [!incorrect] text` | 0 |
 | General feedback | `> text` | 0 |
 | Sub-quiz import | `!import ./file.quiz.md` | 0 |
-| Diagram import | `!import ./file.diagram.md` | 0 |
+| Declare DiagramMD | `!ref ./file.diagram.md` | 0 |
+| Diagram reference | ` ```diagram ref:slug ` | 0 |
 | Declare MediaMD | `!ref ./file.media.md` | 0 |
 | Declare GlossaryMD | `!ref ./file.glossary.md` | 0 |
 | Inline math | `$formula$` | 0 |
@@ -428,8 +436,8 @@ When `partial_scoring: true` (default), **match** and **order** questions award 
 | `lang` | Promoted from "not required" to **required** — alignment with LearnSpec charter |
 | `title` | Demoted from "required" to **optional** — inferred from the first `# H1` |
 | Frontmatter | Added `created`, `updated`, `license` (universal LearnSpec fields) |
-| `!import` | Added `.diagram.md` support |
-| `!ref` | New directive — declares MediaMD and GlossaryMD contexts |
+| `!ref` | New directive — declares DiagramMD, MediaMD and GlossaryMD contexts |
+| Diagram reference | New ` ```diagram ref:slug ` block — resolves a named diagram from a `!ref`-ed DiagramMD |
 | Images | New `media:slug` syntax via MediaMD in question bodies |
 | Diagrams | Explicit support for DiagramMD Level 0 blocks in question bodies |
 | ABC | Section removed — delegates to DiagramMD spec |
