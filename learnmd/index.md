@@ -68,7 +68,7 @@ name = "Alice"
 
 ## Status
 
-LearnMD v0.3 is stable. **v0.4** is drafting to align with the new LearnSpec suite — it extracts diagram syntax to [DiagramMD](/diagrammd/), media catalogues to [MediaMD](/mediamd/), and term definitions to [GlossaryMD](/glossarymd/), and adds the universal `!ref` and `!checkpoint` directives.
+LearnMD v0.3 is stable. **v0.4** is drafting to align with the new LearnSpec suite — it extracts diagram syntax to [DiagramMD](/diagrammd/), media catalogues to [MediaMD](/mediamd/), and term definitions to [GlossaryMD](/glossarymd/), adds the universal `!ref` directive (for DiagramMD, MediaMD and GlossaryMD contexts) along with `!checkpoint`, and introduces ` ```diagram ref:slug ` for granular reuse of named diagrams.
 
 ## Next steps
 

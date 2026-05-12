@@ -12,7 +12,7 @@ Each format is independent, each is valid Markdown, and each composes with the o
 | [QuizMD](/quizmd/) | `.quiz.md` | Quizzes and assessments | Stable — v0.3 drafting |
 | [TrackMD](/trackmd/) | `.track.md` | Sequenced learning paths | Draft v0.1 |
 | [FlashMD](/flashmd/) | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
-| [DiagramMD](/diagrammd/) | `.diagram.md` | Diagram syntax + reusable diagrams | Draft v0.1 |
+| [DiagramMD](/diagrammd/) | `.diagram.md` | Diagram syntax + reusable diagrams referenced via `!ref` | Draft v0.2 |
 | [MediaMD](/mediamd/) | `.media.md` | Media catalogue with licences | Draft v0.1 |
 | [GlossaryMD](/glossarymd/) | `.glossary.md` | Term definitions | Draft v0.1 |
 | [BadgeMD](/badgemd/) | `.badge.md` | Micro-credentials | Draft v0.1 |
@@ -87,7 +87,7 @@ TrackMD is the only format that can `!import` all content types. A Level 0 `.tra
 
 ### DiagramMD {#diagrammd}
 
-**Role:** dual-purpose. It is both the **canonical syntax specification** for diagram blocks across the entire suite (`mermaid`, `abc`, `chess`, `vega`, `d3`, `smiles`, …) and a **standalone file format** for reusable diagrams importable from any content format.
+**Role:** dual-purpose. It is both the **canonical syntax specification** for diagram blocks across the entire suite (`mermaid`, `abc`, `chess`, `vega`, `d3`, `smiles`, …) and a **standalone file format** for reusable named diagrams referenced by slug via `!ref` from any content format.
 
 Other specs (LearnMD, QuizMD, FlashMD) delegate diagram documentation to DiagramMD — a diagram block valid in DiagramMD is valid everywhere in the suite. Rendering implementation is left to players.
 
