@@ -23,9 +23,11 @@ LearnSpec is an open-source specification suite for creating, storing, and excha
 | **LearnMD** | `.learn.md` | Structured educational content | Stable v0.3, drafting v0.4 |
 | **QuizMD** | `.quiz.md` | Quizzes, assessments, questionnaires | Stable, drafting v0.3 |
 | **FlashMD** | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
+| **NuggetMD** | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.1 |
 | **DiagramMD** | `.diagram.md` | Diagram syntax + reusable diagram blocks referenced via `!ref` | Draft v0.2 |
 | **MediaMD** | `.media.md` | Media catalogue with metadata and licences | Draft v0.1 |
 | **GlossaryMD** | `.glossary.md` | Term definitions for a corpus | Draft v0.1 |
+| **CurriculumMD** | `.curriculum.md` | Reference frameworks and syllabi | Draft v0.1 |
 | **BadgeMD** | `.badge.md` | Micro-credentials tied to a module or quiz | Draft v0.1 |
 | **CertMD** | `.cert.md` | Macro-credentials tied to a learning track | Draft v0.1 |
 
@@ -123,10 +125,12 @@ license: CC-BY-4.0                # optional — SPDX identifier
 | LearnMD | `{slug}.learn.md` |
 | QuizMD | `{slug}.quiz.md` |
 | FlashMD | `{slug}.flash.md` |
+| NuggetMD | `{slug}.nugget.md` |
 | DiagramMD | `{slug}.diagram.md` |
 | MediaMD | `{slug}.media.md` |
 | TrackMD | `{slug}.track.md` |
 | GlossaryMD | `{slug}.glossary.md` |
+| CurriculumMD | `{slug}.curriculum.md` |
 | BadgeMD | `{slug}.badge.md` |
 | CertMD | `{slug}.cert.md` |
 
@@ -186,17 +190,19 @@ Marks a named progress point. Available in LearnMD and TrackMD.
 
 | Source format | Can import (`!import`) | Can reference (`!ref`) |
 |---|---|---|
-| **TrackMD** | LearnMD, QuizMD, FlashMD | MediaMD, GlossaryMD |
-| **LearnMD** | LearnMD, QuizMD, DiagramMD | MediaMD, GlossaryMD |
-| **QuizMD** | DiagramMD | MediaMD, GlossaryMD |
-| **FlashMD** | DiagramMD | MediaMD, GlossaryMD |
+| **TrackMD** | LearnMD, QuizMD, FlashMD, NuggetMD | MediaMD, GlossaryMD, CurriculumMD |
+| **LearnMD** | LearnMD, QuizMD, NuggetMD, DiagramMD | MediaMD, GlossaryMD, CurriculumMD |
+| **QuizMD** | DiagramMD | MediaMD, GlossaryMD, CurriculumMD |
+| **FlashMD** | DiagramMD | MediaMD, GlossaryMD, CurriculumMD |
+| **NuggetMD** | — | MediaMD, GlossaryMD, CurriculumMD |
 | **DiagramMD** | — | — |
 | **GlossaryMD** | — | — |
 | **MediaMD** | — | — |
+| **CurriculumMD** | — | — |
 | **BadgeMD** | — | — |
 | **CertMD** | — | — |
 
-DiagramMD, GlossaryMD, MediaMD, BadgeMD and CertMD are **pure leaf formats**: zero dependencies, always consumed, never producers. TrackMD does not import DiagramMD directly — standalone diagrams are embedded in the content formats (LearnMD, QuizMD, FlashMD) it orchestrates.
+DiagramMD, GlossaryMD, MediaMD, CurriculumMD, BadgeMD and CertMD are **pure leaf formats**: zero dependencies, always consumed, never producers. NuggetMD is a content format — it is imported by TrackMD and LearnMD, and may `!ref` leaf formats, but imports nothing itself. TrackMD does not import DiagramMD directly — standalone diagrams are embedded in the content formats (LearnMD, QuizMD, FlashMD, NuggetMD) it orchestrates.
 
 ### Media resolution
 
