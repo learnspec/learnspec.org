@@ -44,7 +44,7 @@ features:
 
 LearnSpec is an **open specification suite** for educational content. Each format is plain Markdown, each lives in flat files, and each composes with the others through a small set of shared mechanisms.
 
-### The 9 formats
+### The 11 formats
 
 | Format | Extension | Role | Status |
 |---|---|---|---|
@@ -52,9 +52,11 @@ LearnSpec is an **open specification suite** for educational content. Each forma
 | **[QuizMD](/quizmd/)** | `.quiz.md` | Quizzes and assessments | Stable — evolving to v0.3 |
 | **[TrackMD](/trackmd/)** | `.track.md` | Sequenced learning paths | Drafting v0.1 |
 | **[FlashMD](/flashmd/)** | `.flash.md` | Flashcards and spaced repetition | Drafting v0.1 |
+| **[NuggetMD](/nuggetmd/)** | `.nugget.md` | Micro-learning concepts for spaced repetition | Drafting v0.1 |
 | **[DiagramMD](/diagrammd/)** | `.diagram.md` | Diagram syntax + reusable diagrams referenced via `!ref` | Drafting v0.2 |
 | **[MediaMD](/mediamd/)** | `.media.md` | Media catalogue with licences | Drafting v0.1 |
 | **[GlossaryMD](/glossarymd/)** | `.glossary.md` | Term definitions for a corpus | Drafting v0.1 |
+| **[CurriculumMD](/curriculummd/)** | `.curriculum.md` | Reference frameworks and syllabi | Drafting v0.1 |
 | **[BadgeMD](/badgemd/)** | `.badge.md` | Micro-credentials (Open Badges 3.0) | Drafting v0.1 |
 | **[CertMD](/certmd/)** | `.cert.md` | Macro-credentials | Drafting v0.1 |
 
@@ -72,7 +74,8 @@ A learning corpus typically combines several formats:
 
 - A **TrackMD** sequences a path through several **LearnMD** lessons and **QuizMD** checkpoints.
 - The lessons embed diagrams defined in **DiagramMD**, images catalogued in **MediaMD**, and highlight terms from a **GlossaryMD**.
-- A **FlashMD** deck supports spaced-repetition review of the same material.
+- A **FlashMD** deck or a **NuggetMD** collection supports spaced-repetition review of the same material.
+- The corpus declares alignment with a **CurriculumMD** reference framework, so coverage can be checked against an official syllabus.
 - Completion may award a **BadgeMD** (per skill) or a **CertMD** (per track).
 
 All references are resolved through three directives — `!import`, `!ref`, `!checkpoint` — defined once in the charter and used identically across the suite.
