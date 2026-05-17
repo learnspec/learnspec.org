@@ -148,12 +148,12 @@ license: CC-BY-4.0                                # optional — SPDX or "custom
 
 ## Level 2 — Inline per-objective attributes
 
-Optional attributes can be added at the start of each objective, in square brackets, to allow more precise machine-readable alignment.
+Optional attributes can be appended at the end of each objective, in curly braces, to allow more precise machine-readable alignment. The objective text comes first; the attribute group trails it.
 
 ```markdown
-- [id:1.1.3 bloom:apply weight:2] Compute the derivative of a composite function
-- [id:1.1.4 bloom:analyze weight:3 mandatory:true] Study the monotonicity of a sequence
-- [id:2.1.1 bloom:understand] Represent a complex number in the plane
+- Compute the derivative of a composite function {id:1.1.3 bloom:apply weight:2}
+- Study the monotonicity of a sequence {id:1.1.4 bloom:analyze weight:3 mandatory:true}
+- Represent a complex number in the plane {id:2.1.1 bloom:understand}
 ```
 
 ### Attribute reference
@@ -167,7 +167,12 @@ Optional attributes can be added at the start of each objective, in square brack
 
 ### Graceful degradation of attributes
 
-In a standard Markdown reader, the syntax `[id:1.1.3 bloom:apply]` is displayed as plain text at the start of the item — readable, non-interactive. A CurriculumMD parser extracts and ignores these attributes during display, or renders them as discreet badges.
+The attributes are appended at the **end** of the objective and wrapped in **curly braces** — two deliberate choices for graceful degradation:
+
+- **End position** — a standard Markdown reader shows the human-readable objective first; the `{id:1.1.3 bloom:apply}` group trails as a discreet, non-interactive label rather than a prefix of noise. The file degrades to *less rich*, never to *noisier*.
+- **Curly braces** — `{…}` has no inline meaning in CommonMark, so it never produces a broken render or a link-checker false positive (unlike `[…]`, which collides with link-reference syntax, and `- [ ]` / `- [x]`, which collide with task-list syntax). It also matches the attribute-block convention of Pandoc, kramdown and markdown-it-attrs, so an attribute-aware reader can consume the group cleanly instead of merely displaying it.
+
+A CurriculumMD parser extracts and removes these attributes during display, or renders them as discreet badges.
 
 ## Full example
 
@@ -196,43 +201,43 @@ spec_version: "0.1"
 
 ### 1.1 Introduction to Python
 
-- [id:1.1.1 bloom:remember mandatory:true] Know the characteristics of the Python language
-- [id:1.1.2 bloom:understand mandatory:true] Distinguish the scalar data types: `int`, `float`, `str`, `bool`
-- [id:1.1.3 bloom:apply mandatory:true weight:2] Write and run a simple Python program
-- [id:1.1.4 bloom:understand] Understand the notion of interpreter and runtime environment
+- Know the characteristics of the Python language {id:1.1.1 bloom:remember mandatory:true}
+- Distinguish the scalar data types: `int`, `float`, `str`, `bool` {id:1.1.2 bloom:understand mandatory:true}
+- Write and run a simple Python program {id:1.1.3 bloom:apply mandatory:true weight:2}
+- Understand the notion of interpreter and runtime environment {id:1.1.4 bloom:understand}
 
 ### 1.2 Variables and operators
 
-- [id:1.2.1 bloom:apply mandatory:true weight:2] Declare and initialize variables
-- [id:1.2.2 bloom:apply mandatory:true] Use arithmetic, comparison and logical operators
-- [id:1.2.3 bloom:analyze weight:2] Identify common typing errors
+- Declare and initialize variables {id:1.2.1 bloom:apply mandatory:true weight:2}
+- Use arithmetic, comparison and logical operators {id:1.2.2 bloom:apply mandatory:true}
+- Identify common typing errors {id:1.2.3 bloom:analyze weight:2}
 
 ## Domain 2 — Control structures
 
 ### 2.1 Conditionals
 
-- [id:2.1.1 bloom:apply mandatory:true weight:3] Write `if`, `elif`, `else` conditional statements
-- [id:2.1.2 bloom:analyze weight:2] Evaluate nested boolean expressions
-- [id:2.1.3 bloom:apply] Use the ternary conditional expression
+- Write `if`, `elif`, `else` conditional statements {id:2.1.1 bloom:apply mandatory:true weight:3}
+- Evaluate nested boolean expressions {id:2.1.2 bloom:analyze weight:2}
+- Use the ternary conditional expression {id:2.1.3 bloom:apply}
 
 ### 2.2 Loops
 
-- [id:2.2.1 bloom:apply mandatory:true weight:3] Write `for` and `while` loops
-- [id:2.2.2 bloom:apply mandatory:true weight:2] Use `break`, `continue` and `range()`
-- [id:2.2.3 bloom:analyze weight:2] Identify infinite loops and exit conditions
+- Write `for` and `while` loops {id:2.2.1 bloom:apply mandatory:true weight:3}
+- Use `break`, `continue` and `range()` {id:2.2.2 bloom:apply mandatory:true weight:2}
+- Identify infinite loops and exit conditions {id:2.2.3 bloom:analyze weight:2}
 
 ## Domain 3 — Data structures
 
 ### 3.1 Lists
 
-- [id:3.1.1 bloom:apply mandatory:true weight:3] Create, index and slice lists
-- [id:3.1.2 bloom:apply mandatory:true weight:2] Use the main methods: `append`, `insert`, `remove`, `sort`
-- [id:3.1.3 bloom:analyze weight:2] Distinguish lists, tuples and sets
+- Create, index and slice lists {id:3.1.1 bloom:apply mandatory:true weight:3}
+- Use the main methods: `append`, `insert`, `remove`, `sort` {id:3.1.2 bloom:apply mandatory:true weight:2}
+- Distinguish lists, tuples and sets {id:3.1.3 bloom:analyze weight:2}
 
 ### 3.2 Dictionaries
 
-- [id:3.2.1 bloom:apply mandatory:true weight:3] Create and manipulate dictionaries
-- [id:3.2.2 bloom:apply weight:2] Iterate over the keys, values and pairs of a dictionary
+- Create and manipulate dictionaries {id:3.2.1 bloom:apply mandatory:true weight:3}
+- Iterate over the keys, values and pairs of a dictionary {id:3.2.2 bloom:apply weight:2}
 ````
 
 ## Referencing from other formats
@@ -284,8 +289,8 @@ When an AI performs an alignment check, it can produce a structured report such 
 Overall coverage: 74% (41/56 objectives)
 Mandatory objectives: 89% (24/27)
 Missing objectives (mandatory):
-  - [id:1.2.3] Identify common typing errors
-  - [id:3.2.2] Iterate over the keys, values and pairs
+  - Identify common typing errors {id:1.2.3}
+  - Iterate over the keys, values and pairs {id:3.2.2}
 By domain:
   - Domain 1: 100% ✓
   - Domain 2: 83%
