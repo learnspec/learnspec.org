@@ -90,6 +90,8 @@ The syllabus corresponds to the whole file. Domains, units and objectives are ex
 ---
 title: "General Baccalaureate — Mathematics"      # optional — inferred from # H1
 lang: en                                          # REQUIRED — BCP-47 code
+description: "Official French Baccalaureate syllabus for Mathematics in Final Year: analysis, algebra, geometry, and probability."
+                                                  # optional — short summary for catalogues and alignment tools
 spec_version: "0.1"                               # optional
 institution: "French Ministry of Education"       # optional — issuing body
 country: FR                                       # optional — ISO 3166-1 alpha-2 code
@@ -113,6 +115,7 @@ license: CC-BY-4.0                                # optional — SPDX or "custom
 | Field | Required | Description |
 |---|---|---|
 | `lang` | **Yes** | BCP-47 code (`fr`, `en`, `en-US`…) |
+| `description` | No | Short plain-text summary (typically 1–3 sentences) — what the syllabus covers, for catalogues, alignment tools, and link previews. Distinct from the structured `level` / `domain` / `version` fields. |
 | `tags` | No | Thematic tags |
 | `created` | No | ISO 8601 creation date |
 | `updated` | No | ISO 8601 update date |
@@ -180,6 +183,7 @@ A CurriculumMD parser extracts and removes these attributes during display, or r
 ---
 title: "Python — Certified Entry-Level Programmer (PCEP)"
 lang: en
+description: "Official syllabus of the Python Institute's entry-level certification (PCEP): fundamentals, control flow, data collections, functions, and exception handling."
 institution: Python Institute
 country: PL
 level: Entry

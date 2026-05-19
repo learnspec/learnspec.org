@@ -77,6 +77,8 @@ TrackMD does not directly import leaf formats (DiagramMD, MediaMD, GlossaryMD) �
 ---
 title: "Learning Python"
 lang: en                                       # REQUIRED — BCP-47 code
+description: "A complete beginner's path to Python: variables, control flow, data structures, functions, and a final project."
+                                               # optional — short summary for catalogues and previews
 estimated_time: 10h
 level: beginner                                # beginner | intermediate | advanced
 target_audience: "Beginners with no programming experience"
@@ -105,6 +107,7 @@ on_completion:
 |---|---|---|
 | `title` | No | Track title — inferred from `# H1` if absent |
 | `lang` | **Yes** | BCP-47 code (`en`, `fr`, `en-US`…) |
+| `description` | No | Short plain-text summary (typically 1–3 sentences) — used for catalogues, link previews, and `<meta name="description">`. Distinct from `title` and from `target_audience` (which describes *who* the track is for, not *what* it covers). |
 | `tags` | No | Thematic tags |
 | `author` | No | Track author |
 | `created` | No | Creation date, ISO 8601 |
