@@ -35,6 +35,7 @@ Each level is a strict superset of the previous one.
 ---
 title: Introduction to Python
 lang: en
+description: "Variables, assignment, and basic types — a first contact with Python for absolute beginners."
 estimated_time: 15min
 tags: [python, variables]
 spec_version: "0.4"
