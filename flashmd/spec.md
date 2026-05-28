@@ -1,6 +1,6 @@
-# FlashMD — Format Specification v0.1
+# FlashMD — Format Specification v0.2
 
-> Part of the [LearnSpec](/) suite. Draft.
+> Part of the [LearnSpec](/) suite. Draft based on v0.1.
 
 ## Core principle
 
@@ -26,7 +26,7 @@ FlashMD inherits its frontmatter and validation rules from the shared [Architect
 |---|---|---|
 | 0 | ` ```flash ` fenced block with front/back | Minimal cards, readable everywhere |
 | 1 | YAML frontmatter | File metadata, language, spaced repetition settings |
-| 2 | Per-card fields, MediaMD references | Per-card tags, images |
+| 2 | Per-card fields, MediaMD references, front variants | Per-card tags, images, alternative phrasings |
 
 ## Level 0 — Basic syntax
 
@@ -81,7 +81,7 @@ In a standard Markdown reader (GitHub, Obsidian, VS Code), each card renders as 
 ---
 title: "Cell biology — flashcards"    # optional — inferred from first # H1
 lang: en                               # REQUIRED — BCP-47 code
-spec_version: "0.1"                    # optional
+spec_version: "0.2"                    # optional
 author: Jane Smith                     # optional
 tags: [biology, cell, high-school]     # optional — file-level tags
 new_per_day: 20                        # optional — new cards per day (player default)
@@ -110,6 +110,47 @@ Optional attributes may be added on the opening line of the block, after the `id
 | `id` | **Required** | string | Unique identifier within the file |
 | `tags` | Optional | string[] | Card-specific tags. Added to the file-level tags from frontmatter |
 | `hint` | Optional | string | Hint displayed on demand before flipping the card |
+
+## Front variants (Level 2)
+
+A single card may declare **multiple front phrasings** sharing the same back. The player picks one at presentation time.
+
+### Rationale
+
+In classical spaced-repetition, learners end up recognising the *surface form* of a card rather than recalling the underlying concept (cue-dependency). Front variants break that surface memorisation: the concept is constant, the prompt is not. The spaced-repetition scheduler still operates on a **single entry per `id`** — variants are alternative presentations of the same mnemonic object, not separate cards.
+
+### Syntax
+
+Front variants are separated by a line of **three or more equal signs** (`={3,}`) on its own line. The front/back separator (`---`) remains unique and marks the boundary between the last variant and the shared back.
+
+````
+```flash id:photosynthesis
+What is photosynthesis?
+===
+How do plants convert sunlight into chemical energy?
+===
+Define photosynthesis.
+---
+The process by which plants convert sunlight into chemical energy, using $CO_2$ and $H_2O$.
+```
+````
+
+- A card may declare **1 or more** front variants (a card with no `===` is a single-variant card — fully backwards-compatible with v0.1).
+- Each variant supports the same inline Markdown and LaTeX as a regular front.
+- Each variant may be multi-line.
+- All variants share the **same back**, the same `id`, the same `tags`, the same `hint`, and the same scheduling state.
+
+### Player behaviour
+
+| Aspect | Specification |
+|---|---|
+| Selection | The player SHOULD rotate through variants to ensure coverage (e.g. round-robin with per-user memory of seen variants) rather than picking purely at random. |
+| Rating | Ratings are recorded against the card `id`, not the variant. Variant-induced noise in ratings is treated as desirable difficulty. |
+| Hint | The `hint` attribute, if present, applies to all variants. |
+
+### Graceful degradation
+
+In a standard Markdown reader, a line of `===` under a text line renders as a setext H1 heading. The variants remain readable in plain order; the visual artefact is acceptable for fallback rendering.
 
 ## Images in cards
 
@@ -153,6 +194,9 @@ The `!ref` directive is placed at the top of the file, before the `flash` blocks
 | Empty front | Error |
 | Empty back | Error |
 | `media:slug` without a matching `!ref` | Warning |
+| Empty front variant (between two `===` or between `===` and `---`) | Error |
+| Duplicate front variants within a card (after Markdown normalisation) | Warning |
+| `===` appearing after the `---` separator | Error |
 
 ### Strict mode (`--strict`)
 
