@@ -46,7 +46,7 @@ What are the 4 phases of mitosis?
 
 ## Status
 
-FlashMD is a **draft v0.1**.
+FlashMD is a **draft v0.2** — adds front variants (multiple phrasings per card) to counter cue-dependency in spaced-repetition review.
 
 ## Next steps
 
