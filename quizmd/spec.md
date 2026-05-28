@@ -238,7 +238,7 @@ Includes questions from another `.quiz.md` file.
 - Questions from the sub-quiz are inserted at the position of the directive.
 - Questions are renumbered sequentially across the full assembled quiz.
 - The frontmatter of the sub-quiz is ignored.
-- Imports are recursive — circular imports are silently skipped.
+- **Nested imports are not supported.** `!import` directives are only honoured when they appear in the **entry file** of a quiz (or in the entry `.learn.md` of a course that embeds this quiz). An `!import` line inside a file that is itself imported is **inert** — renderers and authoring tools must ignore it. Authors must lift every `!import` to the entry file. Circular imports cannot occur because nesting is forbidden.
 - Missing files are ignored without error (warning in lenient mode).
 
 DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf catalogues declared with `!ref ./file.diagram.md` and addressed by slug via ` ```diagram ref:slug ` blocks.
@@ -279,7 +279,7 @@ DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf
 | `description` | string | No | — | Short description |
 | `author` | string or object | No | — | Author name, or `{name, email, url}` |
 | `tags` | string[] | No | `[]` | Thematic tags |
-| `domain` | enum | No | — | `recreational`, `academic`, `corporate`, `certification` |
+| `kind` | enum | No | — | `recreational`, `academic`, `corporate`, `certification` |
 | `reveal` | enum | No | `all` | `all` or `sequential` |
 | `feedback_mode` | enum | No | `immediate` | `immediate` or `deferred` |
 | `shuffle_questions` | bool | No | `false` | Randomise question order |
@@ -299,7 +299,7 @@ DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf
 ---
 title: Physics — Geometric Optics
 lang: en
-domain: academic
+kind: academic
 passing_score: 0.6
 reveal: sequential
 feedback_mode: deferred
@@ -442,3 +442,5 @@ When `partial_scoring: true` (default), **match** and **order** questions award 
 | Diagrams | Explicit support for DiagramMD Level 0 blocks in question bodies |
 | ABC | Section removed — delegates to DiagramMD spec |
 | Principles | Added "LearnSpec-interoperable" |
+| Frontmatter | `domain` renamed to `kind` (avoids conflict with email-style `domain` meaning) |
+| `!import` | Nested imports forbidden — `!import` directives in imported files are inert; authors must lift every import to the entry file |
