@@ -276,6 +276,29 @@ A DiagramMD file is declared via the `!ref` directive at the top of the consumin
 
 Multiple `!ref` directives may coexist in the same document. The slugs from all referenced files share the same namespace — `id` values must therefore be unique across all DiagramMD files referenced in a given document.
 
+### Default-reference convention — `stock.diagram.md`
+
+A collection MAY ship a single canonical diagram catalogue at its root named **`stock.diagram.md`**. When such a file exists, every other file in the same collection **implicitly references it** — no explicit `!ref ./stock.diagram.md` (nor `!ref ../../stock.diagram.md` from a sub-directory) is required for `diagram ref:slug` lookups to resolve.
+
+```
+my-collection/
+├── stock.diagram.md        ← implicitly referenced by every file below
+├── index.track.md
+└── lessons/
+    └── chapter-1/
+        ├── intro.learn.md  ← `diagram ref:slug` resolves against /stock.diagram.md
+        └── quiz.quiz.md    ← same
+```
+
+A LearnSpec player MUST resolve `diagram ref:slug` by searching, in order:
+
+1. The explicit `!ref` declarations of the consuming file, in declaration order.
+2. The collection's `stock.diagram.md` if present at the collection root.
+
+Lookups stop at the first match. If `id` values overlap between an explicit `!ref` and the implicit `stock.diagram.md`, the explicit `!ref` wins (allowing local override). Reserve explicit `!ref` for *additional* DiagramMD catalogues (shared commons, external libraries).
+
+This convention is **opt-in by file naming**: any name other than `stock.diagram.md` at the collection root behaves like a regular DiagramMD file and must still be declared with `!ref` to participate in slug resolution.
+
 ### Slug references
 
 Once a `.diagram.md` is declared via `!ref`, its diagrams are referenceable inline through a `diagram` fenced block with a `ref` attribute:
