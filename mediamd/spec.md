@@ -239,7 +239,35 @@ A LearnSpec player may automatically display the caption, attribution, and licen
 | Image line without a following `media` block | Warning |
 | Image line `id` matching no `media` block | Warning |
 | `id` conflict across multiple MediaMD files referenced in the same document | Warning |
+| `media:slug` reference with no matching `id` in any explicit `!ref` *and* no `stock.media.md` at the collection root | Warning |
+| `media:slug` reference resolved via the implicit `stock.media.md` (no explicit `!ref`) | Info / no diagnostic |
 
 ### Strict mode (`--strict`)
 
 All warnings are promoted to errors.
+
+## Migration from the proto format
+
+The proto format uses multi-document YAML (`---...---...`). Migration to MediaMD v0.1 follows this mapping:
+
+| Proto field | MediaMD v0.1 field | Notes |
+|---|---|---|
+| *(absent)* | `id` | **To add** — unique slug per entry |
+| `type: image` | *(removed)* | Implicit in the `media` fenced block |
+| `source` | `source` | Unchanged |
+| `image_url` | `image_url` | Unchanged |
+| `thumb_url` | `thumb_url` | Unchanged + Markdown image line to add |
+| `title` | `title` | Unchanged |
+| *(absent)* | `alt` | **To add** |
+| `description` | `description` | Unchanged |
+| `license_id` | `license` + `spdx` | `license_id` → `license` (free-form); normalise to `spdx` |
+| `license_short` | *(removed)* | Redundant with `spdx` |
+| `license_url` | `license_url` | Unchanged |
+| `author` | `author` | Unchanged |
+| `author_url` | `author_url` | Unchanged |
+| `origin_url` | `origin_url` | Unchanged |
+| `source_url` | `context_url` | Renamed |
+| `file_title` | `source_filename` | Renamed, optional |
+| `width` | `width` | Unchanged |
+| `height` | `height` | Unchanged |
+| `mime` | `mime` | Unchanged |
