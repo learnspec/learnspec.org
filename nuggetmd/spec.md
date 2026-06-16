@@ -1,4 +1,4 @@
-# NuggetMD — Format Specification v0.1
+# NuggetMD — Format Specification v0.2
 
 > Part of the [LearnSpec](/) suite. Draft.
 
@@ -96,6 +96,7 @@ title: "Python Best Practices"          # optional — inferred from # H1
 lang: en                                 # REQUIRED — BCP-47 code
 tags: [python, best-practices]           # optional — file-level tags
 spaced_repetition: fsrs                  # optional — fsrs | sm2 | false (default: false)
+lesson: ./03-iteration.learn.md          # optional — default source lesson (v0.2)
 author: Jane Smith                       # optional
 created: 2026-05-10                      # optional — ISO 8601
 updated: 2026-05-10                      # optional — ISO 8601
@@ -131,6 +132,42 @@ In a standard Markdown reader, the empty fenced block renders as a small empty c
 | `level` | Optional | enum | `beginner`, `intermediate`, `advanced`. Overrides file-level default. |
 | `spaced_repetition` | Optional | enum | Per-nugget override: `fsrs`, `sm2`, or `false`. Overrides file-level setting. |
 | `related` | Optional | string[] | Slugs of related nuggets within the same file or other `.nugget.md` files. Informational only — no import dependency. The player may surface these as "next nugget" suggestions. |
+| `lesson` | Optional | string | Reference to the lesson that explains this nugget (v0.2). See [Lesson references](#lesson-references-level-1). |
+
+### Lesson references (Level 1)
+
+A nugget may point back to the **lesson that develops it**, so a learner can jump from a micro-concept to the full course. Unlike `related` (nugget→nugget, informational), `lesson` is a **navigation reference** to a [LearnMD](/learnmd/) section. It uses **hyperlink-style resolution** — the same mental model as an HTML or Markdown link — combining a file-level default with per-nugget overrides:
+
+| `lesson` value | Resolves to | Like an HTML link… |
+|---|---|---|
+| *(absent)* | The file-level default lesson, at its top. | implicit link |
+| `#section-anchor` | The **file default lesson**, at that section. | `<a href="#frag">` |
+| `./other.learn.md` | **Another lesson**, at its top. | `<a href="page.html">` |
+| `./other.learn.md#anchor` | Another lesson, at that section. | `<a href="page.html#frag">` |
+
+The value is a relative path to a `.learn.md` file, optionally suffixed with `#<anchor>`. The anchor resolves against a LearnMD heading slug or an explicit `!checkpoint` id. The value carries its own path, so no `!ref` declaration is required.
+
+````markdown
+---
+title: "Iteration in Python"
+lang: en
+lesson: ./03-iteration.learn.md   # default for every nugget in the file
+---
+
+# Iteration in Python
+
+## Prefer enumerate() over range(len())
+
+```nugget id:enumerate tags:[iteration] lesson:#the-enumerate-builtin
+```
+
+### Concept
+...
+````
+
+The nugget above links to the `the-enumerate-builtin` section of the default lesson; a nugget with no `lesson` links to the lesson's top, and `lesson:./other.learn.md#x` overrides the target entirely.
+
+**Player behaviour.** The player should surface the reference as a "back to the lesson" link (typically after the `### Check`), open the target within its track context when one exists (falling back to the standalone lesson view), and — if it navigates in place — make returning to the review session obvious. The `#anchor` should resolve to a stable identifier (`!checkpoint` id or explicit heading anchor) before falling back to the heading slug.
 
 ## Level 2 — Recall question
 
@@ -321,6 +358,7 @@ FlashMD and NuggetMD feed **separate FSRS queues** — never mixed:
 | `!ref ./curriculum.curriculum.md` | ✅ — declares curriculum alignment |
 | `!ref ./glossary.glossary.md` | ✅ — enables term highlighting |
 | `!ref ./media.media.md` | ✅ — enables `media:slug` resolution |
+| `lesson:` reference to a `.learn.md` section | ✅ — navigation only; resolves a path, declares no dependency (v0.2) |
 | `!import` of other formats | ❌ — leaf format |
 | FSRS (player-managed, per nugget) | ✅ when `spaced_repetition` is set |
 
@@ -351,6 +389,9 @@ FlashMD and NuggetMD feed **separate FSRS queues** — never mixed:
 | Estimated reading time of a nugget > 3 min | **Error** |
 | `####` or deeper heading inside a nugget | Warning |
 | `### H3` with a label other than `Concept`, `Why it matters`, `Check` | Warning |
+| `lesson` value whose path does not end in `.learn.md` | Error |
+| Nugget `lesson:#anchor` (anchor-only) with no file-level `lesson` default to resolve it | Error |
+| `lesson` anchor not found in the target lesson | Warning — checked by the collection-level validator (cross-file) |
 
 ### Strict mode (`--strict`)
 
@@ -363,3 +404,5 @@ All warnings are promoted to errors.
 | Contextual triggers (`event: before_meeting`) | Player implementation complexity |
 | Audio / video nuggets | Binary content outside Markdown scope |
 | Cross-file `related` resolution | Requires corpus-level indexing — player concern |
+
+> v0.2 added the `lesson` reference (links a nugget back to its source lesson section).

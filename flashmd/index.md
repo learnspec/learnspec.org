@@ -24,7 +24,7 @@ FlashMD inherits its frontmatter and validation rules from the shared [Architect
 |---|---|---|
 | 0 | ` ```flash ` fenced block with front/back | Minimal cards, readable everywhere |
 | 1 | YAML frontmatter | Metadata, spaced-repetition settings |
-| 2 | Per-card fields, MediaMD references | Per-card tags, images |
+| 2 | Per-card fields, MediaMD references, lesson references | Per-card tags, images, links back to the source lesson |
 
 ## Quick example
 
@@ -46,7 +46,7 @@ What are the 4 phases of mitosis?
 
 ## Status
 
-FlashMD is a **draft v0.2** — adds front variants (multiple phrasings per card) to counter cue-dependency in spaced-repetition review.
+FlashMD is a **draft v0.3** — adds lesson references (cards can link back to the section that explains them), building on the front variants introduced in v0.2.
 
 ## Next steps
 
