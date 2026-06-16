@@ -241,6 +241,8 @@ Includes questions from another `.quiz.md` file.
 - **Nested imports are not supported.** `!import` directives are only honoured when they appear in the **entry file** of a quiz (or in the entry `.learn.md` of a course that embeds this quiz). An `!import` line inside a file that is itself imported is **inert** — renderers and authoring tools must ignore it. Authors must lift every `!import` to the entry file. Circular imports cannot occur because nesting is forbidden.
 - Missing files are ignored without error (warning in lenient mode).
 
+To assemble many files into a multi-step learning path, use [TrackMD](/trackmd/) — the suite's orchestrator format, the only one that imports content across types (`.learn.md`, `.quiz.md`, `.flash.md`) — rather than chaining QuizMD imports.
+
 DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf catalogues declared with `!ref ./file.diagram.md` and addressed by slug via ` ```diagram ref:slug ` blocks.
 
 ## Reveal and feedback modes
