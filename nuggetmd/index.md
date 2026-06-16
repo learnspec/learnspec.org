@@ -47,7 +47,7 @@ index and the value? If yes, switch to `enumerate()`.
 
 ## Status
 
-NuggetMD is a **draft v0.1**.
+NuggetMD is a **draft v0.2**.
 
 ## Next steps
 
