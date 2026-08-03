@@ -84,4 +84,4 @@ All references are resolved through three directives — `!import`, `!ref`, `!ch
 
 ## Status & governance
 
-LearnSpec is an **open standard** under the MIT licence. Specifications, tooling, and reference parsers are developed in the open at [github.com/learnspec](https://github.com/learnspec). The standard is currently maintained by [Neuroneo](https://neuroneo.com), which also operates a commercial implementation; the specs themselves remain independent of any single platform.
+LearnSpec is an **open standard** under the MIT licence. Specifications, tooling, and reference parsers are developed in the open at [github.com/learnspec](https://github.com/learnspec). The standard is currently maintained by [memoneo](https://memoneo.app), which also operates a commercial implementation; the specs themselves remain independent of any single platform.
