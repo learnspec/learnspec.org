@@ -44,12 +44,13 @@ features:
 
 LearnSpec is an **open specification suite** for educational content. Each format is plain Markdown, each lives in flat files, and each composes with the others through a small set of shared mechanisms.
 
-### The 11 formats
+### The 12 formats
 
 | Format | Extension | Role | Status |
 |---|---|---|---|
 | **[LearnMD](/learnmd/)** | `.learn.md` | Structured educational content | Stable — v0.3, evolving to v0.4 |
 | **[QuizMD](/quizmd/)** | `.quiz.md` | Quizzes and assessments | Stable — evolving to v0.3 |
+| **[ExerciseMD](/exercisemd/)** | `.exercise.md` | Exercises with model solutions and grading rubrics | Drafting v0.1 |
 | **[TrackMD](/trackmd/)** | `.track.md` | Sequenced learning paths | Drafting v0.1 |
 | **[FlashMD](/flashmd/)** | `.flash.md` | Flashcards and spaced repetition | Drafting v0.1 |
 | **[NuggetMD](/nuggetmd/)** | `.nugget.md` | Micro-learning concepts for spaced repetition | Drafting v0.1 |
@@ -73,6 +74,7 @@ These rules are documented in the **[Architecture Charter](/charter/)**, the sha
 A learning corpus typically combines several formats:
 
 - A **TrackMD** sequences a path through several **LearnMD** lessons and **QuizMD** checkpoints.
+- Where a checkpoint calls for produced work rather than a selected answer, an **ExerciseMD** sheet carries the task and the rubric that grades it.
 - The lessons embed diagrams defined in **DiagramMD**, images catalogued in **MediaMD**, and highlight terms from a **GlossaryMD**.
 - A **FlashMD** deck or a **NuggetMD** collection supports spaced-repetition review of the same material.
 - The corpus declares alignment with a **CurriculumMD** reference framework, so coverage can be checked against an official syllabus.
@@ -84,4 +86,4 @@ All references are resolved through three directives — `!import`, `!ref`, `!ch
 
 ## Status & governance
 
-LearnSpec is an **open standard** under the MIT licence. Specifications, tooling, and reference parsers are developed in the open at [github.com/learnspec](https://github.com/learnspec). The standard is currently maintained by [memoneo](https://memoneo.app), which also operates a commercial implementation; the specs themselves remain independent of any single platform.
+LearnSpec is an **open standard** under the MIT licence. Specifications, tooling, and reference parsers are developed in the open at [github.com/learnspec](https://github.com/learnspec). The standard is currently maintained by neuroneo-md; the specs themselves remain independent of any single platform.
