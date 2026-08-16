@@ -53,7 +53,7 @@ LearnSpec is an **open specification suite** for educational content. Each forma
 | **[ExerciseMD](/exercisemd/)** | `.exercise.md` | Exercises with model solutions and grading rubrics | Drafting v0.1 |
 | **[TrackMD](/trackmd/)** | `.track.md` | Sequenced learning paths | Drafting v0.1 |
 | **[FlashMD](/flashmd/)** | `.flash.md` | Flashcards and spaced repetition | Drafting v0.1 |
-| **[NuggetMD](/nuggetmd/)** | `.nugget.md` | Micro-learning concepts for spaced repetition | Drafting v0.1 |
+| **[NuggetMD](/nuggetmd/)** | `.nugget.md` | Micro-learning concepts for spaced repetition | Drafting v0.3 |
 | **[DiagramMD](/diagrammd/)** | `.diagram.md` | Diagram syntax + reusable diagrams referenced via `!ref` | Drafting v0.2 |
 | **[MediaMD](/mediamd/)** | `.media.md` | Media catalogue with licences | Drafting v0.1 |
 | **[GlossaryMD](/glossarymd/)** | `.glossary.md` | Term definitions for a corpus | Drafting v0.1 |
