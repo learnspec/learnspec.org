@@ -32,6 +32,7 @@ export default defineConfig({
         items: [
           { text: 'LearnMD — instruction', link: '/learnmd/' },
           { text: 'QuizMD — assessment', link: '/quizmd/' },
+          { text: 'ExerciseMD — exercises', link: '/exercisemd/' },
           { text: 'TrackMD — learning paths', link: '/trackmd/' },
           { text: 'FlashMD — flashcards', link: '/flashmd/' },
           { text: 'NuggetMD — micro-learning', link: '/nuggetmd/' },
@@ -64,6 +65,7 @@ export default defineConfig({
         {
           text: 'Upcoming formats',
           items: [
+            { text: 'ExerciseMD', link: '/exercisemd/' },
             { text: 'TrackMD', link: '/trackmd/' },
             { text: 'FlashMD', link: '/flashmd/' },
             { text: 'NuggetMD', link: '/nuggetmd/' },
@@ -115,6 +117,7 @@ export default defineConfig({
           ],
         },
       ],
+      '/exercisemd/': formatSidebar('ExerciseMD', 'exercisemd'),
       '/trackmd/': formatSidebar('TrackMD', 'trackmd'),
       '/flashmd/': formatSidebar('FlashMD', 'flashmd'),
       '/nuggetmd/': formatSidebar('NuggetMD', 'nuggetmd'),
