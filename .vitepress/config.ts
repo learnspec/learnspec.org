@@ -63,7 +63,7 @@ export default defineConfig({
           ],
         },
         {
-          text: 'Upcoming formats',
+          text: 'Draft formats',
           items: [
             { text: 'ExerciseMD', link: '/exercisemd/' },
             { text: 'TrackMD', link: '/trackmd/' },
