@@ -1,6 +1,6 @@
 # The LearnSpec Suite
 
-LearnSpec is a family of eleven Markdown-based formats that cover the full lifecycle of educational content — from a single lesson to a complete certification path.
+LearnSpec is a family of twelve Markdown-based formats that cover the full lifecycle of educational content — from a single lesson to a complete certification path.
 
 Each format is independent, each is valid Markdown, and each composes with the others through the shared mechanisms defined in the **[Architecture Charter](/charter/)**.
 
@@ -10,6 +10,7 @@ Each format is independent, each is valid Markdown, and each composes with the o
 |---|---|---|---|
 | [LearnMD](/learnmd/) | `.learn.md` | Structured educational content | Stable — v0.3 (v0.4 drafting) |
 | [QuizMD](/quizmd/) | `.quiz.md` | Quizzes and assessments | Stable — v0.3 drafting |
+| [ExerciseMD](/exercisemd/) | `.exercise.md` | Exercises with model solutions and grading rubrics | Draft v0.1 |
 | [TrackMD](/trackmd/) | `.track.md` | Sequenced learning paths | Draft v0.1 |
 | [FlashMD](/flashmd/) | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
 | [NuggetMD](/nuggetmd/) | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.1 |
@@ -25,18 +26,18 @@ Each format is independent, each is valid Markdown, and each composes with the o
 The suite forms three layers:
 
 - **Orchestrator** — `TrackMD` sequences everything else.
-- **Content formats** — `LearnMD`, `QuizMD`, `FlashMD`, `NuggetMD` carry the actual material.
+- **Content formats** — `LearnMD`, `QuizMD`, `ExerciseMD`, `FlashMD`, `NuggetMD` carry the actual material.
 - **Leaf formats** — `DiagramMD`, `MediaMD`, `GlossaryMD`, `CurriculumMD`, `BadgeMD`, `CertMD` are referenced but never reference anything else.
 
 ```
                           ┌──────────────┐
                           │   TrackMD    │   ← orchestrator
                           └──────┬───────┘
-          ┌────────────┬─────────┴─────┬────────────┐
-          ▼            ▼               ▼            ▼
-      LearnMD       QuizMD          FlashMD      NuggetMD     ← content
-          │            │               │            │
-          └────────────┴───────┬───────┴────────────┘
+     ┌──────────┬──────────┬─────┴────┬──────────┐
+     ▼          ▼          ▼          ▼          ▼
+  LearnMD    QuizMD   ExerciseMD   FlashMD   NuggetMD         ← content
+     │          │          │          │          │
+     └──────────┴──────────┴────┬─────┴──────────┘
                                 ▼
      DiagramMD · MediaMD · GlossaryMD · CurriculumMD          ← leaves
                                 │
@@ -67,9 +68,17 @@ The assessment format — single questions, full quizzes, configurable behaviour
 
 ---
 
-## Upcoming formats {#upcoming}
+## Draft formats {#upcoming}
 
-The formats below are at draft v0.1. Their specifications are stabilising; documentation pages on this site will follow.
+The formats below are at draft v0.1 or v0.2 — their *specifications* are still moving. That is a statement about the spec, not about availability: several are already implemented and used in production. Expect refinements, not upheaval.
+
+### ExerciseMD {#exercisemd}
+
+**Role:** exercises — tasks where the learner *produces* work (a derivation, an essay, a translation, a program), graded against a model solution, explicit expectations, and a rubric.
+
+The split with QuizMD is deliberate and enforced: if an answer can be graded by **matching**, it belongs in QuizMD; if grading requires **judging a production**, it belongs here. ExerciseMD therefore defines *no* closed-answer syntax at all, and a mixed exam paper composes both through TrackMD.
+
+**Key decisions:** the canonical file holds statement *and* grading kit, with the subject and the answer key derived from it mechanically — parallel copies drift, derived views cannot. Rubrics come in two shapes: additive (one observable criterion per point) and levels (profile descriptors with floor scores) for holistic work.
 
 ### TrackMD {#trackmd}
 
@@ -145,4 +154,4 @@ CertMD is to BadgeMD what a degree is to a module completion certificate: same f
 
 - Read the **[Architecture Charter](/charter/)** for the principles every format inherits — graceful degradation, levels, frontmatter, directives, validation.
 - Read the **[LearnMD](/learnmd/)** and **[QuizMD](/quizmd/)** specifications for the stable formats.
-- Follow [github.com/learnspec](https://github.com/learnspec) for spec drafts of the upcoming formats.
+- Follow [github.com/learnspec](https://github.com/learnspec) for the draft specifications and their changelogs.
