@@ -22,6 +22,7 @@ LearnSpec is an open-source specification suite for creating, storing, and excha
 | **TrackMD** | `.track.md` | Sequenced learning paths | Draft v0.1 |
 | **LearnMD** | `.learn.md` | Structured educational content | Stable v0.3, drafting v0.4 |
 | **QuizMD** | `.quiz.md` | Quizzes, assessments, questionnaires | Stable, drafting v0.3 |
+| **ExerciseMD** | `.exercise.md` | Exercises with model solutions and grading rubrics | Draft v0.1 |
 | **FlashMD** | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
 | **NuggetMD** | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.1 |
 | **DiagramMD** | `.diagram.md` | Diagram syntax + reusable diagram blocks referenced via `!ref` | Draft v0.2 |
