@@ -13,7 +13,7 @@ Each format is independent, each is valid Markdown, and each composes with the o
 | [ExerciseMD](/exercisemd/) | `.exercise.md` | Exercises with model solutions and grading rubrics | Draft v0.1 |
 | [TrackMD](/trackmd/) | `.track.md` | Sequenced learning paths | Draft v0.1 |
 | [FlashMD](/flashmd/) | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
-| [NuggetMD](/nuggetmd/) | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.1 |
+| [NuggetMD](/nuggetmd/) | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.3 |
 | [DiagramMD](/diagrammd/) | `.diagram.md` | Diagram syntax + reusable diagrams referenced via `!ref` | Draft v0.2 |
 | [MediaMD](/mediamd/) | `.media.md` | Media catalogue with licences | Draft v0.1 |
 | [GlossaryMD](/glossarymd/) | `.glossary.md` | Term definitions | Draft v0.1 |
