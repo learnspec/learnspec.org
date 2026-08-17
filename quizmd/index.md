@@ -59,6 +59,15 @@ spec_version: "0.3"
 > F = ma: net force equals mass times acceleration.
 ```
 
+## Try it
+
+Open a real `.quiz.md` file in the player. It runs entirely in your browser —
+the file is fetched straight from GitHub, and nothing is uploaded anywhere.
+
+<TryIt file="solar-system/solar-system.quiz.md" label="Solar System quiz" />
+<TryIt file="music-theory/music-theory.quiz.md" label="Music theory quiz" />
+<TryIt file="web-fundamentals/web-fundamentals.quiz.md" label="Web fundamentals quiz" />
+
 ## Status
 
 QuizMD is stable. **v0.3** is drafting to align with the new LearnSpec suite — it requires the universal `lang` field, adds `!ref` for [DiagramMD](/diagrammd/), [MediaMD](/mediamd/) and [GlossaryMD](/glossarymd/) contexts, supports `media:slug` images with fallback URLs and ` ```diagram ref:slug ` for granular diagram reuse, and delegates diagram syntax to [DiagramMD](/diagrammd/).

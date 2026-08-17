@@ -67,6 +67,15 @@ name = "Alice"
 !checkpoint id:module-1-done label:"Module 1 complete"
 ````
 
+## Try it
+
+Open a real `.learn.md` file in the player. It runs entirely in your browser —
+the file is fetched straight from GitHub, and nothing is uploaded anywhere.
+
+<TryIt file="python-basics/01-variables.learn.md" label="Python — variables" />
+<TryIt file="solar-system/solar-system.learn.md" label="Solar System lesson" />
+<TryIt file="web-fundamentals/web-fundamentals.learn.md" label="Web fundamentals lesson" />
+
 ## Status
 
 LearnMD v0.3 is stable. **v0.4** is drafting to align with the new LearnSpec suite — it extracts diagram syntax to [DiagramMD](/diagrammd/), media catalogues to [MediaMD](/mediamd/), and term definitions to [GlossaryMD](/glossarymd/), adds the universal `!ref` directive (for DiagramMD, MediaMD and GlossaryMD contexts) along with `!checkpoint`, and introduces ` ```diagram ref:slug ` for granular reuse of named diagrams.
