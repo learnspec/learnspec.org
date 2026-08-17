@@ -30,6 +30,28 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      # The player is a separate repository (learnspec/player): a static,
+      # client-side player for QuizMD/LearnMD files. It is built here and
+      # folded into this site's artifact so it is served from
+      # learnspec.org/play/ — one Pages site, one custom domain.
+      # `ref` pins what gets published; move it to a tag if main proves noisy.
+      - uses: actions/checkout@v4
+        with:
+          repository: learnspec/player
+          ref: main
+          path: .player-src
+
+      - name: Build the player
+        working-directory: .player-src
+        run: |
+          npm ci
+          npm run build -- --base=/play/
+
+      - name: Fold the player into the site artifact
+        run: |
+          mkdir -p .vitepress/dist/play
+          cp -R .player-src/dist/. .vitepress/dist/play/
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .vitepress/dist
