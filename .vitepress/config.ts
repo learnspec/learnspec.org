@@ -44,6 +44,9 @@ export default defineConfig({
           { text: 'CertMD — macro-credentials', link: '/certmd/' },
         ],
       },
+      // /play/ is a separate static app folded into the Pages artifact at
+      // deploy time, not a VitePress route — it needs a real navigation.
+      { text: 'Player', link: '/play/', target: '_blank' },
       { text: 'GitHub', link: 'https://github.com/learnspec' },
     ],
 

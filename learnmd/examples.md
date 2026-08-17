@@ -1,5 +1,14 @@
 # LearnMD Examples
 
+The snippets below are illustrative. For complete files you can actually read,
+open one of the official samples in the player — it runs in your browser and
+fetches the file straight from GitHub.
+
+<TryIt file="python-basics/01-variables.learn.md" label="Python — variables" />
+<TryIt file="solar-system/solar-system.learn.md" label="Solar System lesson" />
+<TryIt file="music-theory/music-theory.learn.md" label="Music theory lesson" />
+<TryIt file="web-fundamentals/web-fundamentals.learn.md" label="Web fundamentals lesson" />
+
 ## Level 0 — Minimal lesson
 
 The simplest possible LearnMD file is just Markdown:
