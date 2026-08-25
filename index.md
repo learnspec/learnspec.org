@@ -44,7 +44,7 @@ features:
 
 LearnSpec is an **open specification suite** for educational content. Each format is plain Markdown, each lives in flat files, and each composes with the others through a small set of shared mechanisms.
 
-### The 12 formats
+### The 13 formats
 
 | Format | Extension | Role | Status |
 |---|---|---|---|
@@ -77,6 +77,7 @@ A learning corpus typically combines several formats:
 - A **TrackMD** sequences a path through several **LearnMD** lessons and **QuizMD** checkpoints.
 - Where a checkpoint calls for produced work rather than a selected answer, an **ExerciseMD** sheet carries the task and the rubric that grades it.
 - The lessons embed diagrams defined in **DiagramMD**, images catalogued in **MediaMD**, and highlight terms from a **GlossaryMD**.
+- A diagram whose reading order carries an argument can ship an **AnimMD** companion script, and the lesson plays it as a step-reveal animation.
 - A **FlashMD** deck or a **NuggetMD** collection supports spaced-repetition review of the same material.
 - The corpus declares alignment with a **CurriculumMD** reference framework, so coverage can be checked against an official syllabus.
 - Completion may award a **BadgeMD** (per skill) or a **CertMD** (per track).

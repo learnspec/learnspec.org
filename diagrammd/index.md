@@ -45,3 +45,5 @@ DiagramMD is a **draft v0.2**. It absorbs and replaces the diagram documentation
 ## Next steps
 
 - Read the full [Specification](/diagrammd/spec).
+
+> A stock entry can carry an [AnimMD](/animmd/) companion script — a step-reveal animation played over the rendered diagram, degrading to the static figure everywhere else.

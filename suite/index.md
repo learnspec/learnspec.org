@@ -15,6 +15,7 @@ Each format is independent, each is valid Markdown, and each composes with the o
 | [FlashMD](/flashmd/) | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
 | [NuggetMD](/nuggetmd/) | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.3 |
 | [DiagramMD](/diagrammd/) | `.diagram.md` | Diagram syntax + reusable diagrams referenced via `!ref` | Draft v0.2 |
+| [AnimMD](/animmd/) | `.anim.md` | Step-reveal animations over vector scenes | Draft v0.1 |
 | [MediaMD](/mediamd/) | `.media.md` | Media catalogue with licences | Draft v0.1 |
 | [GlossaryMD](/glossarymd/) | `.glossary.md` | Term definitions | Draft v0.1 |
 | [CurriculumMD](/curriculummd/) | `.curriculum.md` | Reference frameworks and syllabi | Draft v0.1 |
@@ -27,7 +28,7 @@ The suite forms three layers:
 
 - **Orchestrator** — `TrackMD` sequences everything else.
 - **Content formats** — `LearnMD`, `QuizMD`, `ExerciseMD`, `FlashMD`, `NuggetMD` carry the actual material.
-- **Leaf formats** — `DiagramMD`, `MediaMD`, `GlossaryMD`, `CurriculumMD`, `BadgeMD`, `CertMD` are referenced but never reference anything else.
+- **Leaf formats** — `DiagramMD`, `MediaMD`, `AnimMD`, `GlossaryMD`, `CurriculumMD`, `BadgeMD`, `CertMD` are referenced but never reference anything else (AnimMD scripts ride inside the DiagramMD / MediaMD entries they animate).
 
 ```
                           ┌──────────────┐
@@ -39,7 +40,7 @@ The suite forms three layers:
      │          │          │          │          │
      └──────────┴──────────┴────┬─────┴──────────┘
                                 ▼
-     DiagramMD · MediaMD · GlossaryMD · CurriculumMD          ← leaves
+     DiagramMD · MediaMD · AnimMD · GlossaryMD · CurriculumMD  ← leaves
                                 │
                          BadgeMD · CertMD                     ← credentials
 ```
@@ -109,6 +110,13 @@ NuggetMD sits between FlashMD and LearnMD: larger than an atomic fact, smaller t
 **Role:** dual-purpose. It is both the **canonical syntax specification** for diagram blocks across the entire suite (`mermaid`, `abc`, `chess`, `vega`, `d3`, `smiles`, …) and a **standalone file format** for reusable named diagrams referenced by slug via `!ref` from any content format.
 
 Other specs (LearnMD, QuizMD, FlashMD) delegate diagram documentation to DiagramMD — a diagram block valid in DiagramMD is valid everywhere in the suite. Rendering implementation is left to players.
+
+### AnimMD {#animmd}
+
+**Role:** step-reveal animation scripts over existing vector scenes — a DiagramMD entry or a MediaMD SVG asset. A script only chooses the *order of revelation* of named elements (five verbs, prose captions); it contains no keyframes and no coordinates.
+
+**Key decisions:** the script never contains a renderer id — a binding layer maps author-chosen names to the scene's *source* identifiers, resolved per generator at render time. Every failure mode degrades to the static scene: the worst case is exactly what the host displays today.
+
 
 ### MediaMD {#mediamd}
 

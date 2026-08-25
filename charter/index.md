@@ -26,6 +26,7 @@ LearnSpec is an open-source specification suite for creating, storing, and excha
 | **FlashMD** | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
 | **NuggetMD** | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.3 |
 | **DiagramMD** | `.diagram.md` | Diagram syntax + reusable diagram blocks referenced via `!ref` | Draft v0.2 |
+| **AnimMD** | `.anim.md` | Step-reveal animation scripts over DiagramMD / MediaMD scenes | Draft v0.1 |
 | **MediaMD** | `.media.md` | Media catalogue with metadata and licences | Draft v0.1 |
 | **GlossaryMD** | `.glossary.md` | Term definitions for a corpus | Draft v0.1 |
 | **CurriculumMD** | `.curriculum.md` | Reference frameworks and syllabi | Draft v0.1 |
@@ -128,6 +129,7 @@ license: CC-BY-4.0                # optional — SPDX identifier
 | FlashMD | `{slug}.flash.md` |
 | NuggetMD | `{slug}.nugget.md` |
 | DiagramMD | `{slug}.diagram.md` |
+| AnimMD | `{slug}.anim.md` |
 | MediaMD | `{slug}.media.md` |
 | TrackMD | `{slug}.track.md` |
 | GlossaryMD | `{slug}.glossary.md` |
@@ -197,13 +199,14 @@ Marks a named progress point. Available in LearnMD and TrackMD.
 | **FlashMD** | DiagramMD | MediaMD, GlossaryMD, CurriculumMD |
 | **NuggetMD** | — | MediaMD, GlossaryMD, CurriculumMD |
 | **DiagramMD** | — | — |
+| **AnimMD** | — | — |
 | **GlossaryMD** | — | — |
 | **MediaMD** | — | — |
 | **CurriculumMD** | — | — |
 | **BadgeMD** | — | — |
 | **CertMD** | — | — |
 
-DiagramMD, GlossaryMD, MediaMD, CurriculumMD, BadgeMD and CertMD are **pure leaf formats**: zero dependencies, always consumed, never producers. NuggetMD is a content format — it is imported by TrackMD and LearnMD, and may `!ref` leaf formats, but imports nothing itself. TrackMD does not import DiagramMD directly — standalone diagrams are embedded in the content formats (LearnMD, QuizMD, FlashMD, NuggetMD) it orchestrates.
+DiagramMD, GlossaryMD, MediaMD, CurriculumMD, BadgeMD and CertMD are **pure leaf formats**: zero dependencies, always consumed, never producers. AnimMD is a leaf with a twist: it is a **companion** — its scripts are embedded inside the DiagramMD or MediaMD entry they animate (never imported), and content formats opt in with an `anim ref:` block. NuggetMD is a content format — it is imported by TrackMD and LearnMD, and may `!ref` leaf formats, but imports nothing itself. TrackMD does not import DiagramMD directly — standalone diagrams are embedded in the content formats (LearnMD, QuizMD, FlashMD, NuggetMD) it orchestrates.
 
 ### Media resolution
 
