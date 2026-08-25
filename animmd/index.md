@@ -11,7 +11,7 @@ the direction the process actually runs, the same figure carries the mechanism.
 Its contribution is not drawing but **order**: the script chooses what the
 reader sees next, and why.
 
-**[▶ Try the live demo](/play/?url=https%3A%2F%2Flearnspec.org%2Fplay%2Fsamples%2Fanim-demo%2Fwater-cycle.learn.md)**: the water cycle, animated and static side by side in the [player](/play/).
+**[▶ Try the live demo](https://learnspec.org/play/?url=https%3A%2F%2Flearnspec.org%2Fplay%2Fsamples%2Fanim-demo%2Fwater-cycle.learn.md)**: the water cycle, animated and static side by side in the [player](https://learnspec.org/play/).
 
 ## Not a video, not a timeline
 
@@ -60,5 +60,5 @@ Solar energy turns liquid water into vapour.
 ## Read more
 
 - **[Full specification →](/animmd/spec)**
-- **[Live demo in the player](/play/?url=https%3A%2F%2Flearnspec.org%2Fplay%2Fsamples%2Fanim-demo%2Fwater-cycle.learn.md)**: the same stock entry referenced twice, animated and static
+- **[Live demo in the player](https://learnspec.org/play/?url=https%3A%2F%2Flearnspec.org%2Fplay%2Fsamples%2Fanim-demo%2Fwater-cycle.learn.md)**: the same stock entry referenced twice, animated and static
 - Repository: [learnspec/animmd](https://github.com/learnspec/animmd): includes a complete worked example (the water cycle)
