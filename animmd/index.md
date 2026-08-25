@@ -11,8 +11,6 @@ the direction the process actually runs, the same figure carries the mechanism.
 Its contribution is not drawing but **order**: the script chooses what the
 reader sees next, and why.
 
-**[▶ Try the live demo](https://learnspec.org/play/?url=https%3A%2F%2Flearnspec.org%2Fplay%2Fsamples%2Fanim-demo%2Fwater-cycle.learn.md)**: the water cycle, animated and static side by side in the [player](https://learnspec.org/play/).
-
 ## Not a video, not a timeline
 
 AnimMD deliberately contains no keyframes, no easing curves, and no
@@ -57,8 +55,16 @@ draw: evaporation
 Solar energy turns liquid water into vapour.
 ```
 
+## Try it
+
+Open a real lesson in the player. It runs entirely in your browser, the file
+is fetched straight from GitHub, and nothing is uploaded anywhere. The lesson
+references the same stock diagram twice, animated and static, so you can see
+exactly what the AnimMD companion script adds.
+
+<TryIt file="water-cycle/water-cycle.learn.md" label="The water cycle, animated" />
+
 ## Read more
 
 - **[Full specification →](/animmd/spec)**
-- **[Live demo in the player](https://learnspec.org/play/?url=https%3A%2F%2Flearnspec.org%2Fplay%2Fsamples%2Fanim-demo%2Fwater-cycle.learn.md)**: the same stock entry referenced twice, animated and static
 - Repository: [learnspec/animmd](https://github.com/learnspec/animmd): includes a complete worked example (the water cycle)
