@@ -4,14 +4,14 @@
 
 FlashMD enables front/back cards designed for spaced-repetition review. It is simple to read, simple to generate with an LLM, and usable without any tooling.
 
-FlashMD is a **review format**: it is consumed in a context separate from the lesson (review session, notification, flashcard mode) — never embedded inline within a LearnMD. [TrackMD](/trackmd/) orchestrates the relationship between a lesson and its associated flashcard decks.
+FlashMD is a **review format**: it is consumed in a context separate from the lesson (review session, notification, flashcard mode), never embedded inline within a LearnMD. [TrackMD](/trackmd/) orchestrates the relationship between a lesson and its associated flashcard decks.
 
 ## Key principles
 
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.flash.md` file is valid Markdown readable in any editor |
-| **File-native** | All data lives in the file — no database required |
+| **File-native** | All data lives in the file, no database required |
 | **Graceful degradation** | Each card is readable as a code block in any standard reader |
 | **LaTeX from Level 0** | Mathematical formulas are available without frontmatter |
 | **AI-native** | Generatable and consumable by an LLM without specific tooling |
@@ -29,7 +29,7 @@ FlashMD inherits its frontmatter and validation rules from the shared [Architect
 ## Quick example
 
 ````markdown
-# Cell biology — flashcards
+# Cell biology: flashcards
 
 ```flash id:photosynthesis
 What is photosynthesis?
@@ -46,7 +46,7 @@ What are the 4 phases of mitosis?
 
 ## Status
 
-FlashMD is a **draft v0.3** — adds lesson references (cards can link back to the section that explains them), building on the front variants introduced in v0.2.
+FlashMD is a **draft v0.3**: adds lesson references (cards can link back to the section that explains them), building on the front variants introduced in v0.2.
 
 ## Next steps
 

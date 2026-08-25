@@ -1,4 +1,4 @@
-# NuggetMD — Format Specification v0.3
+# NuggetMD: Format Specification v0.3
 
 > Part of the [LearnSpec](/) suite. Draft.
 
@@ -6,7 +6,7 @@
 
 ## Core Principle
 
-NuggetMD is the **micro-learning format** of the LearnSpec suite. A `.nugget.md` file hosts a collection of nuggets — short, self-contained concepts designed to be read in under 3 minutes each and reviewed over time via spaced repetition.
+NuggetMD is the **micro-learning format** of the LearnSpec suite. A `.nugget.md` file hosts a collection of nuggets, short, self-contained concepts designed to be read in under 3 minutes each and reviewed over time via spaced repetition.
 
 The author decides how many nuggets to put in a file and when to split into multiple files. A file may contain a single nugget or dozens. Structure follows the topic, not an arbitrary file-per-concept rule.
 
@@ -16,7 +16,7 @@ NuggetMD occupies a distinct position between FlashMD and LearnMD:
 |---|---|---|---|
 | Unit | Atomic fact | Applicable concept | Full lesson |
 | Review time | 5–30 sec | 1–3 min | 10–60 min |
-| Memory type | Declarative — *knowing that* | Procedural — *knowing how / when* | Structured instruction |
+| Memory type | Declarative, *knowing that* | Procedural, *knowing how / when* | Structured instruction |
 | File structure | Many cards per file | Many nuggets per file | One document per file |
 
 NuggetMD inherits its frontmatter and validation rules from the shared [LearnSpec Architecture Charter](https://learnspec.org/charter/).
@@ -24,7 +24,7 @@ NuggetMD inherits its frontmatter and validation rules from the shared [LearnSpe
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.nugget.md` file is valid Markdown readable in any editor |
-| **File-native** | All content lives in files — no database required |
+| **File-native** | All content lives in files, no database required |
 | **Graceful degradation** | Renders as a readable multi-section article in any standard reader |
 | **Author-controlled granularity** | The author decides how many nuggets per file and when to split |
 | **FSRS-ready** | Each nugget can independently enter a spaced repetition queue |
@@ -42,9 +42,9 @@ NuggetMD inherits its frontmatter and validation rules from the shared [LearnSpe
 
 ---
 
-## Level 0 — Heading-Based Structure
+## Level 0: Heading-Based Structure
 
-Each nugget is a `##` heading. Its sub-sections are `###` headings, and **their order carries their role** — the labels themselves are free text, in any language. The file reads as a natural Markdown document — no tooling required.
+Each nugget is a `##` heading. Its sub-sections are `###` headings, and **their order carries their role**: the labels themselves are free text, in any language. The file reads as a natural Markdown document, no tooling required.
 
 ```markdown
 # Python Best Practices
@@ -79,7 +79,7 @@ the intent immediately clear and eliminates off-by-one errors.
 
 ### Structure rules
 
-- The **`# H1`** is the file title — optional, inferred from frontmatter `title` if absent.
+- The **`# H1`** is the file title, optional, inferred from frontmatter `title` if absent.
 - Each **`## H2`** heading opens one nugget. The heading text is the nugget title.
 - Inside each nugget, up to three **`### H3`** sub-sections. **Position determines the role**; the heading text is free:
 
@@ -87,7 +87,7 @@ the intent immediately clear and eliminates off-by-one errors.
 |---|---|---|---|
 | 1st `###` | Concept | **Yes** | The concept, explained in 2–5 sentences |
 | 2nd `###` | Why it matters | **Yes** | One concrete example or actionable takeaway |
-| 3rd `###` | Check | No — strongly recommended when FSRS is active | One recall question |
+| 3rd `###` | Check | No, strongly recommended when FSRS is active | One recall question |
 
 - **Labels are not parsed.** `### Concept`, `### Le concept` and `### Was ist das?`
   are all the first section. A parser takes the first three `###` headings of a
@@ -98,7 +98,7 @@ the intent immediately clear and eliminates off-by-one errors.
 - A fourth or further `###` inside a nugget carries no role: it is a warning,
   and players render its content as part of the nugget after the third section.
 
-The same nugget, authored in French — no marker changes, and a parser needs no
+The same nugget, authored in French, no marker changes, and a parser needs no
 knowledge of French:
 
 ```markdown
@@ -123,25 +123,25 @@ si vous avez besoin des deux. Si oui, passez à `enumerate()`.
 ```
 
 - A **`---` horizontal rule** between nuggets is optional but strongly recommended for visual clarity.
-- No `####` or deeper headings inside a nugget — if more structure is needed, the content belongs in LearnMD.
+- No `####` or deeper headings inside a nugget, if more structure is needed, the content belongs in LearnMD.
 
 ---
 
-## Level 1 — Frontmatter and Per-Nugget Metadata
+## Level 1: Frontmatter and Per-Nugget Metadata
 
 ### File-level frontmatter
 
 ```yaml
 ---
-title: "Python Best Practices"          # optional — inferred from # H1
-lang: en                                 # REQUIRED — BCP-47 code
-tags: [python, best-practices]           # optional — file-level tags
-spaced_repetition: fsrs                  # optional — fsrs | sm2 | false (default: false)
-lesson: ./03-iteration.learn.md          # optional — default source lesson (v0.2)
+title: "Python Best Practices"          # optional: inferred from # H1
+lang: en                                 # REQUIRED: BCP-47 code
+tags: [python, best-practices]           # optional: file-level tags
+spaced_repetition: fsrs                  # optional: fsrs | sm2 | false (default: false)
+lesson: ./03-iteration.learn.md          # optional: default source lesson (v0.2)
 author: Jane Smith                       # optional
-created: 2026-05-10                      # optional — ISO 8601
-updated: 2026-05-10                      # optional — ISO 8601
-license: CC-BY-4.0                       # optional — SPDX identifier or custom
+created: 2026-05-10                      # optional: ISO 8601
+updated: 2026-05-10                      # optional: ISO 8601
+license: CC-BY-4.0                       # optional: SPDX identifier or custom
 spec_version: "0.1"                      # optional
 ---
 ```
@@ -150,7 +150,7 @@ spec_version: "0.1"                      # optional
 
 ### Per-nugget metadata block
 
-An optional empty fenced `nugget` block placed **immediately after the `##` heading** carries per-nugget attributes. It contains no body — attributes only.
+An optional empty fenced `nugget` block placed **immediately after the `##` heading** carries per-nugget attributes. It contains no body, attributes only.
 
 ````markdown
 ## Prefer enumerate() over range(len())
@@ -162,7 +162,7 @@ An optional empty fenced `nugget` block placed **immediately after the `##` head
 ...
 ````
 
-In a standard Markdown reader, the empty fenced block renders as a small empty code block — readable and unobtrusive. A LearnSpec parser extracts the attributes; the player may render them as a discrete metadata badge.
+In a standard Markdown reader, the empty fenced block renders as a small empty code block, readable and unobtrusive. A LearnSpec parser extracts the attributes; the player may render them as a discrete metadata badge.
 
 ### Per-nugget attribute reference
 
@@ -172,12 +172,12 @@ In a standard Markdown reader, the empty fenced block renders as a small empty c
 | `tags` | Optional | string[] | Per-nugget tags. Added to file-level tags. |
 | `level` | Optional | enum | `beginner`, `intermediate`, `advanced`. Overrides file-level default. |
 | `spaced_repetition` | Optional | enum | Per-nugget override: `fsrs`, `sm2`, or `false`. Overrides file-level setting. |
-| `related` | Optional | string[] | Slugs of related nuggets within the same file or other `.nugget.md` files. Informational only — no import dependency. The player may surface these as "next nugget" suggestions. |
+| `related` | Optional | string[] | Slugs of related nuggets within the same file or other `.nugget.md` files. Informational only, no import dependency. The player may surface these as "next nugget" suggestions. |
 | `lesson` | Optional | string | Reference to the lesson that explains this nugget (v0.2). See [Lesson References](#lesson-references-level-1). |
 
 ### Lesson References (Level 1)
 
-A nugget may point back to the **lesson that develops it**, so a learner can jump from a micro-concept to the full course. Unlike `related` (nugget→nugget, informational), `lesson` is a **navigation reference** to a `.learn.md` section. It uses **hyperlink-style resolution** — the same mental model as an HTML/Markdown link — combining a file-level default with per-nugget overrides:
+A nugget may point back to the **lesson that develops it**, so a learner can jump from a micro-concept to the full course. Unlike `related` (nugget→nugget, informational), `lesson` is a **navigation reference** to a `.learn.md` section. It uses **hyperlink-style resolution**: the same mental model as an HTML/Markdown link, combining a file-level default with per-nugget overrides:
 
 | `lesson` value | Resolves to | Like an HTML link… |
 |---|---|---|
@@ -208,13 +208,13 @@ lesson: ./03-iteration.learn.md   # default for every nugget in the file
 
 The nugget above links to the `the-enumerate-builtin` section of the default lesson; a nugget with no `lesson` links to the lesson's top, and `lesson:./other.learn.md#x` overrides the target entirely.
 
-**Player behaviour.** The player SHOULD surface the reference as a "back to the lesson" link (typically after the third section), open the target **within its track context** when one exists (falling back to the standalone lesson view), and — if it navigates in place — make returning to the review session obvious. The `#anchor` SHOULD resolve to a stable identifier (`!checkpoint` id or explicit heading anchor) before falling back to the heading slug.
+**Player behaviour.** The player SHOULD surface the reference as a "back to the lesson" link (typically after the third section), open the target **within its track context** when one exists (falling back to the standalone lesson view), and, if it navigates in place, make returning to the review session obvious. The `#anchor` SHOULD resolve to a stable identifier (`!checkpoint` id or explicit heading anchor) before falling back to the heading slug.
 
 ---
 
-## Level 2 — Recall Question
+## Level 2: Recall Question
 
-The third `###` section — conventionally labelled `### Check` — contains a single recall question in **QuizMD Level 0 syntax**: no fenced block wrapper, no scoring configuration.
+The third `###` section, conventionally labelled `### Check`, contains a single recall question in **QuizMD Level 0 syntax**: no fenced block wrapper, no scoring configuration.
 
 ```markdown
 ### Check
@@ -228,7 +228,7 @@ when iterating over a list?
 - [ ] iter()
 ```
 
-This is the FSRS recall mechanism. After reading the nugget, the learner answers, then rates their confidence. No scoring, no `feedback_mode` — recall rating only.
+This is the FSRS recall mechanism. After reading the nugget, the learner answers, then rates their confidence. No scoring, no `feedback_mode`, recall rating only.
 
 ---
 
@@ -345,7 +345,7 @@ for x, y in coordinates:
 
 ### Why it matters
 
-Tuple unpacking pairs naturally with `enumerate()` and `zip()` — both
+Tuple unpacking pairs naturally with `enumerate()` and `zip()`, both
 produce tuples. Combining them gives you expressive, readable iteration
 with zero boilerplate.
 
@@ -382,15 +382,15 @@ When `spaced_repetition: fsrs` is active (file-level or per-nugget), each nugget
 1. Learner reads the nugget (Concept + Why it matters)
 2. Learner answers the ### Check question (if present)
 3. Learner rates recall confidence:
-      Again (1) — didn't remember
-      Hard  (2) — remembered with effort
-      Good  (3) — remembered correctly
-      Easy  (4) — instantly recalled
+      Again (1), didn't remember
+      Hard  (2), remembered with effort
+      Good  (3), remembered correctly
+      Easy  (4), instantly recalled
 4. FSRS calculates the next review interval for this specific nugget
-5. Nugget is scheduled — other nuggets in the same file are unaffected
+5. Nugget is scheduled, other nuggets in the same file are unaffected
 ```
 
-FlashMD and NuggetMD feed **separate FSRS queues** — never mixed:
+FlashMD and NuggetMD feed **separate FSRS queues**: never mixed:
 
 | | FlashMD | NuggetMD |
 |---|---|---|
@@ -406,17 +406,17 @@ FlashMD and NuggetMD feed **separate FSRS queues** — never mixed:
 |---|---|
 | Imported by TrackMD via `!import` | ✅ |
 | Imported by LearnMD via `!import` | ✅ |
-| `!ref ./curriculum.curriculum.md` | ✅ — declares curriculum alignment |
-| `!ref ./glossary.glossary.md` | ✅ — enables term highlighting |
-| `!ref ./media.media.md` | ✅ — enables `media:slug` resolution |
-| `lesson:` reference to a `.learn.md` section | ✅ — navigation only; resolves a path, declares no dependency (v0.2) |
-| `!import` of other formats | ❌ — leaf format |
+| `!ref ./curriculum.curriculum.md` | ✅, declares curriculum alignment |
+| `!ref ./glossary.glossary.md` | ✅, enables term highlighting |
+| `!ref ./media.media.md` | ✅, enables `media:slug` resolution |
+| `lesson:` reference to a `.learn.md` section | ✅, navigation only; resolves a path, declares no dependency (v0.2) |
+| `!import` of other formats | ❌, leaf format |
 | FSRS (player-managed, per nugget) | ✅ when `spaced_repetition` is set |
 
 ### In a TrackMD
 
 ```markdown
-## Section 3 — Iteration in Python
+## Section 3: Iteration in Python
 
 !import ./03-iteration.learn.md
 !import ./quiz-iteration.quiz.md
@@ -443,7 +443,7 @@ FlashMD and NuggetMD feed **separate FSRS queues** — never mixed:
 | More than three `###` sections in a nugget | Warning |
 | `lesson` value whose path does not end in `.learn.md` | Error |
 | Nugget `lesson:#anchor` (anchor-only) with no file-level `lesson` default to resolve it | Error |
-| `lesson` anchor not found in the target lesson | Warning — checked by the collection-level validator (cross-file) |
+| `lesson` anchor not found in the target lesson | Warning, checked by the collection-level validator (cross-file) |
 
 ### Strict Mode (`--strict`)
 
@@ -457,7 +457,7 @@ All warnings are promoted to errors.
 |---|---|
 | Contextual triggers (`event: before_meeting`) | Player implementation complexity |
 | Audio / video nuggets | Binary content outside Markdown scope |
-| Cross-file `related` resolution | Requires corpus-level indexing — player concern |
+| Cross-file `related` resolution | Requires corpus-level indexing, player concern |
 
 > v0.3 made the `###` sub-sections **positional**: their role comes from their
 > order, not from fixed English labels, so a nugget can be authored in any

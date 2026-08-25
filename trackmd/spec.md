@@ -1,4 +1,4 @@
-# TrackMD — Format Specification v0.1
+# TrackMD: Format Specification v0.1
 
 > Part of the [LearnSpec](/) suite. Draft.
 
@@ -22,7 +22,7 @@ TrackMD inherits its frontmatter, directives, and validation rules from the [Arc
 
 Each level is a strict superset of the previous one.
 
-## Level 0 — Minimal sequence
+## Level 0: Minimal sequence
 
 A Level 0 TrackMD file is a table of contents: `##` sections grouping `!import` directives pointing to content files.
 
@@ -46,7 +46,7 @@ A Level 0 TrackMD file is a table of contents: `##` sections grouping `!import` 
 !import ./quiz-final.quiz.md
 ```
 
-In a standard reader, this displays as a Markdown document with headings and plain-text directive lines — perfectly readable as a syllabus.
+In a standard reader, this displays as a Markdown document with headings and plain-text directive lines, perfectly readable as a syllabus.
 
 ### Conventions
 
@@ -69,16 +69,16 @@ In a standard reader, this displays as a Markdown document with headings and pla
 | `.quiz.md` | QuizMD | Assessment step |
 | `.flash.md` | FlashMD | Review step |
 
-TrackMD does not directly import leaf formats (DiagramMD, MediaMD, GlossaryMD) — these are embedded in the content files it orchestrates.
+TrackMD does not directly import leaf formats (DiagramMD, MediaMD, GlossaryMD), these are embedded in the content files it orchestrates.
 
-## Level 1 — YAML frontmatter
+## Level 1: YAML frontmatter
 
 ```yaml
 ---
 title: "Learning Python"
-lang: en                                       # REQUIRED — BCP-47 code
+lang: en                                       # REQUIRED: BCP-47 code
 description: "A complete beginner's path to Python: variables, control flow, data structures, functions, and a final project."
-                                               # optional — short summary for catalogues and previews
+                                               # optional: short summary for catalogues and previews
 estimated_time: 10h
 level: beginner                                # beginner | intermediate | advanced
 target_audience: "Beginners with no programming experience"
@@ -105,9 +105,9 @@ on_completion:
 
 | Field | Required | Description |
 |---|---|---|
-| `title` | No | Track title — inferred from `# H1` if absent |
+| `title` | No | Track title, inferred from `# H1` if absent |
 | `lang` | **Yes** | BCP-47 code (`en`, `fr`, `en-US`…) |
-| `description` | No | Short plain-text summary (typically 1–3 sentences) — used for catalogues, link previews, and `<meta name="description">`. Distinct from `title` and from `target_audience` (which describes *who* the track is for, not *what* it covers). |
+| `description` | No | Short plain-text summary (typically 1–3 sentences), used for catalogues, link previews, and `<meta name="description">`. Distinct from `title` and from `target_audience` (which describes *who* the track is for, not *what* it covers). |
 | `tags` | No | Thematic tags |
 | `author` | No | Track author |
 | `created` | No | Creation date, ISO 8601 |
@@ -122,13 +122,13 @@ on_completion:
 | `estimated_time` | No | string | Total estimated track duration (`5h`, `2h30`…). If absent, the player may aggregate from imported files. |
 | `level` | No | enum | `beginner`, `intermediate`, `advanced` |
 | `target_audience` | No | string | Description of the intended audience |
-| `prerequisites` | No | string[] | Informative in v0.1 — not enforced, displayed to the learner |
+| `prerequisites` | No | string[] | Informative in v0.1, not enforced, displayed to the learner |
 | `completion.require_all_mandatory` | No | bool | All mandatory steps must be completed (default: `true`) |
 | `completion.passing_score` | No | float | Global minimum score to pass the track (0.0–1.0) |
 | `on_completion.badge` | No | path | Path to a BadgeMD file awarded on completion |
 | `on_completion.certificate` | No | path | Path to a CertMD file awarded on completion |
 
-## Level 2 — Attributes on `!import`
+## Level 2: Attributes on `!import`
 
 Optional attributes may be added on the `!import` line to modify the behaviour of a specific step.
 
@@ -169,13 +169,13 @@ The `!checkpoint` directive works the same way in TrackMD as in LearnMD, but at 
 !checkpoint id:track-complete label:"Track complete" type:exercise-complete
 ```
 
-Track-level checkpoints are distinct from lesson-level checkpoints — a player may use them to display overall progress.
+Track-level checkpoints are distinct from lesson-level checkpoints, a player may use them to display overall progress.
 
 ## Complete example
 
 ````markdown
 ---
-title: "Learning Python — Beginner Track"
+title: "Learning Python: Beginner Track"
 lang: en
 estimated_time: 8h
 level: beginner
@@ -195,7 +195,7 @@ on_completion:
   badge: ./badge-python-beginner.badge.md
 ---
 
-# Learning Python — Beginner Track
+# Learning Python: Beginner Track
 
 > [!objectives]
 > By the end of this track, you will be able to: write simple Python scripts, use control
@@ -203,23 +203,23 @@ on_completion:
 
 !ref ./glossary-python.glossary.md
 
-## Section 1 — First steps
+## Section 1: First steps
 
 !import ./00-introduction.learn.md
 !import ./01-variables.learn.md
 !import ./quiz-variables.quiz.md passing_score:0.6
 !import ./flashcards-variables.flash.md optional:true
 
-!checkpoint id:section-1-done label:"Section 1 — First steps complete"
+!checkpoint id:section-1-done label:"Section 1: First steps complete"
 
-## Section 2 — Control flow
+## Section 2: Control flow
 
 !import ./02-conditions.learn.md
 !import ./02-loops.learn.md
 !import ./quiz-control.quiz.md passing_score:0.65
 !import ./flashcards-control.flash.md optional:true
 
-!checkpoint id:section-2-done label:"Section 2 — Control flow complete"
+!checkpoint id:section-2-done label:"Section 2: Control flow complete"
 
 ## Final assessment
 
@@ -235,10 +235,10 @@ on_completion:
 | `!import ./file.learn.md` | ✅ |
 | `!import ./file.quiz.md` | ✅ |
 | `!import ./file.flash.md` | ✅ |
-| `!import ./file.diagram.md` | ❌ — DiagramMD is a leaf format consumed via `!ref` in content files, not in tracks |
+| `!import ./file.diagram.md` | ❌, DiagramMD is a leaf format consumed via `!ref` in content files, not in tracks |
 | `!ref ./file.media.md` | ✅ |
 | `!ref ./file.glossary.md` | ✅ |
-| Imported by another format | ❌ — TrackMD is a root format |
+| Imported by another format | ❌, TrackMD is a root format |
 
 ## Validation
 
@@ -264,6 +264,6 @@ All warnings are promoted to errors.
 
 | Feature | Reason |
 |---|---|
-| Conditional prerequisites between sections | Requires branching logic — out of scope for v0.1 |
-| Adaptive branching | Significant player complexity — needs real-world feedback |
-| Per-step estimated time as `!import` attribute | Available in imported files' frontmatter — player can aggregate |
+| Conditional prerequisites between sections | Requires branching logic, out of scope for v0.1 |
+| Adaptive branching | Significant player complexity, needs real-world feedback |
+| Per-step estimated time as `!import` attribute | Available in imported files' frontmatter, player can aggregate |

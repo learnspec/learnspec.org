@@ -2,22 +2,22 @@
 
 **The micro-learning format of the [LearnSpec](/) suite.**
 
-A `.nugget.md` file hosts a collection of *nuggets* — short, self-contained concepts designed to be read in under three minutes each and reviewed over time via spaced repetition.
+A `.nugget.md` file hosts a collection of *nuggets*, short, self-contained concepts designed to be read in under three minutes each and reviewed over time via spaced repetition.
 
-NuggetMD occupies a distinct position between [FlashMD](/flashmd/) and [LearnMD](/learnmd/): larger than an atomic fact, smaller than a full lesson. A nugget captures one applicable concept — *knowing how and when*, not just *knowing that*.
+NuggetMD occupies a distinct position between [FlashMD](/flashmd/) and [LearnMD](/learnmd/): larger than an atomic fact, smaller than a full lesson. A nugget captures one applicable concept, *knowing how and when*, not just *knowing that*.
 
-The author decides how many nuggets live in a file and when to split into several — structure follows the topic, not an arbitrary file-per-concept rule.
+The author decides how many nuggets live in a file and when to split into several, structure follows the topic, not an arbitrary file-per-concept rule.
 
 ## Key principles
 
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.nugget.md` file is valid Markdown readable in any editor |
-| **File-native** | All content lives in files — no database required |
+| **File-native** | All content lives in files, no database required |
 | **Graceful degradation** | Renders as a readable multi-section article in any standard reader |
 | **Author-controlled granularity** | The author decides how many nuggets per file and when to split |
 | **FSRS-ready** | Each nugget can independently enter a spaced-repetition queue |
-| **Language-neutral** | Sub-section roles come from their order, not from fixed English labels — author in any language |
+| **Language-neutral** | Sub-section roles come from their order, not from fixed English labels, author in any language |
 | **AI-native** | Generatable and consumable by an LLM without specific tooling |
 
 NuggetMD inherits its frontmatter and validation rules from the shared [Architecture Charter](/charter/).
@@ -46,8 +46,8 @@ Next time you write `for i in range(len(...))`, ask: do I need both the
 index and the value? If yes, switch to `enumerate()`.
 ```
 
-Since v0.3 the three sub-sections are identified by **position** — first, second,
-third `###` in the nugget — so the headings can be written in any language:
+Since v0.3 the three sub-sections are identified by **position**: first, second,
+third `###` in the nugget, so the headings can be written in any language:
 
 ```markdown
 ## Préférer enumerate() à range(len())

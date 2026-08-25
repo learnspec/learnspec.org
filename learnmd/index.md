@@ -2,16 +2,16 @@
 
 **The educational content format of the [LearnSpec](/) suite.**
 
-LearnMD covers instruction — explaining what to know — while [QuizMD](/quizmd/) covers assessment. Together they form a complete **teach → assess** stack, all in portable plain-text files.
+LearnMD covers instruction, explaining what to know, while [QuizMD](/quizmd/) covers assessment. Together they form a complete **teach → assess** stack, all in portable plain-text files.
 
-A complete course — modules, lessons, examples, exercises, embedded quizzes — can live in a single valid `.learn.md` file. The `!import` directive is a composition tool for reusability, not a prerequisite.
+A complete course, modules, lessons, examples, exercises, embedded quizzes, can live in a single valid `.learn.md` file. The `!import` directive is a composition tool for reusability, not a prerequisite.
 
 ## Key principles
 
 | Principle | Description |
 |---|---|
-| **Markdown-first** | A `.learn.md` file is valid Markdown — readable in any editor |
-| **File-native** | All content lives in files — no database required |
+| **Markdown-first** | A `.learn.md` file is valid Markdown, readable in any editor |
+| **File-native** | All content lives in files, no database required |
 | **Git-native** | Versionable, diffable, and mergeable like code |
 | **AI-native** | Generatable and consumable by LLMs without special tooling |
 | **Progressively enriched** | Plain text (Level 0) up through special fenced blocks (Level 2) |
@@ -35,7 +35,7 @@ Each level is a strict superset of the previous one.
 ---
 title: Introduction to Python
 lang: en
-description: "Variables, assignment, and basic types — a first contact with Python for absolute beginners."
+description: "Variables, assignment, and basic types, a first contact with Python for absolute beginners."
 estimated_time: 15min
 tags: [python, variables]
 spec_version: "0.4"
@@ -45,7 +45,7 @@ spec_version: "0.4"
 
 !ref ./glossary-python.glossary.md
 
-## Module 1 — Variables
+## Module 1: Variables
 
 A variable is a named reference to a value in memory.
 
@@ -69,16 +69,16 @@ name = "Alice"
 
 ## Try it
 
-Open a real `.learn.md` file in the player. It runs entirely in your browser —
+Open a real `.learn.md` file in the player. It runs entirely in your browser, 
 the file is fetched straight from GitHub, and nothing is uploaded anywhere.
 
-<TryIt file="python-basics/01-variables.learn.md" label="Python — variables" />
+<TryIt file="python-basics/01-variables.learn.md" label="Python, variables" />
 <TryIt file="solar-system/solar-system.learn.md" label="Solar System lesson" />
 <TryIt file="web-fundamentals/web-fundamentals.learn.md" label="Web fundamentals lesson" />
 
 ## Status
 
-LearnMD v0.3 is stable. **v0.4** is drafting to align with the new LearnSpec suite — it extracts diagram syntax to [DiagramMD](/diagrammd/), media catalogues to [MediaMD](/mediamd/), and term definitions to [GlossaryMD](/glossarymd/), adds the universal `!ref` directive (for DiagramMD, MediaMD and GlossaryMD contexts) along with `!checkpoint`, and introduces ` ```diagram ref:slug ` for granular reuse of named diagrams.
+LearnMD v0.3 is stable. **v0.4** is drafting to align with the new LearnSpec suite, it extracts diagram syntax to [DiagramMD](/diagrammd/), media catalogues to [MediaMD](/mediamd/), and term definitions to [GlossaryMD](/glossarymd/), adds the universal `!ref` directive (for DiagramMD, MediaMD and GlossaryMD contexts) along with `!checkpoint`, and introduces ` ```diagram ref:slug ` for granular reuse of named diagrams.
 
 ## Next steps
 

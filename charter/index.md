@@ -1,6 +1,6 @@
 # Architecture Charter
 
-> Version 0.1 — working document shared by every format in the LearnSpec suite.
+> Version 0.1, working document shared by every format in the LearnSpec suite.
 
 The charter defines the principles, conventions, and mechanisms common to every LearnSpec format. Each format spec inherits from this document and only documents what is specific to it.
 
@@ -9,11 +9,11 @@ The charter defines the principles, conventions, and mechanisms common to every 
 LearnSpec is an open-source specification suite for creating, storing, and exchanging educational content. Every format in the suite is:
 
 - a **valid Markdown file** readable in any editor without specific tooling;
-- **file-native** — all content lives in flat files, no database or proprietary tool required;
-- **versionable via Git** — diffable, mergeable, branchable;
-- **AI-native** — generatable and consumable by LLMs without proprietary APIs;
-- **interoperable** — composes with the other formats through standardised mechanisms;
-- **gracefully degradable** — a LearnSpec file renders as readably as possible in any standard Markdown reader, with no prior knowledge of LearnSpec.
+- **file-native**: all content lives in flat files, no database or proprietary tool required;
+- **versionable via Git**: diffable, mergeable, branchable;
+- **AI-native**: generatable and consumable by LLMs without proprietary APIs;
+- **interoperable**: composes with the other formats through standardised mechanisms;
+- **gracefully degradable**: a LearnSpec file renders as readably as possible in any standard Markdown reader, with no prior knowledge of LearnSpec.
 
 ## Suite formats {#suite-formats}
 
@@ -39,7 +39,7 @@ See the [Suite overview](/suite/) for a higher-level summary of each format.
 
 ### Graceful degradation
 
-> A LearnSpec file must never be unreadable in a standard Markdown environment — only less rich.
+> A LearnSpec file must never be unreadable in a standard Markdown environment, only less rich.
 
 This principle governs every syntax decision in the suite. Whenever a new mechanism is introduced, the question to ask is: *what does a GitHub, Obsidian, or VS Code reader see if they don't know LearnSpec?*
 
@@ -48,7 +48,7 @@ This principle governs every syntax decision in the suite. Whenever a new mechan
 | Fenced block ` ```quiz ` | Raw code block, readable | ✅ |
 | Directive `!import ./file.learn.md` | Plain text, visible | ✅ |
 | Directive `!ref ./media.media.md` | Plain text, visible | ✅ |
-| `![alt](media:slug)` without fallback | Broken image | ❌ — forbidden |
+| `![alt](media:slug)` without fallback | Broken image | ❌, forbidden |
 | `![alt](media:slug "https://fallback.url/img.jpg")` | Image displayed via fallback URL | ✅ |
 
 **Design rule:** any LearnSpec syntax that would produce a broken render (broken image, dead link, unreadable content) in a standard reader is forbidden without an explicit fallback mechanism.
@@ -91,9 +91,9 @@ Each format defines its own Level 0/1/2 content, but all follow the same logic:
 
 | Level | Principle |
 |---|---|
-| **0** | Pure Markdown — no tooling required, readable everywhere |
-| **1** | YAML frontmatter — metadata and global behaviour |
-| **2** | Special fenced blocks and directives — rich content, composition |
+| **0** | Pure Markdown, no tooling required, readable everywhere |
+| **1** | YAML frontmatter, metadata and global behaviour |
+| **2** | Special fenced blocks and directives, rich content, composition |
 
 **Fundamental rule:** each level is a **strict superset** of the previous one. A Level 0 file is valid at Level 1 and Level 2.
 
@@ -103,17 +103,17 @@ These fields have the **same semantics across every format** in the suite:
 
 ```yaml
 ---
-title: "Content title"            # optional — inferred from the first # H1
-lang: en                          # REQUIRED — BCP-47 code (en, fr, en-US…)
-spec_version: "0.1"               # optional — targeted spec version
-author:                           # optional — string or object
+title: "Content title"            # optional: inferred from the first # H1
+lang: en                          # REQUIRED: BCP-47 code (en, fr, en-US…)
+spec_version: "0.1"               # optional: targeted spec version
+author:                           # optional: string or object
   name: Jane Smith
   email: jane@example.com
   url: https://janesmith.com
-tags: [python, variables]         # optional — list of free strings
-created: 2026-05-10               # optional — ISO 8601 date
-updated: 2026-05-10               # optional — ISO 8601 date
-license: CC-BY-4.0                # optional — SPDX identifier
+tags: [python, variables]         # optional: list of free strings
+created: 2026-05-10               # optional: ISO 8601 date
+updated: 2026-05-10               # optional: ISO 8601 date
+license: CC-BY-4.0                # optional: SPDX identifier
                                   #            or "custom" for licences not covered by SPDX
 ---
 ```
@@ -137,7 +137,7 @@ license: CC-BY-4.0                # optional — SPDX identifier
 | BadgeMD | `{slug}.badge.md` |
 | CertMD | `{slug}.cert.md` |
 
-The `slug` is lowercase, hyphen-separated, no special characters — e.g. `intro-python.learn.md`.
+The `slug` is lowercase, hyphen-separated, no special characters, e.g. `intro-python.learn.md`.
 
 ## Cross-format directives {#cross-format-directives}
 
@@ -154,7 +154,7 @@ All LearnSpec directives that accept a file path (`!import`, `!ref`) accept eith
 
 **Non-blocking offline behaviour.** If an external resource is unreachable at render time, the player emits a localised warning at the impacted locations and continues rendering. Caching strategy is left to the player.
 
-### `!import` — composition
+### `!import`: composition
 
 Includes the content of another LearnSpec file at the current position.
 
@@ -168,16 +168,16 @@ Includes the content of another LearnSpec file at the current position.
 - Imports are recursive: an imported file may itself contain `!import` directives.
 - Circular imports are silently skipped.
 
-### `!ref` — contextual reference
+### `!ref`: contextual reference
 
-Declares a dependency without including content inline. Produces no visible render — it establishes a context the player uses in the background (media resolution, glossary term highlighting, …).
+Declares a dependency without including content inline. Produces no visible render, it establishes a context the player uses in the background (media resolution, glossary term highlighting, …).
 
 ```
 !ref ./anatomy.media.md
 !ref https://github.com/example/commons/blob/main/media/anatomy.media.md
 ```
 
-### `!checkpoint` — progress point
+### `!checkpoint`: progress point
 
 Marks a named progress point. Available in LearnMD and TrackMD.
 
@@ -197,23 +197,23 @@ Marks a named progress point. Available in LearnMD and TrackMD.
 | **LearnMD** | LearnMD, QuizMD, NuggetMD, DiagramMD | MediaMD, GlossaryMD, CurriculumMD |
 | **QuizMD** | DiagramMD | MediaMD, GlossaryMD, CurriculumMD |
 | **FlashMD** | DiagramMD | MediaMD, GlossaryMD, CurriculumMD |
-| **NuggetMD** | — | MediaMD, GlossaryMD, CurriculumMD |
-| **DiagramMD** | — | — |
-| **AnimMD** | — | — |
-| **GlossaryMD** | — | — |
-| **MediaMD** | — | — |
-| **CurriculumMD** | — | — |
-| **BadgeMD** | — | — |
-| **CertMD** | — | — |
+| **NuggetMD** | none | MediaMD, GlossaryMD, CurriculumMD |
+| **DiagramMD** | none | none |
+| **AnimMD** | none | none |
+| **GlossaryMD** | none | none |
+| **MediaMD** | none | none |
+| **CurriculumMD** | none | none |
+| **BadgeMD** | none | none |
+| **CertMD** | none | none |
 
-DiagramMD, GlossaryMD, MediaMD, CurriculumMD, BadgeMD and CertMD are **pure leaf formats**: zero dependencies, always consumed, never producers. AnimMD is a leaf with a twist: it is a **companion** — its scripts are embedded inside the DiagramMD or MediaMD entry they animate (never imported), and content formats opt in with an `anim ref:` block. NuggetMD is a content format — it is imported by TrackMD and LearnMD, and may `!ref` leaf formats, but imports nothing itself. TrackMD does not import DiagramMD directly — standalone diagrams are embedded in the content formats (LearnMD, QuizMD, FlashMD, NuggetMD) it orchestrates.
+DiagramMD, GlossaryMD, MediaMD, CurriculumMD, BadgeMD and CertMD are **pure leaf formats**: zero dependencies, always consumed, never producers. AnimMD is a leaf with a twist: it is a **companion**: its scripts are embedded inside the DiagramMD or MediaMD entry they animate (never imported), and content formats opt in with an `anim ref:` block. NuggetMD is a content format, it is imported by TrackMD and LearnMD, and may `!ref` leaf formats, but imports nothing itself. TrackMD does not import DiagramMD directly, standalone diagrams are embedded in the content formats (LearnMD, QuizMD, FlashMD, NuggetMD) it orchestrates.
 
 ### Media resolution
 
 When a content format includes an image, two mechanisms coexist:
 
-1. **Inline** — standard Markdown link `![alt](url)` pointing to a direct URL.
-2. **Via MediaMD** — symbolic reference `![alt](media:slug)` resolved from the `.media.md` file declared by `!ref`.
+1. **Inline**: standard Markdown link `![alt](url)` pointing to a direct URL.
+2. **Via MediaMD**: symbolic reference `![alt](media:slug)` resolved from the `.media.md` file declared by `!ref`.
 
 The `media:slug` mechanism centralises licence and source management in a single MediaMD file without polluting content files.
 
@@ -228,7 +228,7 @@ All formats support two modes:
 | Mode | Behaviour |
 |---|---|
 | **Lenient** (default) | Warnings for missing non-critical fields, errors for invalid content |
-| **Strict** (`--strict`) | All warnings become errors — recommended for CI/CD pipelines |
+| **Strict** (`--strict`) | All warnings become errors, recommended for CI/CD pipelines |
 
 ### Universal errors (all formats)
 

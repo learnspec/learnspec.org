@@ -1,28 +1,28 @@
 # LearnMD Examples
 
 The snippets below are illustrative. For complete files you can actually read,
-open one of the official samples in the player — it runs in your browser and
+open one of the official samples in the player, it runs in your browser and
 fetches the file straight from GitHub.
 
-<TryIt file="python-basics/01-variables.learn.md" label="Python — variables" />
+<TryIt file="python-basics/01-variables.learn.md" label="Python, variables" />
 <TryIt file="solar-system/solar-system.learn.md" label="Solar System lesson" />
 <TryIt file="music-theory/music-theory.learn.md" label="Music theory lesson" />
 <TryIt file="web-fundamentals/web-fundamentals.learn.md" label="Web fundamentals lesson" />
 
-## Level 0 — Minimal lesson
+## Level 0: Minimal lesson
 
 The simplest possible LearnMD file is just Markdown:
 
 ````markdown
 # Git Basics
 
-## Module 1 — What is Git?
+## Module 1: What is Git?
 
 Git is a distributed version control system.
 It tracks changes to files and lets multiple people
 collaborate on the same project.
 
-## Module 2 — Your First Commit
+## Module 2: Your First Commit
 
 Open your terminal and run:
 
@@ -33,7 +33,7 @@ git commit -m "Initial commit"
 ```
 ````
 
-## Level 1 — With frontmatter and callouts
+## Level 1: With frontmatter and callouts
 
 ````markdown
 ---
@@ -46,7 +46,7 @@ author: LearnSpec Contributors
 
 # CSS Flexbox
 
-## Module 1 — Flex Containers
+## Module 1: Flex Containers
 
 > [!objectives]
 > After this module, you will be able to:
@@ -76,7 +76,7 @@ To create a flex container, set `display: flex`:
 > - `align-items` aligns on the cross axis
 ````
 
-## Level 2 — With inline quizzes and imports
+## Level 2: With inline quizzes and imports
 
 ````markdown
 ---
@@ -88,7 +88,7 @@ tags: [sql, databases]
 
 # Introduction to SQL
 
-## Module 1 — SELECT Queries
+## Module 1: SELECT Queries
 
 The `SELECT` statement retrieves data from a table:
 
@@ -104,7 +104,7 @@ SELECT name, age FROM users WHERE age > 18;
 - [ ] ORDER BY
 ```
 
-## Module 2 — Joins
+## Module 2: Joins
 
 !import ./joins.learn.md
 !import ./check-joins.quiz.md
@@ -124,7 +124,7 @@ tags: [python, functions, beginner]
 
 # Python Functions
 
-## Module 1 — Defining Functions
+## Module 1: Defining Functions
 
 A function groups reusable code under a name:
 
@@ -136,11 +136,11 @@ print(greet("Alice"))  # Hello, Alice!
 ```
 
 > [!tip]
-> Use descriptive names — `calculate_total()` is clearer than `calc()`.
+> Use descriptive names, `calculate_total()` is clearer than `calc()`.
 
 !checkpoint id:module-1-done
 
-## Module 2 — Parameters and Return Values
+## Module 2: Parameters and Return Values
 
 Functions can take multiple parameters and return a value:
 
@@ -151,9 +151,9 @@ def add(a, b):
 result = add(3, 4)  # 7
 ```
 
-!checkpoint id:module-2-done label:"Module 2 — Parameters complete"
+!checkpoint id:module-2-done label:"Module 2: Parameters complete"
 
-## Module 3 — Default Parameters and *args
+## Module 3: Default Parameters and *args
 
 Default values make parameters optional:
 
@@ -194,19 +194,19 @@ The three `!checkpoint` forms above show:
 | Full | `!checkpoint id:slug label:"..." type:milestone` | Explicit milestone or exercise gate |
 
 > [!note]
-> When a `!import ./quiz.quiz.md` or inline `quiz` block is present at the same position, it already acts as a checkpoint — no additional `!checkpoint` line is needed there.
+> When a `!import ./quiz.quiz.md` or inline `quiz` block is present at the same position, it already acts as a checkpoint, no additional `!checkpoint` line is needed there.
 
 ## Math content
 
 ````markdown
 ---
-title: Calculus — Derivatives
+title: Calculus, Derivatives
 lang: en
 estimated_time: 30min
 tags: [math, calculus]
 ---
 
-# Calculus — Derivatives
+# Calculus: Derivatives
 
 ## Definition
 

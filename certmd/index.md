@@ -2,7 +2,7 @@
 
 **The macro-credential format of the [LearnSpec](/) suite.**
 
-CertMD defines a digital certification — its description, SVG image, issuer, award requirements, grade levels, and accreditation conditions. Fields map to **Open Badges 3.0** for interoperability with existing platforms.
+CertMD defines a digital certification, its description, SVG image, issuer, award requirements, grade levels, and accreditation conditions. Fields map to **Open Badges 3.0** for interoperability with existing platforms.
 
 A certification attests mastery of a **complete domain**, as opposed to a [BadgeMD](/badgemd/) which attests a targeted skill. It may require completing multiple [TrackMD](/trackmd/) learning paths, passing a formal examination, and holding prerequisite badges.
 
@@ -25,7 +25,7 @@ CertMD is a **leaf format**: it is referenced from a TrackMD via `on_completion.
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.cert.md` file is valid Markdown readable in any editor |
-| **File-native** | All metadata lives in the file — no database required |
+| **File-native** | All metadata lives in the file, no database required |
 | **SVG-native** | The certification is represented by a bakeable SVG file |
 | **Graceful degradation** | The SVG image and description are visible in any standard reader |
 | **Open Badges compatible** | Fields map to Open Badges 3.0 for interoperability |

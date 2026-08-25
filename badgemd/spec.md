@@ -1,22 +1,22 @@
-# BadgeMD — Format Specification v0.1
+# BadgeMD: Format Specification v0.1
 
 > Part of the [LearnSpec](/) suite. Draft.
 
 ## Core principle
 
-BadgeMD is the **micro-credential format** of the LearnSpec suite. It defines a digital badge — its description, SVG image, issuer, award criteria, and expiry conditions — in a way that is human-readable and interoperable with the **Open Badges 3.0** standard (IMS Global / 1EdTech).
+BadgeMD is the **micro-credential format** of the LearnSpec suite. It defines a digital badge, its description, SVG image, issuer, award criteria, and expiry conditions, in a way that is human-readable and interoperable with the **Open Badges 3.0** standard (IMS Global / 1EdTech).
 
 A badge recognises mastery of a specific skill. It is granular and stackable: a learner may accumulate several badges along a learning path. It is distinct from CertMD (a macro-credential attesting mastery of a complete domain) by its targeted scope.
 
-BadgeMD is a **leaf format** in terms of imports — it imports no other LearnSpec format. It is referenced from TrackMD (`on_completion.badge`) or from a `!checkpoint` in LearnMD.
+BadgeMD is a **leaf format** in terms of imports, it imports no other LearnSpec format. It is referenced from TrackMD (`on_completion.badge`) or from a `!checkpoint` in LearnMD.
 
 BadgeMD inherits its frontmatter and validation rules from the shared [Architecture Charter](/charter/).
 
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.badge.md` file is valid Markdown readable in any editor |
-| **File-native** | All metadata lives in the file — no database required |
-| **SVG-native** | The badge is an SVG file — vector, scalable, bakeable |
+| **File-native** | All metadata lives in the file, no database required |
+| **SVG-native** | The badge is an SVG file, vector, scalable, bakeable |
 | **Graceful degradation** | The SVG image and description are visible in any standard reader |
 | **Open Badges compatible** | Fields map to Open Badges 3.0 for interoperability |
 
@@ -28,16 +28,16 @@ BadgeMD inherits its frontmatter and validation rules from the shared [Architect
 | 1 | Full YAML frontmatter | Machine-readable metadata (issuer, expiry, alignment) |
 | 2 | `criteria` fenced block | Machine-readable award conditions |
 
-## Level 0 — Pure Markdown
+## Level 0: Pure Markdown
 
 A Level 0 BadgeMD file is a Markdown document with a title, the badge SVG image, and a description of the award criteria.
 
 ```markdown
-# Badge — Python Beginner
+# Badge: Python Beginner
 
 ![Python Beginner Badge](./badge-python-beginner.svg)
 
-To earn this badge, the learner must have completed the **Learning Python — Beginner Track**
+To earn this badge, the learner must have completed the **Learning Python, Beginner Track**
 with an overall score of at least 65%.
 
 This badge attests mastery of Python fundamentals: variables, data types,
@@ -56,24 +56,24 @@ The badge image is a standard Markdown line placed immediately after the `# H1`:
 
 - The image file **must be SVG** (`image/svg+xml`).
 - Local path (`./badge.svg`) or URL (`https://...`).
-- SVG renders natively in GitHub, Obsidian, and VS Code — optimal graceful degradation.
+- SVG renders natively in GitHub, Obsidian, and VS Code, optimal graceful degradation.
 
-## Level 1 — YAML frontmatter
+## Level 1: YAML frontmatter
 
 ```yaml
 ---
-name: "Python Beginner"                         # REQUIRED — badge display name
-lang: en                                         # REQUIRED — BCP-47 code
-description: "Mastery of Python fundamentals."  # optional — short summary
-image: ./badge-python-beginner.svg               # REQUIRED — path or URL to SVG file
-issuer:                                          # REQUIRED — badge issuer
+name: "Python Beginner"                         # REQUIRED: badge display name
+lang: en                                         # REQUIRED: BCP-47 code
+description: "Mastery of Python fundamentals."  # optional: short summary
+image: ./badge-python-beginner.svg               # REQUIRED: path or URL to SVG file
+issuer:                                          # REQUIRED: badge issuer
   name: Example Academy                          #   organisation name
   url: https://academy.example.org               #   issuer URL
   email: badges@academy.example.org              #   optional
 tags: [python, programming, beginner]            # optional
-expires: P2Y                                     # optional — ISO 8601 duration (P2Y = 2 years)
+expires: P2Y                                     # optional: ISO 8601 duration (P2Y = 2 years)
 verification_url: https://academy.example.org/verify/  # optional
-alignment:                                       # optional — alignment to skill frameworks
+alignment:                                       # optional: alignment to skill frameworks
   - framework: ESCO
     url: https://esco.ec.europa.eu/...
     name: "Use Python"
@@ -109,7 +109,7 @@ spec_version: "0.1"
 | `verification_url` | No | URL | Public verification URL for a badge assertion | `verify` |
 | `alignment` | No | object[] | Alignment to external skill frameworks (ESCO, O*NET, …) | `alignment` |
 
-## Level 2 — `criteria` block
+## Level 2: `criteria` block
 
 A `criteria` fenced block defines the badge award conditions in a machine-readable way. It is placed in the document body, after the narrative description.
 
@@ -132,7 +132,7 @@ passing_score: 0.65
 
 ### Multiple criteria (AND logic)
 
-Multiple criteria may be combined in a single block — all must be satisfied:
+Multiple criteria may be combined in a single block, all must be satisfied:
 
 ````markdown
 ```criteria
@@ -167,12 +167,12 @@ created: 2026-05-10
 spec_version: "0.1"
 ---
 
-# Badge — Python Beginner
+# Badge: Python Beginner
 
 ![Python Beginner Badge](./badge-python-beginner.svg)
 
 To earn this badge, the learner must have completed the
-**Learning Python — Beginner Track** with an overall score of at least 65%.
+**Learning Python, Beginner Track** with an overall score of at least 65%.
 
 This badge attests the following skills:
 
@@ -201,7 +201,7 @@ on_completion:
 
 The badge is awarded when the track completion criteria are satisfied.
 
-### From LearnMD — via `!checkpoint`
+### From LearnMD: via `!checkpoint`
 
 A badge may be awarded when a learner reaches a specific checkpoint in a LearnMD, via the `badge:` attribute on the `!checkpoint` directive:
 
@@ -219,9 +219,9 @@ source: ./01-variables.learn.md
 ```
 ````
 
-## SVG baking — implementation note
+## SVG baking: implementation note
 
-The Open Badges 3.0 standard supports **SVG baking**: embedding the badge JSON-LD assertion (learner data, award date, criteria) directly inside the awarded badge SVG file. A baked badge is self-verifiable and portable — the learner can share it on LinkedIn, display it on their portfolio, and anyone can verify its authenticity by inspecting the file.
+The Open Badges 3.0 standard supports **SVG baking**: embedding the badge JSON-LD assertion (learner data, award date, criteria) directly inside the awarded badge SVG file. A baked badge is self-verifiable and portable, the learner can share it on LinkedIn, display it on their portfolio, and anyone can verify its authenticity by inspecting the file.
 
 SVG baking is a **player implementation feature**, not a BadgeMD spec constraint. The `.badge.md` file defines the badge class; the player handles generating and baking individual assertions.
 
@@ -231,8 +231,8 @@ SVG baking is a **player implementation feature**, not a BadgeMD spec constraint
 |---|---|
 | Referenced from TrackMD (`on_completion.badge`) | ✅ |
 | Referenced from LearnMD (`!checkpoint badge:`) | ✅ |
-| `!import` of other formats | ❌ — leaf format |
-| `!ref` of other formats | ❌ — leaf format |
+| `!import` of other formats | ❌, leaf format |
+| `!ref` of other formats | ❌, leaf format |
 
 ## Validation
 

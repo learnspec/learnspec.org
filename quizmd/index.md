@@ -2,7 +2,7 @@
 
 **The assessment format of the [LearnSpec](/) suite.**
 
-QuizMD uses Markdown with progressive YAML configuration to create quizzes, exams, and assessments — from simple practice questions to full scored exams with timed sections, all in portable plain-text files.
+QuizMD uses Markdown with progressive YAML configuration to create quizzes, exams, and assessments, from simple practice questions to full scored exams with timed sections, all in portable plain-text files.
 
 [LearnMD](/learnmd/) covers instruction; QuizMD covers assessment. The two compose freely: a `.quiz.md` can be embedded inline in a lesson via `!import`.
 
@@ -12,7 +12,7 @@ QuizMD uses Markdown with progressive YAML configuration to create quizzes, exam
 |---|---|
 | **YAML everywhere** | One configuration syntax across three progressive levels |
 | **Markdown-first** | Valid Markdown files readable in any editor |
-| **File-native** | All content lives in files — no database required |
+| **File-native** | All content lives in files, no database required |
 | **AI-native** | Generatable and consumable by LLMs without special tooling |
 | **Rich question types** | MCQ, multi-select, open answer, true/false, match, order |
 | **LearnSpec-interoperable** | Natively integrates with LearnMD, DiagramMD, MediaMD, GlossaryMD |
@@ -61,7 +61,7 @@ spec_version: "0.3"
 
 ## Try it
 
-Open a real `.quiz.md` file in the player. It runs entirely in your browser —
+Open a real `.quiz.md` file in the player. It runs entirely in your browser, 
 the file is fetched straight from GitHub, and nothing is uploaded anywhere.
 
 <TryIt file="solar-system/solar-system.quiz.md" label="Solar System quiz" />
@@ -70,7 +70,7 @@ the file is fetched straight from GitHub, and nothing is uploaded anywhere.
 
 ## Status
 
-QuizMD is stable. **v0.3** is drafting to align with the new LearnSpec suite — it requires the universal `lang` field, adds `!ref` for [DiagramMD](/diagrammd/), [MediaMD](/mediamd/) and [GlossaryMD](/glossarymd/) contexts, supports `media:slug` images with fallback URLs and ` ```diagram ref:slug ` for granular diagram reuse, and delegates diagram syntax to [DiagramMD](/diagrammd/).
+QuizMD is stable. **v0.3** is drafting to align with the new LearnSpec suite, it requires the universal `lang` field, adds `!ref` for [DiagramMD](/diagrammd/), [MediaMD](/mediamd/) and [GlossaryMD](/glossarymd/) contexts, supports `media:slug` images with fallback URLs and ` ```diagram ref:slug ` for granular diagram reuse, and delegates diagram syntax to [DiagramMD](/diagrammd/).
 
 ## Next steps
 

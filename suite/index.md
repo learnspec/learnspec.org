@@ -1,6 +1,6 @@
 # The LearnSpec Suite
 
-LearnSpec is a family of twelve Markdown-based formats that cover the full lifecycle of educational content — from a single lesson to a complete certification path.
+LearnSpec is a family of thirteen Markdown-based formats that cover the full lifecycle of educational content, from a single lesson to a complete certification path.
 
 Each format is independent, each is valid Markdown, and each composes with the others through the shared mechanisms defined in the **[Architecture Charter](/charter/)**.
 
@@ -8,8 +8,8 @@ Each format is independent, each is valid Markdown, and each composes with the o
 
 | Format | Ext. | Role | Status |
 |---|---|---|---|
-| [LearnMD](/learnmd/) | `.learn.md` | Structured educational content | Stable — v0.3 (v0.4 drafting) |
-| [QuizMD](/quizmd/) | `.quiz.md` | Quizzes and assessments | Stable — v0.3 drafting |
+| [LearnMD](/learnmd/) | `.learn.md` | Structured educational content | Stable, v0.3 (v0.4 drafting) |
+| [QuizMD](/quizmd/) | `.quiz.md` | Quizzes and assessments | Stable, v0.3 drafting |
 | [ExerciseMD](/exercisemd/) | `.exercise.md` | Exercises with model solutions and grading rubrics | Draft v0.1 |
 | [TrackMD](/trackmd/) | `.track.md` | Sequenced learning paths | Draft v0.1 |
 | [FlashMD](/flashmd/) | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
@@ -26,9 +26,9 @@ Each format is independent, each is valid Markdown, and each composes with the o
 
 The suite forms three layers:
 
-- **Orchestrator** — `TrackMD` sequences everything else.
-- **Content formats** — `LearnMD`, `QuizMD`, `ExerciseMD`, `FlashMD`, `NuggetMD` carry the actual material.
-- **Leaf formats** — `DiagramMD`, `MediaMD`, `AnimMD`, `GlossaryMD`, `CurriculumMD`, `BadgeMD`, `CertMD` are referenced but never reference anything else (AnimMD scripts ride inside the DiagramMD / MediaMD entries they animate).
+- **Orchestrator**: `TrackMD` sequences everything else.
+- **Content formats**: `LearnMD`, `QuizMD`, `ExerciseMD`, `FlashMD`, `NuggetMD` carry the actual material.
+- **Leaf formats**: `DiagramMD`, `MediaMD`, `AnimMD`, `GlossaryMD`, `CurriculumMD`, `BadgeMD`, `CertMD` are referenced but never reference anything else (AnimMD scripts ride inside the DiagramMD / MediaMD entries they animate).
 
 ```
                           ┌──────────────┐
@@ -40,12 +40,12 @@ The suite forms three layers:
      │          │          │          │          │
      └──────────┴──────────┴────┬─────┴──────────┘
                                 ▼
-     DiagramMD · MediaMD · AnimMD · GlossaryMD · CurriculumMD  ← leaves
+     DiagramMD, MediaMD, AnimMD, GlossaryMD, CurriculumMD     ← leaves
                                 │
-                         BadgeMD · CertMD                     ← credentials
+                         BadgeMD, CertMD                      ← credentials
 ```
 
-The full compatibility matrix — who can `!import` whom, who can `!ref` whom — lives in the [charter](/charter/#interoperability-matrix).
+The full compatibility matrix, who can `!import` whom, who can `!ref` whom, lives in the [charter](/charter/#interoperability-matrix).
 
 ---
 
@@ -55,7 +55,7 @@ The full compatibility matrix — who can `!import` whom, who can `!ref` whom �
 
 **Status:** stable, v0.3 in production; v0.4 drafting to align with the new suite (extracts diagrams to DiagramMD, media to MediaMD, definitions to GlossaryMD).
 
-The educational content format — explanations, examples, exercises, inline checkpoints. A complete course can live in a single `.learn.md` file; `!import` is a composition tool, not a prerequisite.
+The educational content format, explanations, examples, exercises, inline checkpoints. A complete course can live in a single `.learn.md` file; `!import` is a composition tool, not a prerequisite.
 
 → **[LearnMD documentation](/learnmd/)**
 
@@ -63,7 +63,7 @@ The educational content format — explanations, examples, exercises, inline che
 
 **Status:** stable, v0.3 drafting consolidates the "YAML everywhere" principle across the three levels.
 
-The assessment format — single questions, full quizzes, configurable behaviour through YAML at every level. Natively embeddable inline in a LearnMD via `!import`.
+The assessment format, single questions, full quizzes, configurable behaviour through YAML at every level. Natively embeddable inline in a LearnMD via `!import`.
 
 → **[QuizMD documentation](/quizmd/)**
 
@@ -71,15 +71,15 @@ The assessment format — single questions, full quizzes, configurable behaviour
 
 ## Draft formats {#upcoming}
 
-The formats below are at draft v0.1 or v0.2 — their *specifications* are still moving. That is a statement about the spec, not about availability: several are already implemented and used in production. Expect refinements, not upheaval.
+The formats below are at draft v0.1 or v0.2, their *specifications* are still moving. That is a statement about the spec, not about availability: several are already implemented and used in production. Expect refinements, not upheaval.
 
 ### ExerciseMD {#exercisemd}
 
-**Role:** exercises — tasks where the learner *produces* work (a derivation, an essay, a translation, a program), graded against a model solution, explicit expectations, and a rubric.
+**Role:** exercises, tasks where the learner *produces* work (a derivation, an essay, a translation, a program), graded against a model solution, explicit expectations, and a rubric.
 
 The split with QuizMD is deliberate and enforced: if an answer can be graded by **matching**, it belongs in QuizMD; if grading requires **judging a production**, it belongs here. ExerciseMD therefore defines *no* closed-answer syntax at all, and a mixed exam paper composes both through TrackMD.
 
-**Key decisions:** the canonical file holds statement *and* grading kit, with the subject and the answer key derived from it mechanically — parallel copies drift, derived views cannot. Rubrics come in two shapes: additive (one observable criterion per point) and levels (profile descriptors with floor scores) for holistic work.
+**Key decisions:** the canonical file holds statement *and* grading kit, with the subject and the answer key derived from it mechanically, parallel copies drift, derived views cannot. Rubrics come in two shapes: additive (one observable criterion per point) and levels (profile descriptors with floor scores) for holistic work.
 
 ### TrackMD {#trackmd}
 
@@ -93,15 +93,15 @@ TrackMD is the only format that can `!import` all content types. A Level 0 `.tra
 
 ### FlashMD {#flashmd}
 
-**Role:** front/back flashcards for spaced-repetition review. Consumed in a context separate from the lesson (review session, notification, flashcard mode) — never inlined in a LearnMD.
+**Role:** front/back flashcards for spaced-repetition review. Consumed in a context separate from the lesson (review session, notification, flashcard mode), never inlined in a LearnMD.
 
-**Key decisions:** inline LaTeX is available from Level 0 — mathematical content is a fundamental element of cards, not an advanced feature. Visual richness (`media:slug`) comes at Level 2.
+**Key decisions:** inline LaTeX is available from Level 0, mathematical content is a fundamental element of cards, not an advanced feature. Visual richness (`media:slug`) comes at Level 2.
 
 ### NuggetMD {#nuggetmd}
 
-**Role:** collections of *nuggets* — short, self-contained concepts read in under three minutes each, reviewed over time via spaced repetition.
+**Role:** collections of *nuggets*, short, self-contained concepts read in under three minutes each, reviewed over time via spaced repetition.
 
-NuggetMD sits between FlashMD and LearnMD: larger than an atomic fact, smaller than a full lesson. The author controls granularity — a file may hold one nugget or dozens.
+NuggetMD sits between FlashMD and LearnMD: larger than an atomic fact, smaller than a full lesson. The author controls granularity, a file may hold one nugget or dozens.
 
 **Key decisions:** each nugget enters its own FSRS slot; FlashMD and NuggetMD feed separate review queues, never mixed. A nugget that exceeds the three-minute reading limit belongs in LearnMD.
 
@@ -109,13 +109,13 @@ NuggetMD sits between FlashMD and LearnMD: larger than an atomic fact, smaller t
 
 **Role:** dual-purpose. It is both the **canonical syntax specification** for diagram blocks across the entire suite (`mermaid`, `abc`, `chess`, `vega`, `d3`, `smiles`, …) and a **standalone file format** for reusable named diagrams referenced by slug via `!ref` from any content format.
 
-Other specs (LearnMD, QuizMD, FlashMD) delegate diagram documentation to DiagramMD — a diagram block valid in DiagramMD is valid everywhere in the suite. Rendering implementation is left to players.
+Other specs (LearnMD, QuizMD, FlashMD) delegate diagram documentation to DiagramMD, a diagram block valid in DiagramMD is valid everywhere in the suite. Rendering implementation is left to players.
 
 ### AnimMD {#animmd}
 
-**Role:** step-reveal animation scripts over existing vector scenes — a DiagramMD entry or a MediaMD SVG asset. A script only chooses the *order of revelation* of named elements (five verbs, prose captions); it contains no keyframes and no coordinates.
+**Role:** step-reveal animation scripts over existing vector scenes, a DiagramMD entry or a MediaMD SVG asset. A script only chooses the *order of revelation* of named elements (five verbs, prose captions); it contains no keyframes and no coordinates.
 
-**Key decisions:** the script never contains a renderer id — a binding layer maps author-chosen names to the scene's *source* identifiers, resolved per generator at render time. Every failure mode degrades to the static scene: the worst case is exactly what the host displays today.
+**Key decisions:** the script never contains a renderer id, a binding layer maps author-chosen names to the scene's *source* identifiers, resolved per generator at render time. Every failure mode degrades to the static scene: the worst case is exactly what the host displays today.
 
 
 ### MediaMD {#mediamd}
@@ -132,17 +132,17 @@ A standard Markdown reader displays the image via the fallback URL. A LearnSpec 
 
 ### GlossaryMD {#glossarymd}
 
-**Role:** centralise definitions of key terms in a corpus. Referenced via `!ref` so a compatible player can highlight terms, surface tooltips, and link related entries — without modifying source content.
+**Role:** centralise definitions of key terms in a corpus. Referenced via `!ref` so a compatible player can highlight terms, surface tooltips, and link related entries, without modifying source content.
 
-This is the format with the most natural graceful degradation: a Level 0 `.glossary.md` is a perfectly readable glossary in any Markdown viewer with no specific syntax at all. Inline Markdown and LaTeX are allowed in definitions; fenced blocks (Mermaid, quiz, rich examples) are not — a definition that needs a diagram is a lesson, not a glossary entry.
+This is the format with the most natural graceful degradation: a Level 0 `.glossary.md` is a perfectly readable glossary in any Markdown viewer with no specific syntax at all. Inline Markdown and LaTeX are allowed in definitions; fenced blocks (Mermaid, quiz, rich examples) are not, a definition that needs a diagram is a lesson, not a glossary entry.
 
 ### CurriculumMD {#curriculummd}
 
-**Role:** describe what a corpus *must* cover — a school syllabus, a certification framework, an internal training plan — without being pedagogical content itself.
+**Role:** describe what a corpus *must* cover, a school syllabus, a certification framework, an internal training plan, without being pedagogical content itself.
 
 CurriculumMD is the first **meta** format in the suite: it holds no lessons or quizzes, only reference learning objectives. Content formats declare alignment with `!ref`; the actual coverage check is performed by the AI or the player.
 
-**Key decisions:** a pure leaf format — imports and references nothing. Level 2 adds per-objective attributes (`id`, `bloom`, `weight`, `mandatory`) for machine-readable alignment.
+**Key decisions:** a pure leaf format, imports and references nothing. Level 2 adds per-objective attributes (`id`, `bloom`, `weight`, `mandatory`) for machine-readable alignment.
 
 ### BadgeMD {#badgemd}
 
@@ -152,7 +152,7 @@ Designed for compatibility with **Open Badges 3.0** (IMS Global / 1EdTech), so a
 
 ### CertMD {#certmd}
 
-**Role:** define a **macro-credential** attesting mastery of a complete domain — typically requiring completion of one or more `TrackMD` paths, a passing score on a formal assessment, and possibly prerequisite badges.
+**Role:** define a **macro-credential** attesting mastery of a complete domain, typically requiring completion of one or more `TrackMD` paths, a passing score on a formal assessment, and possibly prerequisite badges.
 
 CertMD is to BadgeMD what a degree is to a module completion certificate: same family, different scope. Kept as two separate formats to keep each spec focused.
 
@@ -160,6 +160,6 @@ CertMD is to BadgeMD what a degree is to a module completion certificate: same f
 
 ## Where to next
 
-- Read the **[Architecture Charter](/charter/)** for the principles every format inherits — graceful degradation, levels, frontmatter, directives, validation.
+- Read the **[Architecture Charter](/charter/)** for the principles every format inherits, graceful degradation, levels, frontmatter, directives, validation.
 - Read the **[LearnMD](/learnmd/)** and **[QuizMD](/quizmd/)** specifications for the stable formats.
 - Follow [github.com/learnspec](https://github.com/learnspec) for the draft specifications and their changelogs.

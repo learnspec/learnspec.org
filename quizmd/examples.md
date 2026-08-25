@@ -1,15 +1,15 @@
 # QuizMD Examples
 
 The snippets below are illustrative. For complete files you can actually take,
-open one of the official samples in the player — it runs in your browser and
+open one of the official samples in the player, it runs in your browser and
 fetches the file straight from GitHub.
 
 <TryIt file="solar-system/solar-system.quiz.md" label="Solar System quiz" />
 <TryIt file="music-theory/music-theory.quiz.md" label="Music theory quiz" />
-<TryIt file="python-basics/check-variables.quiz.md" label="Python — variables check" />
+<TryIt file="python-basics/check-variables.quiz.md" label="Python, variables check" />
 <TryIt file="web-fundamentals/web-fundamentals.quiz.md" label="Web fundamentals quiz" />
 
-## Level 0 — Minimal quiz
+## Level 0: Minimal quiz
 
 ```markdown
 # Geography Quiz
@@ -33,11 +33,11 @@ fetches the file straight from GitHub.
 **Answer:** Nile
 ```
 
-## Level 1 — Scored exam with frontmatter
+## Level 1: Scored exam with frontmatter
 
 ```markdown
 ---
-title: Biology — Cell Structure
+title: Biology, Cell Structure
 lang: en
 domain: academic
 tags: [biology, cells]
@@ -49,7 +49,7 @@ scoring:
   incorrect: -1
 ---
 
-# Biology — Cell Structure
+# Biology: Cell Structure
 
 ## Q1 · Which organelle produces energy?
 
@@ -71,7 +71,7 @@ scoring:
 > Plant cells have cell walls, chloroplasts, and a large central vacuole.
 ```
 
-## Level 2 — Per-question configuration
+## Level 2: Per-question configuration
 
 ````markdown
 ---
@@ -146,7 +146,7 @@ What is its kinetic energy $E_k$?
 
 ```markdown
 ---
-title: History — Complete Course Exam
+title: History, Complete Course Exam
 lang: en
 domain: academic
 passing_score: 0.6
@@ -154,7 +154,7 @@ reveal: sequential
 feedback_mode: deferred
 ---
 
-# History — Complete Course Exam
+# History: Complete Course Exam
 
 !import ./ancient-history.quiz.md
 !import ./medieval-history.quiz.md

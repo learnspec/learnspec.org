@@ -1,4 +1,4 @@
-# ExerciseMD — Format Specification v0.1
+# ExerciseMD: Format Specification v0.1
 
 > Part of the [LearnSpec](/) suite. Draft.
 > File extension: `.exercise.md` (companion: `.solution.md`)
@@ -7,8 +7,8 @@
 
 ## Purpose
 
-ExerciseMD describes **exercises**: tasks where the learner *produces* work — a
-derivation, a proof, an essay, a translation, a program — and where grading
+ExerciseMD describes **exercises**: tasks where the learner *produces* work, a
+derivation, a proof, an essay, a translation, a program, and where grading
 means **judging that production against a model solution, explicit
 expectations, and a point-by-point rubric**.
 
@@ -16,13 +16,13 @@ One file carries the complete pedagogical object: statement, progressive
 hints, worked solution, expectations, and rubric. From that single canonical
 file, tools mechanically derive the two everyday artifacts:
 
-- the **subject** (statement only — for an exam paper or a printable worksheet),
-- the **grading kit** (solution + expectations + rubric — for a teacher or an
+- the **subject** (statement only, for an exam paper or a printable worksheet),
+- the **grading kit** (solution + expectations + rubric, for a teacher or an
   AI grader).
 
 The format is designed to serve both **practice** (self-training with hints
 and worked solutions) and **assessment** (exams, tests, homework) without
-changing syntax — only what is revealed changes.
+changing syntax, only what is revealed changes.
 
 ---
 
@@ -50,8 +50,8 @@ ExerciseMD deliberately has **no closed-answer syntax** (no `- [x]`, no
 
 One boundary case looks closed but is not: **justified true/false**
 ("state whether the claim is true or false; every answer must be
-justified"). What earns the points is the justification — a production
-judged against expectations — so it belongs in ExerciseMD, with the verdict
+justified"). What earns the points is the justification, a production
+judged against expectations, so it belongs in ExerciseMD, with the verdict
 carried by `[!answer]`.
 
 ---
@@ -61,17 +61,17 @@ carried by `[!answer]`.
 | Principle | Description |
 |---|---|
 | **Markdown-first** | An `.exercise.md` file is valid Markdown, readable and *printable* from any editor |
-| **File-native** | All content lives in files — no database required |
+| **File-native** | All content lives in files, no database required |
 | **YAML everywhere** | One configuration syntax across all levels, shared with the rest of the suite |
 | **AI-native** | Generatable by LLMs without tooling; the rubric makes AI grading reproducible and auditable |
-| **Solution-complete** | The canonical file contains statement *and* solution *and* rubric — an exercise without its grading contract is incomplete |
-| **Strippable** | The subject and the grading kit are derived from the canonical file by a mechanical, reversible operation — never maintained by hand in parallel |
-| **Language-neutral markers** | All reserved markers are syntax (callout tags), never natural-language headings — content can be authored in any language with zero parser configuration |
+| **Solution-complete** | The canonical file contains statement *and* solution *and* rubric, an exercise without its grading contract is incomplete |
+| **Strippable** | The subject and the grading kit are derived from the canonical file by a mechanical, reversible operation, never maintained by hand in parallel |
+| **Language-neutral markers** | All reserved markers are syntax (callout tags), never natural-language headings, content can be authored in any language with zero parser configuration |
 | **LearnSpec-interoperable** | Same `!ref` / `!import` directives, math, diagram and media conventions as QuizMD |
 
 ---
 
-## Level 0 — Base Markdown Syntax
+## Level 0: Base Markdown Syntax
 
 ### Conventions
 
@@ -81,10 +81,10 @@ carried by `[!answer]`.
 | `### a)` or `### a) Title` | Sub-question within an exercise |
 | `> [!hint]` | Progressive hint (repeatable; display order = document order) |
 | `> [!answer]` | Concise final answer (result only, no reasoning) |
-| `> [!solution]` | Full worked solution — the model path, step by step |
-| `> [!expected]` | Expectations — observable criteria the production must exhibit |
-| `> [!rubric]` | Rubric — a Markdown table mapping criteria to points |
-| `> [!anchor score:N]` | Anchor copy — a scored production the grader calibrates against |
+| `> [!solution]` | Full worked solution, the model path, step by step |
+| `> [!expected]` | Expectations, observable criteria the production must exhibit |
+| `> [!rubric]` | Rubric, a Markdown table mapping criteria to points |
+| `> [!anchor score:N]` | Anchor copy, a scored production the grader calibrates against |
 | `!import ./file.exercise.md` | Include exercises from another file (entry-file only, as in QuizMD) |
 | `!ref ./file.diagram.md` | Declare a DiagramMD context |
 | `!ref ./file.media.md` | Declare a MediaMD context |
@@ -97,13 +97,13 @@ carried by `[!answer]`.
 
 - An **exercise** starts at `## En`. Everything between the heading (and its
   optional ` ```exercise ` block) and the first sub-question or callout is the
-  **statement** — shared context for all sub-questions (a document to read, a
+  **statement**: shared context for all sub-questions (a document to read, a
   figure, experimental data, a scenario).
-- A **sub-question** starts at a `###` heading whose label ends with `)` —
+- A **sub-question** starts at a `###` heading whose label ends with `)`, 
   `### a)`, `### 2.1)`, `### A.1.b)`. Labels are free-form: deep exam
   structures (part / question / sub-question) are expressed by **flat
   compound labels** (`A.1.a`), not by deeper heading nesting.
-- A `###` heading **not** ending in `)` (e.g. `### Part B — the function g`)
+- A `###` heading **not** ending in `)` (e.g. `### Part B, the function g`)
   is a **statement section**: shared context for the sub-questions that
   follow it, carrying no points and no grading callouts of its own.
 - A sub-question that receives **no grading callout** (neither inline nor in
@@ -117,7 +117,7 @@ carried by `[!answer]`.
 ### Callout Scoping
 
 A reserved callout (`[!hint]`, `[!answer]`, `[!solution]`, `[!expected]`,
-`[!rubric]`, `[!anchor]`) attaches to the **nearest preceding heading** — the sub-question
+`[!rubric]`, `[!anchor]`) attaches to the **nearest preceding heading**: the sub-question
 if one precedes it, otherwise the exercise itself. Callouts may contain any
 Markdown: paragraphs, math, tables, diagrams, images.
 
@@ -125,14 +125,14 @@ Text on the marker line is part of the callout (`> [!answer] x = 3`).
 
 One document-level exception: an `[!expected]` placed **before the first
 `## En` heading** applies to the whole document. This carries cross-cutting
-grading guidance — real exams have it ("the quality of the writing is
-taken into account", "partial work is credited") — that graders must
+grading guidance, real exams have it ("the quality of the writing is
+taken into account", "partial work is credited"), that graders must
 weigh on every sub-question.
 
 ### Minimal Example
 
 ```markdown
-# Quadratic equations — practice
+# Quadratic equations: practice
 
 ## E1 · Solve
 
@@ -160,7 +160,7 @@ Solve in $\mathbb{R}$: $x^2 - 2x - 3 = 0$.
 > | Both exact roots | 1 |
 ```
 
-This file is a complete, printable worksheet with its answer key — and,
+This file is a complete, printable worksheet with its answer key, and,
 stripped, a clean subject.
 
 ---
@@ -171,9 +171,9 @@ The three grader-facing callouts have distinct, complementary roles:
 
 | Callout | Role | Normative? |
 |---|---|---|
-| `[!rubric]` | **The grading contract.** Each row is a criterion worth points. The grade is the sum of points awarded row by row. | **Yes** — graders must follow it |
-| `[!expected]` | Observable criteria the production must exhibit, in prose or bullets — what "correct" looks like, independent of any particular solution path. | Yes — informs rubric interpretation |
-| `[!solution]` | One model path, fully worked. Illustrative: **an alternative valid path earns full credit** if it satisfies the expectations. | No — illustrative |
+| `[!rubric]` | **The grading contract.** Each row is a criterion worth points. The grade is the sum of points awarded row by row. | **Yes**: graders must follow it |
+| `[!expected]` | Observable criteria the production must exhibit, in prose or bullets, what "correct" looks like, independent of any particular solution path. | Yes, informs rubric interpretation |
+| `[!solution]` | One model path, fully worked. Illustrative: **an alternative valid path earns full credit** if it satisfies the expectations. | No, illustrative |
 | `[!answer]` | The bare final result, when one exists. Enables fast checking and self-correction. | Yes, when present |
 
 ### Rubric Table
@@ -182,14 +182,14 @@ A rubric takes one of two forms. The default, **additive**, has two columns
 in this order: **criterion**, **points**. Header labels are free (any
 language); column *order* is the contract.
 
-The second form, **levels** — declared with `> [!rubric levels]` — serves
+The second form, **levels**: declared with `> [!rubric levels]`, serves
 holistic grading (essays, dissertations): two columns, **profile
 descriptor** then **floor score**, rows ordered by ascending floor. The
 grader identifies the highest profile the production matches and awards at
-least that floor (floors are minimums, not ceilings — the next row's floor
+least that floor (floors are minimums, not ceilings, the next row's floor
 caps the band). Within the band above the last floor reached, graders must
 position by the production's *excess* over that floor, not by its residual
-flaws — a production may earn the top score without being flawless, if it
+flaws, a production may earn the top score without being flawless, if it
 is remarkable relative to the expected level. Levels rubrics are exempt
 from the sum rules below; a
 sub-question's points come from its declared `points:`. This mirrors how
@@ -206,7 +206,7 @@ real holistic scales work (e.g. the French national dissertation grids:
 A levels rubric **should** carry anchor copies: real (or reconstructed)
 productions with the score they actually received, declared as
 `> [!anchor score:16]` blocks placed after the rubric. Graders must read
-the anchors and calibrate against them *before* scoring — an anchor is a
+the anchors and calibrate against them *before* scoring, an anchor is a
 worked example of the scale, the way `[!solution]` is a worked example of
 the task.
 
@@ -239,7 +239,7 @@ grader-facing: `strip` removes them like any other grading callout.
   rubric if it has no sub-questions). An explicit `points:` in a
   ` ```exercise ` block must match this sum (validation warning otherwise).
 - Rubric rows are identified `E1.a-r1`, `E1.a-r2`, … for grader outputs and
-  contestation — an AI or human grader can report an auditable
+  contestation, an AI or human grader can report an auditable
   per-row breakdown.
 
 ### AI Grading Semantics
@@ -248,7 +248,7 @@ A conforming AI grader receives the learner's production plus the exercise's
 grading kit and must:
 
 1. award points **per rubric row**, never as a single holistic score;
-2. treat the solution as *one* valid path — judge alternatives against
+2. treat the solution as *one* valid path, judge alternatives against
    `[!expected]`, not against textual similarity with `[!solution]`;
 3. produce a per-row justification, so the grade is contestable row by row.
 
@@ -257,7 +257,7 @@ on any conforming platform or script.
 
 ---
 
-## Practice vs. Exam — Strip and Merge
+## Practice vs. Exam: Strip and Merge
 
 The canonical file is always **merged** (statement + grading kit together).
 Two mechanical operations are defined on it; conforming tools must implement
@@ -272,7 +272,7 @@ Produces a derived view by removing callouts:
 | `strip: solutions` | `[!answer]`, `[!solution]`, `[!expected]`, `[!rubric]`, `[!anchor]` | Practice subject (hints kept) |
 | `strip: exam` | All reserved callouts, including `[!hint]` | Exam subject |
 
-Everything else — frontmatter, statements, diagrams, math — is preserved
+Everything else, frontmatter, statements, diagrams, math, is preserved
 byte-for-byte. Stripping is **pure removal**: no rewriting, no renumbering.
 
 ### `merge` and the Companion `.solution.md`
@@ -316,30 +316,30 @@ prefer the canonical merged form.
 
 ---
 
-## Level 1 — YAML Frontmatter
+## Level 1: YAML Frontmatter
 
 | Field | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `title` | string | No | — | Inferred from the first `# H1` if absent |
-| `lang` | BCP-47 | **Yes** | — | Language code (`en`, `fr`…) |
-| `description` | string | No | — | Short description |
-| `author` | string or object | No | — | Author name, or `{name, email, url}` |
+| `title` | string | No | none | Inferred from the first `# H1` if absent |
+| `lang` | BCP-47 | **Yes** | none | Language code (`en`, `fr`…) |
+| `description` | string | No | none | Short description |
+| `author` | string or object | No | none | Author name, or `{name, email, url}` |
 | `tags` | string[] | No | `[]` | Thematic tags |
 | `kind` | enum | No | `practice` | `practice`, `worksheet`, `homework`, `exam` |
-| `duration` | int | No | — | Expected working time, minutes |
-| `total_points` | number | No | — | Declared total; must match the computed sum (warning otherwise) |
+| `duration` | int | No | none | Expected working time, minutes |
+| `total_points` | number | No | none | Declared total; must match the computed sum (warning otherwise) |
 | `materials` | string[] | No | `[]` | Allowed materials (`calculator`, `dictionary`, `open-book`…) |
-| `grade_level` | string | No | — | Free-form audience level (`terminale`, `CM1`, `undergraduate`…) |
-| `source` | object | No | — | Provenance for real past papers: `{name, year, session, url}` |
-| `created` / `updated` | date | No | — | ISO 8601 |
-| `license` | string | No | — | SPDX identifier or `custom` |
-| `spec_version` | string | No | — | Targeted spec version (`"0.1"`) |
+| `grade_level` | string | No | none | Free-form audience level (`terminale`, `CM1`, `undergraduate`…) |
+| `source` | object | No | none | Provenance for real past papers: `{name, year, session, url}` |
+| `created` / `updated` | date | No | none | ISO 8601 |
+| `license` | string | No | none | SPDX identifier or `custom` |
+| `spec_version` | string | No | none | Targeted spec version (`"0.1"`) |
 
-### Example — a Past Exam Paper
+### Example: a Past Exam Paper
 
 ```yaml
 ---
-title: Advanced Mathematics — Final Paper 1
+title: Advanced Mathematics, Final Paper 1
 lang: en
 kind: exam
 duration: 240
@@ -357,7 +357,7 @@ spec_version: "0.1"
 
 ---
 
-## Level 2 — Per-Exercise Fenced Block
+## Level 2: Per-Exercise Fenced Block
 
 A ` ```exercise ` block immediately after an exercise **or sub-question**
 heading overrides defaults for that scope:
@@ -378,7 +378,7 @@ bloom: analysis
 | Field | Type | Description |
 |---|---|---|
 | `id` | string | Stable unique identifier (overrides the derived `En` / `En.x`) |
-| `points` | number | Declared points — must match the rubric sum (warning otherwise) |
+| `points` | number | Declared points, must match the rubric sum (warning otherwise) |
 | `difficulty` | enum | `easy`, `medium`, `hard` |
 | `time` | int | Expected time for this exercise, minutes |
 | `tags` | string[] | Per-exercise thematic tags |
@@ -432,7 +432,7 @@ All lenient warnings become errors. In addition, for `kind: exam`:
 
 ## Non-Goals (v0.1)
 
-Deliberately out of scope, possible future extensions — kept out to avoid
+Deliberately out of scope, possible future extensions, kept out to avoid
 the fate of heavyweight assessment standards:
 
 - **Psychometrics**: item calibration, discrimination indices, adaptive testing.
@@ -440,7 +440,7 @@ the fate of heavyweight assessment standards:
   split is an *editorial* separation, not a security mechanism.
 - **Automatic answer checking**: numeric/CAS equivalence checking of
   `[!answer]` values is a tool concern, not a format concern.
-- **Peer grading workflows** and grade management — platform concerns.
+- **Peer grading workflows** and grade management, platform concerns.
 - **Negative marking** and penalty schemes.
 
 ---

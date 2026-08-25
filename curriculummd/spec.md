@@ -1,12 +1,12 @@
-# CurriculumMD — Format Specification v0.1
+# CurriculumMD: Format Specification v0.1
 
 > Part of the [LearnSpec](/) suite. Draft.
 
 ## Core principle
 
-CurriculumMD is the **reference format** of the LearnSpec suite. It describes what a content corpus *must* cover — a school syllabus, a professional certification framework, an internal training plan — without being pedagogical content itself.
+CurriculumMD is the **reference format** of the LearnSpec suite. It describes what a content corpus *must* cover, a school syllabus, a professional certification framework, an internal training plan, without being pedagogical content itself.
 
-It is the first format in the suite to be **meta**: it contains no lessons, quizzes or flashcards. It defines the reference learning objectives against which LearnSpec content can be assessed. Alignment between a curriculum and a corpus is performed by the AI or the player — not by the spec itself.
+It is the first format in the suite to be **meta**: it contains no lessons, quizzes or flashcards. It defines the reference learning objectives against which LearnSpec content can be assessed. Alignment between a curriculum and a corpus is performed by the AI or the player, not by the spec itself.
 
 A CurriculumMD file is a **pure Markdown document** at level 0: a hierarchy of headings and bullet lists readable by anyone, in any editor, without tooling.
 
@@ -15,10 +15,10 @@ CurriculumMD inherits its frontmatter and validation rules from the shared [Arch
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.curriculum.md` file is valid Markdown readable in any editor |
-| **File-native** | The entire framework lives in a single file — no database required |
-| **Graceful degradation** | Headings + lists — readable everywhere like an official syllabus |
+| **File-native** | The entire framework lives in a single file, no database required |
+| **Graceful degradation** | Headings + lists, readable everywhere like an official syllabus |
 | **AI-native** | Designed to be consumed by an LLM during alignment checks |
-| **Reference, not content** | CurriculumMD describes what must be learned — not how to teach it |
+| **Reference, not content** | CurriculumMD describes what must be learned, not how to teach it |
 
 ## Format levels
 
@@ -41,16 +41,16 @@ Syllabus (.curriculum.md)
         └── Objective (- list item)
 ```
 
-The syllabus corresponds to the whole file. Domains, units and objectives are expressed in native Markdown — no special syntax is required at Level 0.
+The syllabus corresponds to the whole file. Domains, units and objectives are expressed in native Markdown, no special syntax is required at Level 0.
 
-## Level 0 — Pure Markdown
+## Level 0: Pure Markdown
 
 ### Minimal example
 
 ```markdown
-# General Baccalaureate — Mathematics (Final Year)
+# General Baccalaureate: Mathematics (Final Year)
 
-## Domain 1 — Analysis
+## Domain 1: Analysis
 
 ### 1.1 Numerical sequences
 
@@ -65,7 +65,7 @@ The syllabus corresponds to the whole file. Domains, units and objectives are ex
 - Compute derivatives of composite functions
 - Use the intermediate value theorem
 
-## Domain 2 — Algebra and geometry
+## Domain 2: Algebra and geometry
 
 ### 2.1 Complex numbers
 
@@ -82,29 +82,29 @@ The syllabus corresponds to the whole file. Domains, units and objectives are ex
 - The **`#### H4`** headings (optional) allow an additional level of granularity.
 - The **`- items`** are the learning objectives. Each item is a self-contained, assessable objective.
 - Objectives are phrased in the infinitive or introduced by an action verb (know, understand, apply, analyze, evaluate, create).
-- Fenced blocks, images and diagrams are **forbidden** in CurriculumMD — it is a reference framework, not a lesson.
+- Fenced blocks, images and diagrams are **forbidden** in CurriculumMD, it is a reference framework, not a lesson.
 
-## Level 1 — YAML frontmatter
+## Level 1: YAML frontmatter
 
 ```yaml
 ---
-title: "General Baccalaureate — Mathematics"      # optional — inferred from # H1
-lang: en                                          # REQUIRED — BCP-47 code
+title: "General Baccalaureate: Mathematics"      # optional: inferred from # H1
+lang: en                                          # REQUIRED: BCP-47 code
 description: "Official French Baccalaureate syllabus for Mathematics in Final Year: analysis, algebra, geometry, and probability."
-                                                  # optional — short summary for catalogues and alignment tools
+                                                  # optional: short summary for catalogues and alignment tools
 spec_version: "0.1"                               # optional
-institution: "French Ministry of Education"       # optional — issuing body
-country: FR                                       # optional — ISO 3166-1 alpha-2 code
-level: "Final Year"                               # optional — level (Final Year, L3, Pro…)
-domain: academic                                  # optional — academic | professional | internal
-version: "2023"                                   # optional — year or version of the syllabus
-references:                                       # optional — sources: url required, label optional
-  - label: "Official syllabus — Official Bulletin"
+institution: "French Ministry of Education"       # optional: issuing body
+country: FR                                       # optional: ISO 3166-1 alpha-2 code
+level: "Final Year"                               # optional: level (Final Year, L3, Pro…)
+domain: academic                                  # optional: academic | professional | internal
+version: "2023"                                   # optional: year or version of the syllabus
+references:                                       # optional: sources: url required, label optional
+  - label: "Official syllabus, Official Bulletin"
     url: https://eduscol.education.fr/...
 tags: [mathematics, baccalaureate, final-year]    # optional
-created: 2026-05-10                               # optional — ISO 8601
-updated: 2026-05-10                               # optional — ISO 8601
-license: CC-BY-4.0                                # optional — SPDX or "custom"
+created: 2026-05-10                               # optional: ISO 8601
+updated: 2026-05-10                               # optional: ISO 8601
+license: CC-BY-4.0                                # optional: SPDX or "custom"
 ---
 ```
 
@@ -115,7 +115,7 @@ license: CC-BY-4.0                                # optional — SPDX or "custom
 | Field | Required | Description |
 |---|---|---|
 | `lang` | **Yes** | BCP-47 code (`fr`, `en`, `en-US`…) |
-| `description` | No | Short plain-text summary (typically 1–3 sentences) — what the syllabus covers, for catalogues, alignment tools, and link previews. Distinct from the structured `level` / `domain` / `version` fields. |
+| `description` | No | Short plain-text summary (typically 1–3 sentences), what the syllabus covers, for catalogues, alignment tools, and link previews. Distinct from the structured `level` / `domain` / `version` fields. |
 | `tags` | No | Thematic tags |
 | `created` | No | ISO 8601 creation date |
 | `updated` | No | ISO 8601 update date |
@@ -129,11 +129,11 @@ license: CC-BY-4.0                                # optional — SPDX or "custom
 | `institution` | No | string | Body or institution issuing the syllabus |
 | `country` | No | ISO 3166-1 | Two-letter country code (`FR`, `US`, `BE`…) |
 | `level` | No | string | Level of the syllabus (`Final Year`, `L3`, `Pro`…) |
-| `domain` | No | enum | `academic` — school or university syllabus · `professional` — certification or occupational framework · `internal` — company training plan |
+| `domain` | No | enum | `academic` (school or university syllabus); `professional` (certification or occupational framework); `internal` (company training plan) |
 | `version` | No | string | Year or version number of the official syllabus |
 | `references` | No | list of objects | List of 0 to N sources or reference documents. Each entry has a `url` (required) and an optional `label` (free text). |
 
-> **`references` — reference sources.** The `references` field is a list of 0 to N entries. Each entry is an object whose `url` is the only required key:
+> **`references`, reference sources.** The `references` field is a list of 0 to N entries. Each entry is an object whose `url` is the only required key:
 >
 > | Key | Required | Type | Description |
 > |---|---|---|---|
@@ -142,14 +142,14 @@ license: CC-BY-4.0                                # optional — SPDX or "custom
 >
 > ```yaml
 > references:
->   - label: "Official syllabus — Official Bulletin No. 25"
+>   - label: "Official syllabus, Official Bulletin No. 25"
 >     url: https://eduscol.education.fr/...
 >   - url: https://pythoninstitute.org/exams-syllabus/pcep   # label optional
 > ```
 >
 > The field is entirely optional: a curriculum with no source at all is valid (`references` absent or empty list). Order has no meaning; the first entry may be treated as the primary source by convention.
 
-## Level 2 — Inline per-objective attributes
+## Level 2: Inline per-objective attributes
 
 Optional attributes can be appended at the end of each objective, in curly braces, to allow more precise machine-readable alignment. The objective text comes first; the attribute group trails it.
 
@@ -170,10 +170,10 @@ Optional attributes can be appended at the end of each objective, in curly brace
 
 ### Graceful degradation of attributes
 
-The attributes are appended at the **end** of the objective and wrapped in **curly braces** — two deliberate choices for graceful degradation:
+The attributes are appended at the **end** of the objective and wrapped in **curly braces**: two deliberate choices for graceful degradation:
 
-- **End position** — a standard Markdown reader shows the human-readable objective first; the `{id:1.1.3 bloom:apply}` group trails as a discreet, non-interactive label rather than a prefix of noise. The file degrades to *less rich*, never to *noisier*.
-- **Curly braces** — `{…}` has no inline meaning in CommonMark, so it never produces a broken render or a link-checker false positive (unlike `[…]`, which collides with link-reference syntax, and `- [ ]` / `- [x]`, which collide with task-list syntax). It also matches the attribute-block convention of Pandoc, kramdown and markdown-it-attrs, so an attribute-aware reader can consume the group cleanly instead of merely displaying it.
+- **End position**: a standard Markdown reader shows the human-readable objective first; the `{id:1.1.3 bloom:apply}` group trails as a discreet, non-interactive label rather than a prefix of noise. The file degrades to *less rich*, never to *noisier*.
+- **Curly braces**: `{…}` has no inline meaning in CommonMark, so it never produces a broken render or a link-checker false positive (unlike `[…]`, which collides with link-reference syntax, and `- [ ]` / `- [x]`, which collide with task-list syntax). It also matches the attribute-block convention of Pandoc, kramdown and markdown-it-attrs, so an attribute-aware reader can consume the group cleanly instead of merely displaying it.
 
 A CurriculumMD parser extracts and removes these attributes during display, or renders them as discreet badges.
 
@@ -181,7 +181,7 @@ A CurriculumMD parser extracts and removes these attributes during display, or r
 
 ````markdown
 ---
-title: "Python — Certified Entry-Level Programmer (PCEP)"
+title: "Python: Certified Entry-Level Programmer (PCEP)"
 lang: en
 description: "Official syllabus of the Python Institute's entry-level certification (PCEP): fundamentals, control flow, data collections, functions, and exception handling."
 institution: Python Institute
@@ -199,9 +199,9 @@ created: 2026-05-10
 spec_version: "0.1"
 ---
 
-# Python — Certified Entry-Level Programmer (PCEP)
+# Python: Certified Entry-Level Programmer (PCEP)
 
-## Domain 1 — Python fundamentals
+## Domain 1: Python fundamentals
 
 ### 1.1 Introduction to Python
 
@@ -216,7 +216,7 @@ spec_version: "0.1"
 - Use arithmetic, comparison and logical operators {id:1.2.2 bloom:apply mandatory:true}
 - Identify common typing errors {id:1.2.3 bloom:analyze weight:2}
 
-## Domain 2 — Control structures
+## Domain 2: Control structures
 
 ### 2.1 Conditionals
 
@@ -230,7 +230,7 @@ spec_version: "0.1"
 - Use `break`, `continue` and `range()` {id:2.2.2 bloom:apply mandatory:true weight:2}
 - Identify infinite loops and exit conditions {id:2.2.3 bloom:analyze weight:2}
 
-## Domain 3 — Data structures
+## Domain 3: Data structures
 
 ### 3.1 Lists
 
@@ -261,9 +261,9 @@ Several `!ref` directives pointing to different CurriculumMD files can coexist i
 !ref ./rncp-35581.curriculum.md
 ```
 
-## AI alignment — use cases
+## AI alignment: use cases
 
-Alignment between a CurriculumMD and a LearnSpec corpus is performed by the AI or the MCP — not by the spec itself. CurriculumMD provides the structured framework that the AI consumes.
+Alignment between a CurriculumMD and a LearnSpec corpus is performed by the AI or the MCP, not by the spec itself. CurriculumMD provides the structured framework that the AI consumes.
 
 ### Typical questions the AI can address
 
@@ -301,7 +301,7 @@ By domain:
   - Domain 3: 60%
 ```
 
-This format is a recommended convention — not prescribed by the spec.
+This format is a recommended convention, not prescribed by the spec.
 
 ## Interoperability
 
@@ -312,9 +312,9 @@ This format is a recommended convention — not prescribed by the spec.
 | Referenced via `!ref` by TrackMD | ✅ |
 | Referenced via `!ref` by FlashMD | ✅ |
 | Referenced via `!ref` by NuggetMD | ✅ |
-| `!import` of other formats | ❌ — leaf format |
-| `!ref` of other formats | ❌ — leaf format |
-| Comparison between two CurriculumMD files | Via the AI / MCP — outside the scope of the spec |
+| `!import` of other formats | ❌, leaf format |
+| `!ref` of other formats | ❌, leaf format |
+| Comparison between two CurriculumMD files | Via the AI / MCP, outside the scope of the spec |
 
 CurriculumMD is a **pure leaf format**: it imports and references no other LearnSpec format. It is always the endpoint of a reference, never the emitter.
 
@@ -323,7 +323,7 @@ CurriculumMD is a **pure leaf format**: it imports and references no other Learn
 CurriculumMD can serve as the **basis for the criteria of a CertMD**. A `requirements` block in a CertMD could declare a minimum coverage of a curriculum as a condition for awarding:
 
 ```yaml
-# In a .cert.md — future use case, not specified in v0.1
+# In a .cert.md: future use case, not specified in v0.1
 requires:
   - type: curriculum_coverage
     curriculum: ./pcep-curriculum.curriculum.md
@@ -331,7 +331,7 @@ requires:
     mandatory_only: true
 ```
 
-This use case is documented here as a design direction — it will be formalized in CertMD v0.2.
+This use case is documented here as a design direction, it will be formalized in CertMD v0.2.
 
 ## Validation
 
@@ -356,9 +356,9 @@ All warnings become errors.
 
 The introduction of CurriculumMD entails the following updates to the LearnSpec charter:
 
-**Format table** — add CurriculumMD as an active format.
+**Format table**: add CurriculumMD as an active format.
 
-**Compatibility matrix** — CurriculumMD is a pure leaf format, referenced by every content format and by TrackMD:
+**Compatibility matrix**: CurriculumMD is a pure leaf format, referenced by every content format and by TrackMD:
 
 | Source format | Can import (`!import`) | Can reference (`!ref`) |
 |---|---|---|
@@ -366,5 +366,5 @@ The introduction of CurriculumMD entails the following updates to the LearnSpec 
 | **LearnMD** | LearnMD, QuizMD, NuggetMD, DiagramMD | MediaMD, GlossaryMD, **CurriculumMD** |
 | **QuizMD** | DiagramMD | MediaMD, GlossaryMD, **CurriculumMD** |
 | **FlashMD** | DiagramMD | MediaMD, GlossaryMD, **CurriculumMD** |
-| **NuggetMD** | — | MediaMD, GlossaryMD, **CurriculumMD** |
-| **CurriculumMD** | — | — |
+| **NuggetMD** | none | MediaMD, GlossaryMD, **CurriculumMD** |
+| **CurriculumMD** | none | none |

@@ -11,7 +11,7 @@ MediaMD is a **leaf format**: it references and imports no other LearnSpec forma
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.media.md` file is valid Markdown readable in any editor |
-| **File-native** | All metadata lives in the file — no database required |
+| **File-native** | All metadata lives in the file, no database required |
 | **Graceful degradation** | Each entry displays its thumbnail in any standard Markdown reader |
 | **License-aware** | Each entry explicitly documents its licence, author, and source |
 | **AI-native** | Generatable and consumable by an LLM without specific tooling |

@@ -28,9 +28,9 @@ structured learning content in plain Markdown.
 
 A LearnMD file is just Markdown with a few conventions:
 
-1. **Headings define structure** — `##` for modules, `###` for lessons
-2. **Frontmatter adds metadata** — language, time estimate, tags
-3. **Callouts highlight content** — tips, warnings, summaries
+1. **Headings define structure**: `##` for modules, `###` for lessons
+2. **Frontmatter adds metadata**: language, time estimate, tags
+3. **Callouts highlight content**: tips, warnings, summaries
 
 > [!tip]
 > Start with Level 0 (plain Markdown) and add features as needed.

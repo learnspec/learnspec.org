@@ -1,4 +1,4 @@
-# FlashMD — Format Specification v0.3
+# FlashMD: Format Specification v0.3
 
 > Part of the [LearnSpec](/) suite. Draft based on v0.2.
 
@@ -15,7 +15,7 @@ FlashMD inherits its frontmatter and validation rules from the shared [Architect
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.flash.md` file is valid Markdown readable in any editor |
-| **File-native** | All data lives in the file — no database required |
+| **File-native** | All data lives in the file, no database required |
 | **Graceful degradation** | Each card is readable as a code block in any standard reader |
 | **LaTeX from Level 0** | Mathematical formulas are available without frontmatter |
 | **AI-native** | Generatable and consumable by an LLM without specific tooling |
@@ -28,27 +28,27 @@ FlashMD inherits its frontmatter and validation rules from the shared [Architect
 | 1 | YAML frontmatter | File metadata, language, spaced repetition settings |
 | 2 | Per-card fields, MediaMD references, front variants, lesson references | Per-card tags, images, alternative phrasings, links back to the source lesson |
 
-## Level 0 — Basic syntax
+## Level 0: Basic syntax
 
 ### Card structure
 
 ````
 ```flash id:slug
-[front content — text, LaTeX, inline Markdown]
+[front content, text, LaTeX, inline Markdown]
 ---
-[back content — text, LaTeX, inline Markdown]
+[back content, text, LaTeX, inline Markdown]
 ```
 ````
 
 - `id`: unique identifier for the card within the file (slug, lowercase, hyphens).
-- `---`: front/back separator — appears exactly once per block.
+- `---`: front/back separator, appears exactly once per block.
 - Both sides support **inline Markdown** (bold, italic, `code`, links), **inline LaTeX** (`$...$`), and **block LaTeX** (`$$...$$`).
 - Both sides may be multi-line.
 
 ### Minimal example
 
 ````markdown
-# Cell biology — flashcards
+# Cell biology: flashcards
 
 ```flash id:photosynthesis
 What is photosynthesis?
@@ -67,27 +67,27 @@ What is the chemical formula of ATP?
 ---
 $$C_{10}H_{16}N_5O_{13}P_3$$
 
-Adenosine **tri**phosphate — the energy currency of the cell.
+Adenosine **tri**phosphate, the energy currency of the cell.
 ```
 ````
 
 ### Graceful degradation
 
-In a standard Markdown reader (GitHub, Obsidian, VS Code), each card renders as a code block. The `---` separator is visible as plain text — the front and back are readable, in order.
+In a standard Markdown reader (GitHub, Obsidian, VS Code), each card renders as a code block. The `---` separator is visible as plain text, the front and back are readable, in order.
 
-## Level 1 — Frontmatter
+## Level 1: Frontmatter
 
 ```yaml
 ---
-title: "Cell biology — flashcards"    # optional — inferred from first # H1
-lang: en                               # REQUIRED — BCP-47 code
+title: "Cell biology: flashcards"    # optional: inferred from first # H1
+lang: en                               # REQUIRED: BCP-47 code
 spec_version: "0.3"                    # optional
 author: Jane Smith                     # optional
-tags: [biology, cell, high-school]     # optional — file-level tags
-new_per_day: 20                        # optional — new cards per day (player default)
-lesson: ./01-fondations.learn.md       # optional — default source lesson for cards
-created: 2026-05-10                    # optional — ISO 8601
-updated: 2026-05-10                    # optional — ISO 8601
+tags: [biology, cell, high-school]     # optional: file-level tags
+new_per_day: 20                        # optional: new cards per day (player default)
+lesson: ./01-fondations.learn.md       # optional: default source lesson for cards
+created: 2026-05-10                    # optional: ISO 8601
+updated: 2026-05-10                    # optional: ISO 8601
 ---
 ```
 
@@ -95,10 +95,10 @@ updated: 2026-05-10                    # optional — ISO 8601
 
 | Field | Status | Type | Description |
 |---|---|---|---|
-| `new_per_day` | Optional | integer | Number of new cards to introduce per day in spaced repetition. Indicative — the player may ignore or override it. |
+| `new_per_day` | Optional | integer | Number of new cards to introduce per day in spaced repetition. Indicative, the player may ignore or override it. |
 | `lesson` | Optional | string | Deck-level default lesson reference. A relative path to a `.learn.md` file, optionally with a `#section` anchor. Cards inherit it; see [lesson references](#lesson-references-level-2). |
 
-## Level 2 — Per-card fields
+## Level 2: Per-card fields
 
 Optional attributes may be added on the opening line of the block, after the `id`:
 
@@ -116,7 +116,7 @@ Optional attributes may be added on the opening line of the block, after the `id
 
 ## Lesson references (Level 2)
 
-A card may point back to the **lesson that explains it**, so a learner can jump from a card to the underlying course — typically once the answer has been revealed. The reference uses **hyperlink-style resolution**: the same mental model as an HTML or Markdown link.
+A card may point back to the **lesson that explains it**, so a learner can jump from a card to the underlying course, typically once the answer has been revealed. The reference uses **hyperlink-style resolution**: the same mental model as an HTML or Markdown link.
 
 ### Deck-level default and per-card override
 
@@ -135,12 +135,12 @@ The reference value is a relative path to a `.learn.md` file, optionally suffixe
 
 ````markdown
 ---
-title: "Git — Fondations · flashcards"
+title: "Git: fondations (flashcards)"
 lang: fr
 lesson: ./01-fondations.learn.md   # written once
 ---
 
-# Git — Fondations
+# Git: Fondations
 
 ```flash id:index-role lesson:#role-de-lindex
 À quoi sert la zone d'index (staging) ?
@@ -161,9 +161,9 @@ The first card points at a **section** of the default lesson; the second, with n
 
 ````markdown
 ---
-title: "Git — Révision générale · flashcards"
+title: "Git: révision générale (flashcards)"
 lang: fr
-# no deck-level lesson: — each card names its own source
+# no deck-level lesson:: each card names its own source
 ---
 
 ```flash id:index-role lesson:./01-fondations.learn.md#role-de-lindex
@@ -179,7 +179,7 @@ Rebase réécrit l'historique ; merge crée un commit de fusion.
 ```
 ````
 
-Same attribute, same grammar — only the frontmatter default disappears. A deck may also **mix** a default with a few cards that point elsewhere.
+Same attribute, same grammar, only the frontmatter default disappears. A deck may also **mix** a default with a few cards that point elsewhere.
 
 ### Player behaviour
 
@@ -192,7 +192,7 @@ Same attribute, same grammar — only the frontmatter default disappears. A deck
 
 ### Graceful degradation
 
-In a standard Markdown reader, `lesson:` is plain text on the opening fence line of the card, like `id:` or `tags:` — readable and unobtrusive.
+In a standard Markdown reader, `lesson:` is plain text on the opening fence line of the card, like `id:` or `tags:`, readable and unobtrusive.
 
 ## Front variants (Level 2)
 
@@ -200,7 +200,7 @@ A single card may declare **multiple front phrasings** sharing the same back. Th
 
 ### Rationale
 
-In classical spaced-repetition, learners end up recognising the *surface form* of a card rather than recalling the underlying concept (cue-dependency). Front variants break that surface memorisation: the concept is constant, the prompt is not. The spaced-repetition scheduler still operates on a **single entry per `id`** — variants are alternative presentations of the same mnemonic object, not separate cards.
+In classical spaced-repetition, learners end up recognising the *surface form* of a card rather than recalling the underlying concept (cue-dependency). Front variants break that surface memorisation: the concept is constant, the prompt is not. The spaced-repetition scheduler still operates on a **single entry per `id`**: variants are alternative presentations of the same mnemonic object, not separate cards.
 
 ### Syntax
 
@@ -218,7 +218,7 @@ The process by which plants convert sunlight into chemical energy, using $CO_2$ 
 ```
 ````
 
-- A card may declare **1 or more** front variants (a card with no `===` is a single-variant card — fully backwards-compatible with v0.1).
+- A card may declare **1 or more** front variants (a card with no `===` is a single-variant card, fully backwards-compatible with v0.1).
 - Each variant supports the same inline Markdown and LaTeX as a regular front.
 - Each variant may be multi-line.
 - All variants share the **same back**, the same `id`, the same `tags`, the same `hint`, and the same scheduling state.
@@ -257,12 +257,12 @@ The `!ref` directive is placed at the top of the file, before the `flash` blocks
 
 | Mechanism | Support |
 |---|---|
-| `!ref ./media.media.md` | ✅ — for images within cards |
-| `!ref ./glossary.glossary.md` | ✅ — for term highlighting |
-| `lesson:` reference to a `.learn.md` section | ✅ — navigation only; resolves a path, declares no dependency |
-| `!import` | ❌ — FlashMD imports no other format |
+| `!ref ./media.media.md` | ✅, for images within cards |
+| `!ref ./glossary.glossary.md` | ✅, for term highlighting |
+| `lesson:` reference to a `.learn.md` section | ✅, navigation only; resolves a path, declares no dependency |
+| `!import` | ❌, FlashMD imports no other format |
 | Imported by TrackMD via `!import` | ✅ |
-| Imported by LearnMD via `!import` | ❌ — flashcards are a separate review mode |
+| Imported by LearnMD via `!import` | ❌, flashcards are a separate review mode |
 
 ## Validation
 
@@ -280,7 +280,7 @@ The `!ref` directive is placed at the top of the file, before the `flash` blocks
 | `media:slug` without a matching `!ref` | Warning |
 | `lesson:` value whose path does not end in `.learn.md` | Error |
 | Card `lesson:#anchor` (anchor-only) with no file-level `lesson:` default to resolve it | Error |
-| `lesson:` anchor not found in the target lesson | Warning — checked by the collection-level validator (cross-file) |
+| `lesson:` anchor not found in the target lesson | Warning, checked by the collection-level validator (cross-file) |
 | Card with `===` but no front before the first separator | Error |
 | Empty front variant (between two `===` or between `===` and `---`) | Error |
 | Duplicate front variants within a card (after Markdown normalisation) | Warning |

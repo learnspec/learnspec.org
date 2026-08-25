@@ -1,10 +1,10 @@
-# QuizMD — Format Specification v0.3
+# QuizMD: Format Specification v0.3
 
 > Part of the [LearnSpec](/) suite. Draft based on v0.2.
 
 ## Core principle: YAML everywhere
 
-QuizMD uses **YAML as its single configuration syntax**, applied across three progressive and backward-compatible levels. Keys are the same at every level — one mental model to learn.
+QuizMD uses **YAML as its single configuration syntax**, applied across three progressive and backward-compatible levels. Keys are the same at every level, one mental model to learn.
 
 | Level | Mechanism | Purpose |
 |---|---|---|
@@ -17,14 +17,14 @@ A Level 0 file is valid at Level 1 and 2. Each level is a strict superset of the
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.quiz.md` file is valid Markdown readable in any editor |
-| **File-native** | All content lives in files — no database required |
+| **File-native** | All content lives in files, no database required |
 | **YAML everywhere** | One configuration syntax across all three levels |
 | **AI-native** | Generatable and consumable by LLMs without specific tooling |
 | **LearnSpec-interoperable** | Natively integrates with LearnMD, DiagramMD, MediaMD, and GlossaryMD |
 
 QuizMD inherits its frontmatter, directives, and validation rules from the shared [Architecture Charter](/charter/).
 
-## Level 0 — Base Markdown syntax
+## Level 0: Base Markdown syntax
 
 ### Conventions
 
@@ -48,7 +48,7 @@ QuizMD inherits its frontmatter, directives, and validation rules from the share
 
 ### Question body
 
-The body of a question is all Markdown content between the `## Qn` heading (and its optional ` ```quiz ` block) and the first answer choice (`- [ ]` / `- [x]`) or the `___` marker. The body may contain paragraphs, lists, tables, formulas, images, and diagrams — any valid Markdown.
+The body of a question is all Markdown content between the `## Qn` heading (and its optional ` ```quiz ` block) and the first answer choice (`- [ ]` / `- [x]`) or the `___` marker. The body may contain paragraphs, lists, tables, formulas, images, and diagrams, any valid Markdown.
 
 This mechanism supports **passage-based questions** (reading comprehension, physics problems, legal cases) without any additional syntax.
 
@@ -77,7 +77,7 @@ This mechanism supports **passage-based questions** (reading comprehension, phys
 
 ## Question types
 
-### MCQ — single correct answer
+### MCQ: single correct answer
 
 One `- [x]` marks the correct choice. All other choices use `- [ ]`.
 
@@ -92,7 +92,7 @@ One `- [x]` marks the correct choice. All other choices use `- [ ]`.
 > "The Four Seasons" (1725) is a set of four violin concertos by Vivaldi.
 ```
 
-### Multi-select — multiple correct answers
+### Multi-select: multiple correct answers
 
 Two or more `- [x]` marks indicate multiple correct choices. Players should display checkboxes rather than radio buttons.
 
@@ -107,7 +107,7 @@ Two or more `- [x]` marks indicate multiple correct choices. Players should disp
 - [ ] Minimalist texture
 ```
 
-### Open answer — fill in the blank
+### Open answer: fill in the blank
 
 The `___` marker signals a free-text input field. The expected answer follows on an `**Answer:**` line.
 
@@ -238,23 +238,23 @@ Includes questions from another `.quiz.md` file.
 - Questions from the sub-quiz are inserted at the position of the directive.
 - Questions are renumbered sequentially across the full assembled quiz.
 - The frontmatter of the sub-quiz is ignored.
-- **Nested imports are not supported.** `!import` directives are only honoured when they appear in the **entry file** of a quiz (or in the entry `.learn.md` of a course that embeds this quiz). An `!import` line inside a file that is itself imported is **inert** — renderers and authoring tools must ignore it. Authors must lift every `!import` to the entry file. Circular imports cannot occur because nesting is forbidden.
+- **Nested imports are not supported.** `!import` directives are only honoured when they appear in the **entry file** of a quiz (or in the entry `.learn.md` of a course that embeds this quiz). An `!import` line inside a file that is itself imported is **inert**: renderers and authoring tools must ignore it. Authors must lift every `!import` to the entry file. Circular imports cannot occur because nesting is forbidden.
 - Missing files are ignored without error (warning in lenient mode).
 
-To assemble many files into a multi-step learning path, use [TrackMD](/trackmd/) — the suite's orchestrator format, the only one that imports content across types (`.learn.md`, `.quiz.md`, `.flash.md`) — rather than chaining QuizMD imports.
+To assemble many files into a multi-step learning path, use [TrackMD](/trackmd/): the suite's orchestrator format, the only one that imports content across types (`.learn.md`, `.quiz.md`, `.flash.md`), rather than chaining QuizMD imports.
 
-DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf catalogues declared with `!ref ./file.diagram.md` and addressed by slug via ` ```diagram ref:slug ` blocks.
+DiagramMD files (`.diagram.md`) are not consumed via `!import`, they are leaf catalogues declared with `!ref ./file.diagram.md` and addressed by slug via ` ```diagram ref:slug ` blocks.
 
 ## Reveal and feedback modes
 
-### `reveal` — question display
+### `reveal`: question display
 
 | Value | Behaviour |
 |---|---|
 | `all` (default) | All questions displayed at once |
 | `sequential` | Questions revealed one at a time |
 
-### `feedback_mode` — when corrections appear
+### `feedback_mode`: when corrections appear
 
 | Value | Behaviour |
 |---|---|
@@ -270,36 +270,36 @@ DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf
 | `all` | `deferred` | Paper-style exam |
 | `sequential` | `deferred` | Exam mode |
 
-## Level 1 — YAML frontmatter
+## Level 1: YAML frontmatter
 
 ### Field reference
 
 | Field | Type | Required | Default | Description |
 |---|---|---|---|---|
-| `title` | string | No | — | Quiz title — inferred from the first `# H1` if absent |
-| `lang` | BCP-47 | **Yes** | — | Language code (`en`, `fr`, `en-US`…) |
-| `description` | string | No | — | Short description |
-| `author` | string or object | No | — | Author name, or `{name, email, url}` |
+| `title` | string | No | none | Quiz title, inferred from the first `# H1` if absent |
+| `lang` | BCP-47 | **Yes** | none | Language code (`en`, `fr`, `en-US`…) |
+| `description` | string | No | none | Short description |
+| `author` | string or object | No | none | Author name, or `{name, email, url}` |
 | `tags` | string[] | No | `[]` | Thematic tags |
-| `kind` | enum | No | — | `recreational`, `academic`, `corporate`, `certification` |
+| `kind` | enum | No | none | `recreational`, `academic`, `corporate`, `certification` |
 | `reveal` | enum | No | `all` | `all` or `sequential` |
 | `feedback_mode` | enum | No | `immediate` | `immediate` or `deferred` |
 | `shuffle_questions` | bool | No | `false` | Randomise question order |
 | `shuffle_answers` | bool | No | `true` | Randomise answer choice order |
-| `passing_score` | float | No | — | Minimum ratio to pass (0.0–1.0) |
-| `time_limit` | int | No | — | Total time limit in seconds |
+| `passing_score` | float | No | none | Minimum ratio to pass (0.0–1.0) |
+| `time_limit` | int | No | none | Total time limit in seconds |
 | `scoring.correct` | int | No | 1 | Points per correct answer |
 | `scoring.incorrect` | int | No | 0 | Points per incorrect answer |
-| `created` | date | No | — | Creation date, ISO 8601 |
-| `updated` | date | No | — | Last update date, ISO 8601 |
-| `license` | string | No | — | SPDX identifier or `custom` |
-| `spec_version` | string | No | — | Targeted spec version (e.g. `"0.3"`) |
+| `created` | date | No | none | Creation date, ISO 8601 |
+| `updated` | date | No | none | Last update date, ISO 8601 |
+| `license` | string | No | none | SPDX identifier or `custom` |
+| `spec_version` | string | No | none | Targeted spec version (e.g. `"0.3"`) |
 
 ### Example
 
 ```yaml
 ---
-title: Physics — Geometric Optics
+title: Physics, Geometric Optics
 lang: en
 kind: academic
 passing_score: 0.6
@@ -316,7 +316,7 @@ spec_version: "0.3"
 ---
 ```
 
-## Level 2 — Per-question fenced block
+## Level 2: Per-question fenced block
 
 A ` ```quiz ` block placed immediately after the question heading overrides global parameters for that specific question.
 
@@ -339,7 +339,7 @@ bloom: application
 | Field | Type | Description |
 |---|---|---|
 | `id` | string | Stable unique identifier for this question |
-| `type` | enum | `mcq`, `multi`, `open`, `tf`, `match`, or `order` — inferred if absent |
+| `type` | enum | `mcq`, `multi`, `open`, `tf`, `match`, or `order`, inferred if absent |
 | `points` | int | Points for this question (overrides `scoring.correct`) |
 | `timer` | int | Per-question time limit in seconds |
 | `hint` | string | Hint shown on demand before submission |
@@ -435,14 +435,14 @@ When `partial_scoring: true` (default), **match** and **order** questions award 
 
 | Element | Change |
 |---|---|
-| `lang` | Promoted from "not required" to **required** — alignment with LearnSpec charter |
-| `title` | Demoted from "required" to **optional** — inferred from the first `# H1` |
+| `lang` | Promoted from "not required" to **required**: alignment with LearnSpec charter |
+| `title` | Demoted from "required" to **optional**: inferred from the first `# H1` |
 | Frontmatter | Added `created`, `updated`, `license` (universal LearnSpec fields) |
-| `!ref` | New directive — declares DiagramMD, MediaMD and GlossaryMD contexts |
-| Diagram reference | New ` ```diagram ref:slug ` block — resolves a named diagram from a `!ref`-ed DiagramMD |
+| `!ref` | New directive, declares DiagramMD, MediaMD and GlossaryMD contexts |
+| Diagram reference | New ` ```diagram ref:slug ` block, resolves a named diagram from a `!ref`-ed DiagramMD |
 | Images | New `media:slug` syntax via MediaMD in question bodies |
 | Diagrams | Explicit support for DiagramMD Level 0 blocks in question bodies |
-| ABC | Section removed — delegates to DiagramMD spec |
+| ABC | Section removed, delegates to DiagramMD spec |
 | Principles | Added "LearnSpec-interoperable" |
 | Frontmatter | `domain` renamed to `kind` (avoids conflict with email-style `domain` meaning) |
-| `!import` | Nested imports forbidden — `!import` directives in imported files are inert; authors must lift every import to the entry file |
+| `!import` | Nested imports forbidden, `!import` directives in imported files are inert; authors must lift every import to the entry file |

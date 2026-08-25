@@ -1,4 +1,4 @@
-# MediaMD — Format Specification v0.1
+# MediaMD: Format Specification v0.1
 
 > Part of the [LearnSpec](/) suite. Draft.
 
@@ -13,7 +13,7 @@ MediaMD inherits its frontmatter and validation rules from the shared [Architect
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.media.md` file is valid Markdown readable in any editor |
-| **File-native** | All metadata lives in the file — no database required |
+| **File-native** | All metadata lives in the file, no database required |
 | **Graceful degradation** | Each entry displays its thumbnail in any standard Markdown reader |
 | **License-aware** | Each entry explicitly documents its licence, author, and source |
 | **AI-native** | Generatable and consumable by an LLM without specific tooling |
@@ -32,8 +32,8 @@ MediaMD inherits its frontmatter and validation rules from the shared [Architect
 
 ```yaml
 ---
-title: "Media — F-22 Raptor"
-lang: en                               # REQUIRED — BCP-47 code
+title: "Media: F-22 Raptor"
+lang: en                               # REQUIRED: BCP-47 code
 spec_version: "0.1"
 author: Jane Smith                     # author of the file (not of the media assets)
 tags: [aviation, military]
@@ -46,8 +46,8 @@ updated: 2026-05-10
 
 Each entry consists of **two contiguous elements** in this order:
 
-1. **A Markdown image line** — renders the thumbnail visibly in any standard reader.
-2. **A `media` fenced block** — contains all structured metadata.
+1. **A Markdown image line**: renders the thumbnail visibly in any standard reader.
+2. **A `media` fenced block**: contains all structured metadata.
 
 ````markdown
 ![Alt text](thumb_url "media:slug")
@@ -65,13 +65,13 @@ The `title` attribute of the image line (`"media:slug"`) links the rendered imag
 
 ````markdown
 ---
-title: "Media — F-22 Raptor"
+title: "Media: F-22 Raptor"
 lang: en
 spec_version: "0.1"
 tags: [aviation, military, usaf]
 ---
 
-# Media — F-22 Raptor
+# Media: F-22 Raptor
 
 ![An F-22 Raptor in flight over Japan](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/F-22_Raptor_edit1_%28cropped%29.jpg/500px-F-22_Raptor_edit1_%28cropped%29.jpg "media:f22-kadena")
 
@@ -115,14 +115,14 @@ mime: image/jpeg
 | Field | Status | Description |
 |---|---|---|
 | `title` | **Required** | Display title of the media. Used in captions. |
-| `alt` | Recommended | Accessibility alt text. Distinct from `title` — describes the visual content. |
+| `alt` | Recommended | Accessibility alt text. Distinct from `title`, describes the visual content. |
 | `description` | Optional | Long description of the image content and context |
 
 ### Licence
 
 | Field | Status | Description |
 |---|---|---|
-| `license` | **Required** | Free-form — licence as provided by the source (`"Public domain"`, `"CC BY-SA 4.0"`, …) |
+| `license` | **Required** | Free-form, licence as provided by the source (`"Public domain"`, `"CC BY-SA 4.0"`, …) |
 | `spdx` | Recommended | Normalised SPDX identifier (`CC0-1.0`, `CC-BY-4.0`, `CC-BY-SA-4.0`…). Enables automated licence checking. |
 | `license_url` | Conditional | URL to the licence text. **Required** if `spdx` is absent or set to `custom`. |
 
@@ -174,11 +174,11 @@ A MediaMD file is declared via the `!ref` directive at the top of the consuming 
 !ref https://github.com/example/commons/blob/main/media/aviation.media.md
 ```
 
-Multiple `!ref` directives may coexist in the same document. The slugs from all referenced files share the same namespace — `id` values must therefore be unique across all MediaMD files referenced in a given document.
+Multiple `!ref` directives may coexist in the same document. The slugs from all referenced files share the same namespace, `id` values must therefore be unique across all MediaMD files referenced in a given document.
 
-### Default-reference convention — `stock.media.md`
+### Default-reference convention: `stock.media.md`
 
-A collection MAY ship a single canonical media catalogue at its root named **`stock.media.md`**. When such a file exists, every other file in the same collection **implicitly references it** — no explicit `!ref ./stock.media.md` (nor `!ref ../../stock.media.md` from a sub-directory) is required for `media:slug` lookups to resolve.
+A collection MAY ship a single canonical media catalogue at its root named **`stock.media.md`**. When such a file exists, every other file in the same collection **implicitly references it**: no explicit `!ref ./stock.media.md` (nor `!ref ../../stock.media.md` from a sub-directory) is required for `media:slug` lookups to resolve.
 
 ```
 my-collection/
@@ -190,7 +190,7 @@ my-collection/
         └── quiz.quiz.md    ← same
 ```
 
-Rationale: a collection-level stock is a *registry*, not an additional media bundle — declaring it from each sub-file by relative path (`../../stock.media.md`) is brittle, repetitive, and obscures intent. Reserve `!ref` for *additional* MediaMD catalogues (shared commons, external libraries, alternate domains).
+Rationale: a collection-level stock is a *registry*, not an additional media bundle, declaring it from each sub-file by relative path (`../../stock.media.md`) is brittle, repetitive, and obscures intent. Reserve `!ref` for *additional* MediaMD catalogues (shared commons, external libraries, alternate domains).
 
 A LearnSpec player MUST resolve `media:slug` by searching, in order:
 
@@ -208,7 +208,7 @@ This convention is **opt-in by file naming**: any name other than `stock.media.m
 ```
 
 - **`media:f22-kadena`**: slug resolved via the referenced MediaMD → full-resolution image + licence metadata.
-- **`"https://..."`**: fallback URL (thumbnail) — displayed in standard readers that don't know LearnSpec.
+- **`"https://..."`**: fallback URL (thumbnail), displayed in standard readers that don't know LearnSpec.
 
 A LearnSpec player may automatically display the caption, attribution, and licence below the image using the MediaMD metadata.
 
@@ -218,7 +218,7 @@ A LearnSpec player may automatically display the caption, attribution, and licen
 |---|---|---|
 | Image line `![alt](thumb_url "media:slug")` | Thumbnail displayed, slug as tooltip | Ignored (replaced by full-resolution image) |
 | ` ```media ` block | Readable YAML code block | Parsed and resolved |
-| `media:slug` reference in another format | Image displayed via fallback URL | Resolved via MediaMD — full resolution + licence |
+| `media:slug` reference in another format | Image displayed via fallback URL | Resolved via MediaMD, full resolution + licence |
 
 ## Validation
 
@@ -252,7 +252,7 @@ The proto format uses multi-document YAML (`---...---...`). Migration to MediaMD
 
 | Proto field | MediaMD v0.1 field | Notes |
 |---|---|---|
-| *(absent)* | `id` | **To add** — unique slug per entry |
+| *(absent)* | `id` | **To add**: unique slug per entry |
 | `type: image` | *(removed)* | Implicit in the `media` fenced block |
 | `source` | `source` | Unchanged |
 | `image_url` | `image_url` | Unchanged |

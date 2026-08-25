@@ -1,4 +1,4 @@
-# DiagramMD — Format Specification v0.2
+# DiagramMD: Format Specification v0.2
 
 > Part of the [LearnSpec](/) suite. Draft.
 
@@ -6,8 +6,8 @@
 
 DiagramMD serves a **dual role**:
 
-- **Syntax specification** — the canonical reference for all diagram block types usable across the suite. Other specs (LearnMD, QuizMD, FlashMD) delegate diagram documentation to DiagramMD. A diagram block valid in DiagramMD is valid everywhere in the suite.
-- **Standalone file format** — `.diagram.md` files contain reusable named diagrams, referenced via `!ref` from any content format and addressed individually by slug.
+- **Syntax specification**: the canonical reference for all diagram block types usable across the suite. Other specs (LearnMD, QuizMD, FlashMD) delegate diagram documentation to DiagramMD. A diagram block valid in DiagramMD is valid everywhere in the suite.
+- **Standalone file format**: `.diagram.md` files contain reusable named diagrams, referenced via `!ref` from any content format and addressed individually by slug.
 
 DiagramMD is a **pure leaf format**: it imports and references no other LearnSpec format, and is itself consumed via `!ref`, never via `!import`. How diagrams are rendered (server-side, client-side, hybrid) is left entirely to the player implementation.
 
@@ -16,7 +16,7 @@ DiagramMD inherits its frontmatter and validation rules from the shared [Archite
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.diagram.md` file is valid Markdown readable in any editor |
-| **File-native** | All diagrams live in files — no database required |
+| **File-native** | All diagrams live in files, no database required |
 | **Graceful degradation** | In any standard reader, each block displays as readable plain-text code |
 | **Player-agnostic** | The spec defines syntax, not render implementation |
 | **AI-native** | Generatable and consumable by an LLM without specific tooling |
@@ -46,16 +46,16 @@ DiagramMD inherits its frontmatter and validation rules from the shared [Archite
 | `id` | Required when the block lives in a `.diagram.md` file (enables slug references). Optional when used inline. | Unique slug within the file. Enables block identification and cross-document referencing via `!ref` |
 | `ref` | Only valid on a `diagram` fenced block; mutually exclusive with `id` and with a non-empty body | Declares a reference to the diagram with that `id` in a `!ref`-ed `.diagram.md` file. The body must be empty. See *Slug references* below |
 | `caption` | Optional | Caption displayed below the diagram |
-| `width` | Optional | Render width — CSS value (`80%`, `600px`, `100%`). Default: `100%` |
+| `width` | Optional | Render width, CSS value (`80%`, `600px`, `100%`). Default: `100%` |
 | `alt` | Recommended | Accessibility alt text describing the visual content |
 
 ### Graceful degradation
 
-In any standard Markdown reader, a diagram block displays as a code block with the type name as the language identifier. The source content is readable as plain text — no understanding is lost.
+In any standard Markdown reader, a diagram block displays as a code block with the type name as the language identifier. The source content is readable as plain text, no understanding is lost.
 
 ## Diagram types
 
-### `mermaid` — Text-based diagrams
+### `mermaid`: Text-based diagrams
 
 [Mermaid.js](https://mermaid.js.org/) syntax for flowcharts, sequence diagrams, class diagrams, entity-relationship diagrams, Gantt charts, mindmaps, and timelines.
 
@@ -86,7 +86,7 @@ flowchart LR
 - Avoid linear chains longer than 6 nodes; introduce subgraphs.
 - Limit vertical depth to 7 levels in `TD` orientation.
 
-### `tikz` — Scientific and technical diagrams
+### `tikz`: Scientific and technical diagrams
 
 [TikZ/PGF](https://tikz.dev/) syntax for electrical circuits, physics diagrams, and geometry. Particularly suited to STEM content.
 
@@ -101,7 +101,7 @@ flowchart LR
 ```
 ````
 
-### `graphviz` — Graphs and networks
+### `graphviz`: Graphs and networks
 
 [DOT language](https://graphviz.org/doc/info/lang.html) syntax for directed and undirected graphs, trees, and dependency networks.
 
@@ -117,7 +117,7 @@ digraph deps {
 ```
 ````
 
-### `plantuml` — UML diagrams
+### `plantuml`: UML diagrams
 
 [PlantUML](https://plantuml.com/) syntax for activity, use case, component, deployment, and state diagrams.
 
@@ -133,7 +133,7 @@ Server --> User : JWT token
 ```
 ````
 
-### `blockdiag` — Block diagrams
+### `blockdiag`: Block diagrams
 
 [blockdiag](http://blockdiag.com/) syntax for simple functional block diagrams.
 
@@ -145,7 +145,7 @@ blockdiag {
 ```
 ````
 
-### `seqdiag` — Sequence diagrams (simplified syntax)
+### `seqdiag`: Sequence diagrams (simplified syntax)
 
 [seqdiag](http://blockdiag.com/en/seqdiag/) syntax for sequence diagrams with a simpler syntax than Mermaid.
 
@@ -158,7 +158,7 @@ seqdiag {
 ```
 ````
 
-### `chess` — Chessboard
+### `chess`: Chessboard
 
 Displays a chess position from FEN notation or a PGN excerpt.
 
@@ -168,10 +168,10 @@ rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
 ```
 ````
 
-- **FEN (Forsyth-Edwards Notation)** — complete position on a single line.
-- **PGN (Portable Game Notation)** — move sequence; the player displays the final position or enables move-by-move navigation.
+- **FEN (Forsyth-Edwards Notation)**: complete position on a single line.
+- **PGN (Portable Game Notation)**: move sequence; the player displays the final position or enables move-by-move navigation.
 
-### `abc` — Sheet music
+### `abc`: Sheet music
 
 [ABC notation](https://abcnotation.com/) syntax for sheet music.
 
@@ -194,7 +194,7 @@ K:C
 | `cursor` | Highlights the current note during playback (requires `play`) |
 | `colors` | Colours each note by pitch class (requires `play`) |
 
-### `smiles` — Chemical molecules
+### `smiles`: Chemical molecules
 
 [SMILES](https://www.daylight.com/dayhtml/doc/theory/theory.smiles.html) notation for molecular structure representation.
 
@@ -204,7 +204,7 @@ CN1C=NC2=C1C(=O)N(C(=O)N2C)C
 ```
 ````
 
-### `vega-lite` — Data visualisations
+### `vega-lite`: Data visualisations
 
 [Vega-Lite](https://vega.github.io/vega-lite/) JSON specification for charts and data visualisations.
 
@@ -237,13 +237,13 @@ A `.diagram.md` file is a catalogue of named, reusable diagrams. Each block carr
 
 ````markdown
 ---
-title: "Diagrams — System architecture"
+title: "Diagrams: System architecture"
 lang: en
 spec_version: "0.2"
 tags: [architecture, backend]
 ---
 
-# Diagrams — System architecture
+# Diagrams: System architecture
 
 ```mermaid id:global-arch caption:"Architecture overview" width:90%
 flowchart LR
@@ -261,7 +261,7 @@ sequenceDiagram
 ```
 ````
 
-`id` is required on every block in a `.diagram.md` file — a block without `id` is unreferenceable and produces a validation error.
+`id` is required on every block in a `.diagram.md` file, a block without `id` is unreferenceable and produces a validation error.
 
 ## Referencing a DiagramMD from another format
 
@@ -274,11 +274,11 @@ A DiagramMD file is declared via the `!ref` directive at the top of the consumin
 !ref https://github.com/example/repo/blob/main/diagrams.diagram.md
 ```
 
-Multiple `!ref` directives may coexist in the same document. The slugs from all referenced files share the same namespace — `id` values must therefore be unique across all DiagramMD files referenced in a given document.
+Multiple `!ref` directives may coexist in the same document. The slugs from all referenced files share the same namespace, `id` values must therefore be unique across all DiagramMD files referenced in a given document.
 
-### Default-reference convention — `stock.diagram.md`
+### Default-reference convention: `stock.diagram.md`
 
-A collection MAY ship a single canonical diagram catalogue at its root named **`stock.diagram.md`**. When such a file exists, every other file in the same collection **implicitly references it** — no explicit `!ref ./stock.diagram.md` (nor `!ref ../../stock.diagram.md` from a sub-directory) is required for `diagram ref:slug` lookups to resolve.
+A collection MAY ship a single canonical diagram catalogue at its root named **`stock.diagram.md`**. When such a file exists, every other file in the same collection **implicitly references it**: no explicit `!ref ./stock.diagram.md` (nor `!ref ../../stock.diagram.md` from a sub-directory) is required for `diagram ref:slug` lookups to resolve.
 
 ```
 my-collection/
@@ -310,17 +310,17 @@ Once a `.diagram.md` is declared via `!ref`, its diagrams are referenceable inli
 
 The block body is empty. At render time, a LearnSpec player resolves `auth-flow` to the corresponding block in the referenced `.diagram.md` file and renders it with that block's type, source, `caption`, `width`, and `alt`. Attributes set on the reference block itself (`caption`, `width`, `alt`) override the referenced block's values for this occurrence only.
 
-In a standard Markdown reader, the block degrades gracefully to a readable `diagram` code block — no rendering is performed, but the reference is clearly visible.
+In a standard Markdown reader, the block degrades gracefully to a readable `diagram` code block, no rendering is performed, but the reference is clearly visible.
 
-**Granularity:** unlike `!import`, `!ref` does not splice content into the document — each diagram is materialised only where it is explicitly referenced by slug. To reuse the same diagram several times, simply repeat the reference block; to use only some diagrams from a catalogue, only reference those.
+**Granularity:** unlike `!import`, `!ref` does not splice content into the document, each diagram is materialised only where it is explicitly referenced by slug. To reuse the same diagram several times, simply repeat the reference block; to use only some diagrams from a catalogue, only reference those.
 
 ## Graceful degradation
 
 | Element | Standard reader | LearnSpec player |
 |---|---|---|
 | Inline diagram block (` ```mermaid `, ` ```vega-lite `, …) | Readable code block | Rendered |
-| `.diagram.md` file viewed directly | Sequence of readable code blocks with slugs visible | Catalogue source — not rendered directly |
-| ` ```diagram ref:slug ` block in another format | Readable code block showing the slug | Resolved via the referenced `.diagram.md` — rendered as the target diagram |
+| `.diagram.md` file viewed directly | Sequence of readable code blocks with slugs visible | Catalogue source, not rendered directly |
+| ` ```diagram ref:slug ` block in another format | Readable code block showing the slug | Resolved via the referenced `.diagram.md`, rendered as the target diagram |
 
 ## Interoperability
 
@@ -329,9 +329,9 @@ In a standard Markdown reader, the block degrades gracefully to a readable `diag
 | Referenced by LearnMD via `!ref` | ✅ |
 | Referenced by QuizMD via `!ref` | ✅ |
 | Referenced by FlashMD via `!ref` | ✅ |
-| Consumed via `!import` | ❌ — leaf format, consumed only via `!ref` |
-| `!import` or `!ref` of other formats | ❌ — leaf format |
-| Referenced by TrackMD | ❌ — TrackMD orchestrates content formats, not leaf formats |
+| Consumed via `!import` | ❌, leaf format, consumed only via `!ref` |
+| `!import` or `!ref` of other formats | ❌, leaf format |
+| Referenced by TrackMD | ❌, TrackMD orchestrates content formats, not leaf formats |
 
 ## Validation
 

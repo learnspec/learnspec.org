@@ -2,9 +2,9 @@
 
 **The step-reveal animation format of the [LearnSpec](/) suite.**
 
-An AnimMD script narrates an *existing* vector scene — a diagram from a
+An AnimMD script narrates an *existing* vector scene, a diagram from a
 [DiagramMD](/diagrammd/) catalogue, an SVG asset from a [MediaMD](/mediamd/)
-catalogue — by revealing its elements step by step, each step paired with a
+catalogue, by revealing its elements step by step, each step paired with a
 caption. Read all at once, a cycle is four boxes and four arrows; revealed in
 the direction the process actually runs, the same figure carries the mechanism.
 
@@ -14,7 +14,7 @@ reader sees next, and why.
 ## Not a video, not a timeline
 
 AnimMD deliberately contains no keyframes, no easing curves, and no
-coordinates. A timeline fails *badly* under LLM authoring — a misjudged offset
+coordinates. A timeline fails *badly* under LLM authoring, a misjudged offset
 still runs, silently wrong. A step list fails *well*:
 
 | What goes wrong | What the reader sees |
@@ -30,7 +30,7 @@ The worst case is always the static scene the host already displays.
 | Principle | Description |
 |---|---|
 | **Markdown-first** | One `##` heading per step, directive lines, prose captions |
-| **Scene-agnostic** | The script addresses *names*; a per-generator adapter resolves them — never a renderer id |
+| **Scene-agnostic** | The script addresses *names*; a per-generator adapter resolves them, never a renderer id |
 | **Learner-paced** | Steps advance on the reader's gesture: tap, key, or scroll. No autoplay |
 | **Companion format** | It attaches to a scene declared by a host format; it never stands alone |
 
@@ -58,4 +58,4 @@ Solar energy turns liquid water into vapour.
 ## Read more
 
 - **[Full specification →](/animmd/spec)**
-- Repository: [learnspec/animmd](https://github.com/learnspec/animmd) — includes a complete worked example (the water cycle)
+- Repository: [learnspec/animmd](https://github.com/learnspec/animmd): includes a complete worked example (the water cycle)

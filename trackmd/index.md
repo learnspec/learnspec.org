@@ -2,7 +2,7 @@
 
 **The learning path format of the [LearnSpec](/) suite.**
 
-TrackMD orchestrates [LearnMD](/learnmd/), [QuizMD](/quizmd/), and [FlashMD](/flashmd/) files into an ordered pedagogical sequence — with path-level metadata, completion criteria, and progress checkpoints.
+TrackMD orchestrates [LearnMD](/learnmd/), [QuizMD](/quizmd/), and [FlashMD](/flashmd/) files into an ordered pedagogical sequence, with path-level metadata, completion criteria, and progress checkpoints.
 
 It is the **only format in the suite that imports all content types**. A `.track.md` transforms a set of independent files into a path with a beginning, an end, and milestones. A Level 0 TrackMD file is a human-readable table of contents in any standard Markdown reader.
 
@@ -11,8 +11,8 @@ It is the **only format in the suite that imports all content types**. A `.track
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.track.md` file is valid Markdown readable in any editor |
-| **File-native** | All structure lives in files — no database required |
-| **Graceful degradation** | `##` sections + `!import` directives — readable as a syllabus everywhere |
+| **File-native** | All structure lives in files, no database required |
+| **Graceful degradation** | `##` sections + `!import` directives, readable as a syllabus everywhere |
 | **AI-native** | Generatable and consumable by an LLM without specific tooling |
 | **Orchestrator** | The only format in the suite that imports multiple content types |
 

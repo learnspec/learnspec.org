@@ -22,7 +22,7 @@ hero:
 features:
   - icon: 📝
     title: Markdown-first
-    details: Every format is valid Markdown — readable in any editor, with no proprietary tooling required.
+    details: Every format is valid Markdown, readable in any editor, with no proprietary tooling required.
   - icon: 🗂️
     title: File-native
     details: All content lives in flat files. No database, no server, no lock-in. Clone a folder and you have the corpus.
@@ -34,10 +34,10 @@ features:
     details: Designed for LLMs to generate and consume. Predictable structure, plain-text syntax, no embedded JSON.
   - icon: 📊
     title: Progressively enriched
-    details: Each format defines Level 0 / 1 / 2 — start with plain text, add YAML and fenced blocks as you need them.
+    details: Each format defines Level 0 / 1 / 2, start with plain text, add YAML and fenced blocks as you need them.
   - icon: 🪶
     title: Gracefully degradable
-    details: A LearnSpec file is never broken in a standard Markdown reader — only less rich.
+    details: A LearnSpec file is never broken in a standard Markdown reader, only less rich.
 ---
 
 ## A suite, not a single format
@@ -48,8 +48,8 @@ LearnSpec is an **open specification suite** for educational content. Each forma
 
 | Format | Extension | Role | Status |
 |---|---|---|---|
-| **[LearnMD](/learnmd/)** | `.learn.md` | Structured educational content | Stable — v0.3, evolving to v0.4 |
-| **[QuizMD](/quizmd/)** | `.quiz.md` | Quizzes and assessments | Stable — evolving to v0.3 |
+| **[LearnMD](/learnmd/)** | `.learn.md` | Structured educational content | Stable, v0.3, evolving to v0.4 |
+| **[QuizMD](/quizmd/)** | `.quiz.md` | Quizzes and assessments | Stable, evolving to v0.3 |
 | **[ExerciseMD](/exercisemd/)** | `.exercise.md` | Exercises with model solutions and grading rubrics | Drafting v0.1 |
 | **[TrackMD](/trackmd/)** | `.track.md` | Sequenced learning paths | Drafting v0.1 |
 | **[FlashMD](/flashmd/)** | `.flash.md` | Flashcards and spaced repetition | Drafting v0.1 |
@@ -64,9 +64,9 @@ LearnSpec is an **open specification suite** for educational content. Each forma
 
 ### Three principles tie the suite together
 
-1. **Graceful degradation** — any LearnSpec syntax that would produce a broken render in a standard Markdown reader is forbidden without an explicit fallback.
-2. **File-native** — metadata lives in YAML frontmatter, references are paths or URLs, a corpus is a folder. No database is ever required to read content.
-3. **Progressive levels** — every format has a Level 0 (pure Markdown), Level 1 (frontmatter), and Level 2 (fenced blocks and directives). Each level is a strict superset of the previous one.
+1. **Graceful degradation**: any LearnSpec syntax that would produce a broken render in a standard Markdown reader is forbidden without an explicit fallback.
+2. **File-native**: metadata lives in YAML frontmatter, references are paths or URLs, a corpus is a folder. No database is ever required to read content.
+3. **Progressive levels**: every format has a Level 0 (pure Markdown), Level 1 (frontmatter), and Level 2 (fenced blocks and directives). Each level is a strict superset of the previous one.
 
 These rules are documented in the **[Architecture Charter](/charter/)**, the shared foundation every format builds on.
 
@@ -82,7 +82,7 @@ A learning corpus typically combines several formats:
 - The corpus declares alignment with a **CurriculumMD** reference framework, so coverage can be checked against an official syllabus.
 - Completion may award a **BadgeMD** (per skill) or a **CertMD** (per track).
 
-All references are resolved through three directives — `!import`, `!ref`, `!checkpoint` — defined once in the charter and used identically across the suite.
+All references are resolved through three directives, `!import`, `!ref`, `!checkpoint`, defined once in the charter and used identically across the suite.
 
 ---
 

@@ -1,17 +1,17 @@
-# LearnMD — Format Specification v0.4
+# LearnMD: Format Specification v0.4
 
 > Part of the [LearnSpec](/) suite. Draft based on v0.3.
 
 ## Core principle
 
-LearnMD is the **educational content format** of the LearnSpec suite. It covers instruction — explaining what to know — while [QuizMD](/quizmd/) covers assessment. Together they form a complete **teach → assess** stack, in portable plain-text files.
+LearnMD is the **educational content format** of the LearnSpec suite. It covers instruction, explaining what to know, while [QuizMD](/quizmd/) covers assessment. Together they form a complete **teach → assess** stack, in portable plain-text files.
 
-**A complete course — chapters, lessons, exercises, quizzes — can live in a single valid `.learn.md` file.** The `!import` directive is a composition tool for reusability, not a prerequisite.
+**A complete course, chapters, lessons, exercises, quizzes, can live in a single valid `.learn.md` file.** The `!import` directive is a composition tool for reusability, not a prerequisite.
 
 | Principle | Description |
 |---|---|
 | **Markdown-first** | A `.learn.md` file is valid Markdown readable in any editor |
-| **File-native** | All content lives in files — no database required |
+| **File-native** | All content lives in files, no database required |
 | **Git-native** | Versionable, diffable, and mergeable like code |
 | **AI-native** | Generatable and consumable by LLMs without specific tooling |
 | **Progressively enriched** | Plain text (Level 0) up through special fenced blocks (Level 2) |
@@ -43,7 +43,7 @@ document (.learn.md, minimal or no frontmatter)
 - ` ```quiz ` blocks and `!import`, `!ref`, `!checkpoint` directives are usable at any level.
 - Images are referenced via `![alt](media:slug "fallback")` (recommended) or `![alt](url)` (direct).
 
-## Level 0 — Plain Markdown
+## Level 0: Plain Markdown
 
 ### Basic syntax
 
@@ -72,7 +72,7 @@ document (.learn.md, minimal or no frontmatter)
 
 !ref ./glossary-python.glossary.md
 
-## Module 1 — Variables
+## Module 1: Variables
 
 A **variable** is a named reference to a value in memory.
 
@@ -83,28 +83,28 @@ name = "Alice"
 
 !checkpoint id:module-1-done label:"Module 1 complete"
 
-## Module 2 — Conditions
+## Module 2: Conditions
 
 An `if` statement runs code only when a condition is true.
 ````
 
-## Level 1 — YAML frontmatter
+## Level 1: YAML frontmatter
 
 A YAML block at the top of the `.learn.md` file, between two `---` lines.
 
 ```yaml
 ---
-title: Python — Variables      # optional — inferred from the first # H1 if absent
-lang: en                       # REQUIRED — BCP-47 code (en, fr, en-US, …)
-description: "Names, assignment, and basic types in Python — for learners with no prior programming experience."
-                               # optional — short summary for catalogues, previews, and meta tags
-estimated_time: 15min          # optional — free-form duration string
-tags: [python, variables]      # optional — list of strings
-author: Jane Smith             # optional — string or {name, email, url}
-spec_version: "0.4"            # optional — LearnMD spec version this file targets
-created: 2026-05-10            # optional — ISO 8601
-updated: 2026-05-10            # optional — ISO 8601
-license: CC-BY-4.0             # optional — SPDX identifier or "custom"
+title: Python, Variables      # optional: inferred from the first # H1 if absent
+lang: en                       # REQUIRED: BCP-47 code (en, fr, en-US, …)
+description: "Names, assignment, and basic types in Python, for learners with no prior programming experience."
+                               # optional: short summary for catalogues, previews, and meta tags
+estimated_time: 15min          # optional: free-form duration string
+tags: [python, variables]      # optional: list of strings
+author: Jane Smith             # optional: string or {name, email, url}
+spec_version: "0.4"            # optional: LearnMD spec version this file targets
+created: 2026-05-10            # optional: ISO 8601
+updated: 2026-05-10            # optional: ISO 8601
+license: CC-BY-4.0             # optional: SPDX identifier or "custom"
 ---
 ```
 
@@ -114,7 +114,7 @@ license: CC-BY-4.0             # optional — SPDX identifier or "custom"
 |---|---|---|---|
 | `title` | No | string | Overrides the first `# H1`. Inferred from H1 if absent. |
 | `lang` | **Yes** | BCP-47 | Language code: `en`, `fr`, `en-US`, etc. |
-| `description` | No | string | Short plain-text summary (typically 1–3 sentences) — used for catalogues, link previews, and `<meta name="description">`. Distinct from `title` and from the body content. |
+| `description` | No | string | Short plain-text summary (typically 1–3 sentences), used for catalogues, link previews, and `<meta name="description">`. Distinct from `title` and from the body content. |
 | `estimated_time` | No | string | Free-form estimated reading/study time: `15min`, `1h30`, `2h` |
 | `tags` | No | string[] | Thematic tags |
 | `author` | No | string or object | Author name, or `{name, email, url}` |
@@ -143,9 +143,9 @@ Callouts use GitHub Flavored Markdown syntax and are rendered with visual emphas
 |---|---|---|
 | `> [!summary]` | Summary | Key takeaways at the end of a lesson |
 | `> [!example]` | Example | Non-code illustrative example |
-| `> [!objectives]` | Learning Objectives | What the learner will be able to do — place at top |
+| `> [!objectives]` | Learning Objectives | What the learner will be able to do, place at top |
 
-## Level 2 — Special fenced blocks and directives
+## Level 2: Special fenced blocks and directives
 
 ### Composition directives
 
@@ -158,7 +158,7 @@ Includes content from another file at the current position. The file type is det
 | `.learn.md` | Lesson content inserted inline (frontmatter ignored) |
 | `.quiz.md` | Rendered as an interactive QuizMD checkpoint |
 
-DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf catalogues declared with `!ref` and addressed by slug. See `!ref` below.
+DiagramMD files (`.diagram.md`) are not consumed via `!import`, they are leaf catalogues declared with `!ref` and addressed by slug. See `!ref` below.
 
 ```markdown
 !import ./03-conditions.learn.md
@@ -167,11 +167,11 @@ DiagramMD files (`.diagram.md`) are not consumed via `!import` — they are leaf
 
 - Imports are recursive (an imported file may itself contain `!import` directives).
 - Circular imports are silently skipped.
-- Local paths or external URLs accepted — see the [Architecture Charter](/charter/#cross-format-directives).
+- Local paths or external URLs accepted, see the [Architecture Charter](/charter/#cross-format-directives).
 
 #### `!ref <path>`
 
-Declares a context file without including its content inline. Produces no visible render — it establishes a context the player uses in the background.
+Declares a context file without including its content inline. Produces no visible render, it establishes a context the player uses in the background.
 
 | Extension | Behaviour |
 |---|---|
@@ -197,14 +197,14 @@ Marks a named progress point in the lesson.
 
 | Attribute | Required | Default | Description |
 |---|---|---|---|
-| `id` | **Yes** | — | Unique identifier within the document |
+| `id` | **Yes** | none | Unique identifier within the document |
 | `label` | No | `"Checkpoint"` | Display text shown to the learner |
 | `type` | No | `milestone` | `milestone` / `read` / `exercise-complete` |
-| `badge` | No | — | Path to a BadgeMD file awarded when this checkpoint is reached |
+| `badge` | No | none | Path to a BadgeMD file awarded when this checkpoint is reached |
 
 **Rules:**
 - `id` values must be unique within a document.
-- When a `!import ./quiz.quiz.md` is present, the quiz itself acts as a natural checkpoint — an additional `!checkpoint` at the same position is redundant.
+- When a `!import ./quiz.quiz.md` is present, the quiz itself acts as a natural checkpoint, an additional `!checkpoint` at the same position is redundant.
 
 ### Checkpoint JSON (parser output)
 
@@ -219,7 +219,7 @@ Marks a named progress point in the lesson.
 
 ### Inline quiz checkpoint
 
-Embeds a **single question** using **QuizMD Level 0** syntax directly in the lesson. The QuizMD frontmatter (global configuration — scoring, `reveal`, `feedback_mode`) is not applicable inline. All QuizMD Level 0 question types are supported: `mcq`, `multi`, `open`, `tf`, `match`, `order`.
+Embeds a **single question** using **QuizMD Level 0** syntax directly in the lesson. The QuizMD frontmatter (global configuration, scoring, `reveal`, `feedback_mode`) is not applicable inline. All QuizMD Level 0 question types are supported: `mcq`, `multi`, `open`, `tf`, `match`, `order`.
 
 ````markdown
 ```quiz
@@ -232,8 +232,8 @@ Embeds a **single question** using **QuizMD Level 0** syntax directly in the les
 
 | Attribute | Default | Description |
 |---|---|---|
-| `scored:false` | Yes (default) | Practice mode — immediate feedback, no score recorded |
-| `scored:true` | — | Scored checkpoint — contributes to lesson score |
+| `scored:false` | Yes (default) | Practice mode, immediate feedback, no score recorded |
+| `scored:true` | none | Scored checkpoint, contributes to lesson score |
 
 **Inline quiz vs external file:**
 
@@ -255,7 +255,7 @@ Level 2 alternatives to GFM callouts. Support richer content (multi-paragraph, n
 | ` ```caution ` | 🔴 | Caution | Risk of error or data loss |
 | ` ```summary ` | ✅ | Summary | Key takeaways at the end of a lesson |
 | ` ```example ` | 🔍 | Example | Illustrative example |
-| ` ```objectives ` | 🎯 | Learning Objectives | What the learner will achieve — place at top |
+| ` ```objectives ` | 🎯 | Learning Objectives | What the learner will achieve, place at top |
 
 **Optional `title` attribute:**
 
@@ -266,7 +266,7 @@ Most likely token: " Paris"
 ```
 ````
 
-**Optional code language** — place before `title:` to enable syntax highlighting:
+**Optional code language**: place before `title:` to enable syntax highlighting:
 
 ````markdown
 ```example python title:"Assigning and reassigning a variable"
@@ -280,7 +280,7 @@ print(score)   # → 42
 
 ## Math support
 
-LearnMD uses LaTeX formulas rendered via KaTeX. Math is **auto-detected** — no frontmatter flag is required.
+LearnMD uses LaTeX formulas rendered via KaTeX. Math is **auto-detected**: no frontmatter flag is required.
 
 | Form | Syntax | Rendering |
 |---|---|---|
@@ -331,7 +331,7 @@ Requires a `!ref` to a MediaMD file at the top of the document. Enables automati
 ```
 
 - `media:chloroplast`: slug resolved via the MediaMD → full-resolution image + licence metadata.
-- `"https://..."`: fallback URL — displayed in standard readers without LearnSpec.
+- `"https://..."`: fallback URL, displayed in standard readers without LearnSpec.
 
 ### Direct (URL)
 
@@ -409,8 +409,8 @@ Strict mode is recommended for CI pipelines and production publishing. Lenient m
 |---|---|
 | Hierarchy | `path` renamed to `document` (avoids confusion with TrackMD) |
 | Principles | "QuizMD-interoperable" → "LearnSpec-interoperable" |
-| `!ref` | New directive — declares DiagramMD, MediaMD and GlossaryMD contexts |
-| Diagram reference | New ` ```diagram ref:slug ` block — resolves a named diagram from a `!ref`-ed DiagramMD |
+| `!ref` | New directive, declares DiagramMD, MediaMD and GlossaryMD contexts |
+| Diagram reference | New ` ```diagram ref:slug ` block, resolves a named diagram from a `!ref`-ed DiagramMD |
 | Images | New `media:slug` syntax via MediaMD |
 | Frontmatter | Added `created`, `updated`, `license` (universal LearnSpec fields) |
-| Diagrams | Mermaid and ABC sections simplified — delegate to DiagramMD spec |
+| Diagrams | Mermaid and ABC sections simplified, delegate to DiagramMD spec |
