@@ -25,6 +25,7 @@ LearnSpec is an open-source specification suite for creating, storing, and excha
 | **ExerciseMD** | `.exercise.md` | Exercises with model solutions and grading rubrics | Draft v0.1 |
 | **FlashMD** | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
 | **NuggetMD** | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.3 |
+| **ListenMD** | `.listen.md` | Speech-only audio episode scripts (rendition format) | Draft v0.1 |
 | **DiagramMD** | `.diagram.md` | Diagram syntax + reusable diagram blocks referenced via `!ref` | Draft v0.2 |
 | **AnimMD** | `.anim.md` | Step-reveal animation scripts over DiagramMD / MediaMD scenes | Draft v0.1 |
 | **MediaMD** | `.media.md` | Media catalogue with metadata and licences | Draft v0.1 |
@@ -206,7 +207,22 @@ Marks a named progress point. Available in LearnMD and TrackMD.
 | **BadgeMD** | none | none |
 | **CertMD** | none | none |
 
-DiagramMD, GlossaryMD, MediaMD, CurriculumMD, BadgeMD and CertMD are **pure leaf formats**: zero dependencies, always consumed, never producers. AnimMD is a leaf with a twist: it is a **companion**: its scripts are embedded inside the DiagramMD or MediaMD entry they animate (never imported), and content formats opt in with an `anim ref:` block. NuggetMD is a content format, it is imported by TrackMD and LearnMD, and may `!ref` leaf formats, but imports nothing itself. TrackMD does not import DiagramMD directly, standalone diagrams are embedded in the content formats (LearnMD, QuizMD, FlashMD, NuggetMD) it orchestrates.
+DiagramMD, GlossaryMD, MediaMD, CurriculumMD, BadgeMD and CertMD are **pure leaf formats**: zero dependencies, always consumed, never producers. AnimMD is a leaf with a twist: it is a **companion**: its scripts are embedded inside the DiagramMD or MediaMD entry they animate (never imported), and content formats opt in with an `anim ref:` block. NuggetMD is a content format, it is imported by TrackMD and LearnMD, and may `!ref` leaf formats, but imports nothing itself. TrackMD does not import DiagramMD directly, standalone diagrams are embedded in the content formats (LearnMD, QuizMD, FlashMD, NuggetMD) it orchestrates. Rendition formats sit outside this table altogether: they are not producers or consumers via `!import`/`!ref`, but derivations of a content format for a single consumption profile — see below.
+
+### Rendition formats
+
+A **rendition format** captures a content format rendered for one specific consumption profile — ears, print, and so on. It does not originate content: it is derived from a content format (typically NuggetMD or LearnMD, editorially rewritten for that profile), and the source document remains the single source of truth. A rendition is regenerable and disposable relative to its source — regenerating it after the source changes is the expected workflow, not a loss.
+
+To qualify as a rendition format, a spec must:
+
+- **name its typical source formats** — the content formats it is normally derived from;
+- **carry a traceability mechanism back to the source's structure**, so a rendition can be resynchronised when the source changes (ListenMD does this with `## Chapter {#source-anchor}` headings whose anchor reuses the source document's heading slug);
+- **remain a valid, gracefully-degrading Markdown document on its own** — the founding principles above (graceful degradation, file-nativeness, universal frontmatter) apply exactly as they do to every other format;
+- **keep all rendering bindings — voices, layout, styling — out of the file itself**, resolved by the player or pipeline rather than authored inline.
+
+Rendition formats are the one place the charter's implicit expectation that a format works across every consumption profile does not hold: a rendition format deliberately serves exactly one profile. Everything else about it — Markdown validity, universal frontmatter, graceful degradation — remains bound by the charter like any other format.
+
+**ListenMD** (`.listen.md`) is the suite's first rendition format: an ears-only spoken script derived from LearnMD, its `## Chapter {#source-anchor}` anchors pointing back to the source lesson's heading slugs.
 
 ### Media resolution
 

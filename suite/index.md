@@ -1,6 +1,6 @@
 # The LearnSpec Suite
 
-LearnSpec is a family of thirteen Markdown-based formats that cover the full lifecycle of educational content, from a single lesson to a complete certification path.
+LearnSpec is a family of fourteen Markdown-based formats that cover the full lifecycle of educational content, from a single lesson to a complete certification path.
 
 Each format is independent, each is valid Markdown, and each composes with the others through the shared mechanisms defined in the **[Architecture Charter](/charter/)**.
 
@@ -14,6 +14,7 @@ Each format is independent, each is valid Markdown, and each composes with the o
 | [TrackMD](/trackmd/) | `.track.md` | Sequenced learning paths | Draft v0.1 |
 | [FlashMD](/flashmd/) | `.flash.md` | Flashcards and spaced repetition | Draft v0.1 |
 | [NuggetMD](/nuggetmd/) | `.nugget.md` | Micro-learning concepts for spaced repetition | Draft v0.3 |
+| [ListenMD](/listenmd/) | `.listen.md` | Speech-only rendition of a content format, rendered for ears | Draft v0.1 |
 | [DiagramMD](/diagrammd/) | `.diagram.md` | Diagram syntax + reusable diagrams referenced via `!ref` | Draft v0.2 |
 | [AnimMD](/animmd/) | `.anim.md` | Step-reveal animations over vector scenes | Draft v0.1 |
 | [MediaMD](/mediamd/) | `.media.md` | Media catalogue with licences | Draft v0.1 |
@@ -24,11 +25,12 @@ Each format is independent, each is valid Markdown, and each composes with the o
 
 ## How the formats relate
 
-The suite forms three layers:
+The suite forms three layers, plus one relationship that sits outside the `!import` / `!ref` model entirely:
 
 - **Orchestrator**: `TrackMD` sequences everything else.
 - **Content formats**: `LearnMD`, `QuizMD`, `ExerciseMD`, `FlashMD`, `NuggetMD` carry the actual material.
 - **Leaf formats**: `DiagramMD`, `MediaMD`, `AnimMD`, `GlossaryMD`, `CurriculumMD`, `BadgeMD`, `CertMD` are referenced but never reference anything else (AnimMD scripts ride inside the DiagramMD / MediaMD entries they animate).
+- **Rendition formats**: `ListenMD` is not imported and not referenced, it is *derived* from a content format (typically LearnMD) by an editorial rewrite, and resynchronised to its source through chapter anchors rather than through a directive.
 
 ```
                           ┌──────────────┐
@@ -43,6 +45,9 @@ The suite forms three layers:
      DiagramMD, MediaMD, AnimMD, GlossaryMD, CurriculumMD     ← leaves
                                 │
                          BadgeMD, CertMD                      ← credentials
+
+  LearnMD ┄┄editorial rewrite┄┄▶ ListenMD                     ← rendition
+                                                (not !import'd, not !ref'd)
 ```
 
 The full compatibility matrix, who can `!import` whom, who can `!ref` whom, lives in the [charter](/charter/#interoperability-matrix).
@@ -104,6 +109,12 @@ TrackMD is the only format that can `!import` all content types. A Level 0 `.tra
 NuggetMD sits between FlashMD and LearnMD: larger than an atomic fact, smaller than a full lesson. The author controls granularity, a file may hold one nugget or dozens.
 
 **Key decisions:** each nugget enters its own FSRS slot; FlashMD and NuggetMD feed separate review queues, never mixed. A nugget that exceeds the three-minute reading limit belongs in LearnMD.
+
+### ListenMD {#listenmd}
+
+**Role:** the suite's first **rendition format**, a speech-only script for audio episodes, an ordered sequence of `@role` speech turns (`@host`, `@signpost`, `@guest`…) grouped into optional chapters, editorially derived from a content format (typically LearnMD) for a listener who cannot see a diagram, a table, or a list.
+
+**Key decisions:** the derivation is editorial, not mechanical, tables get re-linearized into prose, visual references get narrated instead of pointed at, numbers get written the way they're spoken. Unlike every other format above, ListenMD is never `!import`ed or `!ref`erenced, it stands alone, resynchronised to its source through `## Chapter {#source-anchor}` headings whose anchor reuses the source document's own heading slug. Voice, provider, and style binding are kept entirely out of the file, resolved by whatever pipeline renders it.
 
 ### DiagramMD {#diagrammd}
 

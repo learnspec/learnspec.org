@@ -44,7 +44,7 @@ features:
 
 LearnSpec is an **open specification suite** for educational content. Each format is plain Markdown, each lives in flat files, and each composes with the others through a small set of shared mechanisms.
 
-### The 13 formats
+### The 14 formats
 
 | Format | Extension | Role | Status |
 |---|---|---|---|
@@ -54,6 +54,7 @@ LearnSpec is an **open specification suite** for educational content. Each forma
 | **[TrackMD](/trackmd/)** | `.track.md` | Sequenced learning paths | Drafting v0.1 |
 | **[FlashMD](/flashmd/)** | `.flash.md` | Flashcards and spaced repetition | Drafting v0.1 |
 | **[NuggetMD](/nuggetmd/)** | `.nugget.md` | Micro-learning concepts for spaced repetition | Drafting v0.3 |
+| **[ListenMD](/listenmd/)** | `.listen.md` | Speech-only rendition of a lesson, rendered for ears | Drafting v0.1 |
 | **[DiagramMD](/diagrammd/)** | `.diagram.md` | Diagram syntax + reusable diagrams referenced via `!ref` | Drafting v0.2 |
 | **[AnimMD](/animmd/)** | `.anim.md` | Step-reveal animations over vector scenes | Drafting v0.1 |
 | **[MediaMD](/mediamd/)** | `.media.md` | Media catalogue with licences | Drafting v0.1 |
@@ -79,6 +80,7 @@ A learning corpus typically combines several formats:
 - The lessons embed diagrams defined in **DiagramMD**, images catalogued in **MediaMD**, and highlight terms from a **GlossaryMD**.
 - A diagram whose reading order carries an argument can ship an **AnimMD** companion script, and the lesson plays it as a step-reveal animation.
 - A **FlashMD** deck or a **NuggetMD** collection supports spaced-repetition review of the same material.
+- A **LearnMD** lesson can be editorially rewritten into a **ListenMD** episode script for listening; chapter anchors keep it resynchronised with the source as it changes, without going through `!import` or `!ref`.
 - The corpus declares alignment with a **CurriculumMD** reference framework, so coverage can be checked against an official syllabus.
 - Completion may award a **BadgeMD** (per skill) or a **CertMD** (per track).
 
