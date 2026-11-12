@@ -1,6 +1,7 @@
 # Architecture Charter
 
 > Version 0.1, working document shared by every format in the LearnSpec suite.
+> Maintained by [memoneo](https://memoneo.app), initiator of LearnSpec.
 
 The charter defines the principles, conventions, and mechanisms common to every LearnSpec format. Each format spec inherits from this document and only documents what is specific to it.
 
